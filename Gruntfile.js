@@ -54,6 +54,25 @@ module.exports = function(grunt) {
       },
     },
 
+    watch: {
+      script: {
+        files: ['src/**/*.js'],
+        tasks: ['copy:script'],
+      },
+      resource: {
+        files: ['asset/**/*'],
+        tasks: ['copy:resource'],
+      },
+      document: {
+        files: ['src/**/*.jade'],
+        tasks: ['jade'],
+      },
+      style: {
+        files: ['src/**/*.styl'],
+        tasks: ['stylus'],
+      },
+    },
+
     devserver: {
       server: {
         options: {
@@ -69,6 +88,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-devserver');
 
   grunt.registerTask('default', [ 'jshint', 'jade' , 'stylus', 'copy' ]);
