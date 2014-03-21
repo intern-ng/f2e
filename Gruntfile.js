@@ -71,6 +71,9 @@ module.exports = function(grunt) {
         files: ['src/**/*.styl'],
         tasks: ['stylus'],
       },
+      options: {
+        livereload: true
+      }
     },
 
     devserver: {
