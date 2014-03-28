@@ -4,7 +4,10 @@ var path = require('path');
 
 module.exports = function(grunt) {
 
-  var BUILD_ROOT = 'build/';
+  var BUILD_ROOT = process.env.BUILD_ROOT || 'build/';
+
+  var SERVER_PORT = process.env.SERVER_PORT || 8020;
+  var RELOAD_PORT = process.env.RELOAD_PORT || 35729;
 
   // Files path definition {{{
 
@@ -61,7 +64,7 @@ module.exports = function(grunt) {
 
     autoprefixer: {
       style: {
-        src: 'build/style/**/*.css'
+        src: path.join(BUILD_ROOT, 'style/**/*.css')
       },
       options: { }
     },
@@ -93,7 +96,7 @@ module.exports = function(grunt) {
         tasks: [ 'style' ],
       },
       options: {
-        livereload: true
+        livereload: RELOAD_PORT
       }
     },
 
@@ -102,7 +105,7 @@ module.exports = function(grunt) {
     devserver: {
       server: {
         options: {
-          port: 8020,
+          port: SERVER_PORT,
           base: BUILD_ROOT
         }
       }
