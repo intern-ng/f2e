@@ -1,19 +1,17 @@
 {
-  "name": "intern-ng-demo",
+  "name": "intern-ng-f2e",
   "version": "0.0.0",
-  "description": "Demonstration project for intern-ng",
-  "scripts": {
-    "test": "mocha"
-  },
+  "description": "Frontend part of [intern-ng](https://github.com/shinohane/intern-ng) project",
   "keywords": [
-    "web"
+    "web",
+    "frontend"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/shinohane/intern-ng-demo.git"
+    "url": "https://github.com/shinohane/intern-ng-f2e.git"
   },
   "author": "shinohane <imandry.c@gmail.com>",
-  "license": "DSPL",
+  "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.2",
     "grunt-contrib-copy": "~0.5.0",
