@@ -1,0 +1,23 @@
+{
+  "name": "intern-ng-f2e",
+  "version": "0.0.0",
+  "authors": [
+    "shinohane <imandry.c@gmail.com>"
+  ],
+  "description": "Frontend part of [intern-ng](https://github.com/shinohane/intern-ng) project",
+  "keywords": [
+    "web",
+    "frontend"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "scut": "~0.10.2"
+  }
+}
