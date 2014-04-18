@@ -32,7 +32,7 @@ module.exports = function(grunt) {
 
     script    : files('src/'  , 'script/**/*.js'  , BUILD_ROOT, '.js'),
     document  : files('src/'  , '**/*.jade'       , BUILD_ROOT, '.html'),
-    style     : files('src/'  , 'style/**/*.scss' , BUILD_ROOT, '.css'),
+    style     : files('src/'  , 'style/**/*.styl' , BUILD_ROOT, '.css'),
     asset     : files('asset/', '**/*'            , BUILD_ROOT),
 
   });
@@ -55,10 +55,14 @@ module.exports = function(grunt) {
       }
     },
 
-    sass: {
+    stylus: {
       style: files.style.pattern,
       options: {
-        includePaths: [ 'bower_components/scut/dist' ],
+        use: [
+          require('axis-css'),
+          require('rupture'),
+          require('nib')
+        ]
       }
     },
 
@@ -113,19 +117,19 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-devserver');
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   grunt.registerTask('asset'    , [ 'copy:asset' ]);
   grunt.registerTask('document' , [ 'jade:document' ]);
-  grunt.registerTask('style'    , [ 'sass:style', 'autoprefixer:style' ]);
+  grunt.registerTask('style'    , [ 'stylus:style', 'autoprefixer:style' ]);
   grunt.registerTask('script'   , [ 'jshint:script', 'copy:script' ]);
 
   grunt.registerTask('default', [
