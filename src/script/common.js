@@ -112,20 +112,3 @@ _.each(['post', 'get'], function (method) {
 
 // }}}
 
-var closewindow = window.close;
-
-// Wechat Internal Browser Support {{{
-
-(function () {
-
-  // Configure for Wechat
-  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-    // WeixinJSBridge.call('hideOptionMenu');
-    // WeixinJSBridge.call('hideToolbar');
-    closewindow = WeixinJSBridge.call.bind(WeixinJSBridge, 'closeWindow');
-  });
-
-})();
-
-// }}}
-
