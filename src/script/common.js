@@ -25,6 +25,10 @@ var qscomponent = function (name) {
   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 };
 
+var fapply = function (f, ctx, args) {
+  return f.apply(ctx, Array.prototype.slice.call(args, 0));
+};
+
 // AJAX Utility {{{
 
 var ajax = function (method, url, data, options, handler) {
