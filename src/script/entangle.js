@@ -60,21 +60,29 @@ var entangle = (function () {
 
   };
 
+  Entangle.prototype.append = function (converter) {
+
+    if (this.last) {
+      this.last.next = converter;
+    } else {
+      this.head = converter;
+    }
+
+    this.last = converter;
+
+    return this;
+
+  };
+
   return _.extend(function () { return new Entangle(); }, {
 
     initiator: function (fu) {
 
       return function () {
 
-        var converter = fu.apply(this, Array.prototype.slice.call(arguments, 0));
+        var converter = fapply(fu, this, arguments);
 
-        if (this.last) {
-          this.last.next = converter;
-        } else {
-          this.head = converter;
-        }
-
-        this.last = converter;
+        if (converter) this.append(converter);
 
         return this;
 
@@ -86,6 +94,7 @@ var entangle = (function () {
       _.extend(Entangle.prototype, _.transform(kis, function (r, v, k) {
         r[k] = entangle.initiator(v);
       }));
+      return _.extend(this, kis);
     }
 
   });
