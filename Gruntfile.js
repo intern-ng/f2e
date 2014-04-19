@@ -17,6 +17,7 @@ module.exports = function(grunt) {
       path: path.join(cwd, src),
       pattern: {
         expand: true,
+        extDot: 'last',
       }
     };
 
