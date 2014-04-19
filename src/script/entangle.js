@@ -35,7 +35,7 @@ var entangle = (function () {
           fapply(next, _this.contextof(next, runtime, context), arguments);
         } else {
           // cascading resolve
-          fapply(context.resolve, context, arguments);
+          if (context.resolve) fapply(context.resolve, context, arguments);
         }
         return this;
       },
