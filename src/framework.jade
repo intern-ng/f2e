@@ -13,7 +13,12 @@ html
         +stylesheet('style/bootstrap-theme.min.css')
         +stylesheet('style/datepicker3.css')
   body
-    block content
+    .wrapper
+      .content-container
+        block content
+      .footer-container
+        .footer
+          block footer
     block script
       +javascript('script/jquery.min.js')
       +javascript('script/lodash.min.js')
