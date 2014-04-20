@@ -60,10 +60,19 @@ entangle.extend({
 
   /**
    * @name collect
-   * @desc generate collection metadata wrapped input items
+   * @desc transform array to object
+   * @param idattr {function/string} - get id from item value (use item key as id by default)
    */
-  collect: function () {
-
+  collect: function (idattr) {
+    if (typeid(idattr) == 'string') {
+      var idname = idattr;
+      idattr = function (v) { return v[idname]; };
+    }
+    return function (___) {
+      this.resolve(_.reduce(___, function (r, v, k) {
+        r[idattr ? idattr(v) : k] = v;
+      }, {}));
+    };
   },
 
   /**
