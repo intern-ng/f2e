@@ -70,6 +70,25 @@ entangle.extend({
    * @param create {function} - create a converter
    */
   fork: function (create) {
+    var convs = {};
+    return function (___) {
+      var _this = this;
+      _.each(___, function (v, k, d) {
+        if (!convs.hasOwnProperty(k)) {
+          // create a converter
+          convs[k] = create(v, k);
+        }
+        convs[k].call({
+          resolve: function (___) {
+            var _args = array(arguments);
+            return _this.resolve(
+              pair(k, (_args.length == 1) ? ___ : _args)
+            );
+          },
+          failure: function (err) { /* TODO error handling */ }
+        }, v, d);
+      });
+    };
   },
 
   /**
