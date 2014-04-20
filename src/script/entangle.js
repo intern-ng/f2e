@@ -4,9 +4,7 @@
 
 var entangle = (function () {
 
-  function Entangle () {
-    this.runtime = {}; // chain-level runtime status object
-  }
+  function Entangle () { }
 
   // @interface(converter>function) {{{
 
@@ -16,12 +14,12 @@ var entangle = (function () {
   };
 
   Entangle.prototype.apply = function (ctx, args) {
-    return this.head.apply(this.contextof(this.head, this.runtime, ctx), args);
+    return this.head.apply(this.contextof(this.head, ctx), args);
   };
 
   // }}}
 
-  Entangle.prototype.contextof = function (converter, runtime, context) {
+  Entangle.prototype.contextof = function (converter, context) {
 
     var _this = this;
 
@@ -32,7 +30,7 @@ var entangle = (function () {
         var next = converter.next;
         if (next) {
           // FIXME use arguments expansion here (efficiency)
-          fapply(next, _this.contextof(next, runtime, context), arguments);
+          fapply(next, _this.contextof(next, context), arguments);
         } else {
           // cascading resolve
           if (context.resolve) fapply(context.resolve, context, arguments);
@@ -44,17 +42,6 @@ var entangle = (function () {
       // failure - TODO issue conversion failure(s) {{{
       failure: function () { return this; },
       // }}} failure
-
-      // runtime - change the runtime container of next converter {{{
-      runtime: function (rt) {
-        if (!rt) {
-          return runtime;
-        } else {
-          runtime = rt;
-          return this;
-        }
-      },
-      // }}} runtime
 
     };
 
