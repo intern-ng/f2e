@@ -42,6 +42,11 @@ entangle.extend({
    * @param context - reduce function execution context
    */
   fold: function (reducer, accumulator, context) {
+    return function (___) {
+      this.resolve(
+        _.reduce(___, reducer, accumulator(), context)
+      );
+    };
   },
 
   /**
