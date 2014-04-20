@@ -58,6 +58,10 @@ entangle.extend({
    * @param cache - (optional) function to put cached data and input together (_.extend by default)
    */
   sponge: function (cache) {
+    var data, cc = cache || _.extend;
+    return function (___) {
+      this.resolve(data ? cc(data, ___) : data = ___);
+    };
   },
 
   /**
