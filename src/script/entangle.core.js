@@ -17,20 +17,13 @@ entangle.extend({
   /**
    * @name flow
    * @desc combine different converter to one converter
-   * @param def - object { initiator -> [ initialization parameter ] }
+   * @param convs {array}   - [ converter ]
    */
   flow: function (convs) {
-    if (typeid(convs) == 'object' && convs.constructor.name != 'Entangle') {
-      // convert converter definition object to array with converter
-      return entangle.flow(_.map(convs, function (v, k) {
-        return entangle[k].apply(entangle, v);
-      }));
-    } else {
-      // construct an entangle chain by array
-      var q = entangle();
-      _(arguments).flatten().each(function (converter) { q.append(converter); });
-      return q;
-    }
+    // construct an entangle chain by array
+    var q = entangle();
+    _(arguments).flatten().each(function (converter) { q.append(converter); });
+    return q;
   },
 
   /**
