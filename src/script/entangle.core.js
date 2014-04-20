@@ -100,5 +100,16 @@ entangle.extend({
 
   },
 
+  /**
+   * @name pick
+   * @desc pick specific value as output
+   * @param valname {string} - name of value to be picked
+   */
+  pick: function (valname) {
+    return function (___) {
+      return this.resolve(___[valname]);
+    };
+  }
+
 });
 
