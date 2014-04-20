@@ -34,6 +34,10 @@ var pair = function (k, v) {
   return obj;
 };
 
+var array = function (array, start) {
+  return Array.prototype.slice.call(array, start || 0);
+};
+
 // AJAX Utility {{{
 
 var ajax = function (method, url, data, options, handler) {
