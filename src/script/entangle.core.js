@@ -27,27 +27,37 @@ entangle.extend({
   },
 
   /**
-   * @name fork
-   * @desc pipe same input to group of converters
-   */
-  fork: function (def) {
-
-  },
-
-  /**
    * @name hash
-   * @desc use next converter to resolve each item in data
+   * @desc pipe same input to group of converters
+   * @param convs {object} - { channel_name -> converter }
    */
-  hash: function () {
-
+  hash: function (convs) {
   },
 
   /**
    * @name fold
    * @desc fold/reduce the input
+   * @param reducer - reduce function
+   * @param accumulator - accumulator creator
+   * @param context - reduce function execution context
    */
-  fold: function () {
+  fold: function (reducer, accumulator, context) {
+  },
 
+  /**
+   * @name fork
+   * @desc resolve each item to converter
+   * @param create {function} - create a converter
+   */
+  fork: function (create) {
+  },
+
+  /**
+   * @name sponge
+   * @desc cache the data for next converter
+   * @param cache - (optional) function to put cached data and input together (_.extend by default)
+   */
+  sponge: function (cache) {
   },
 
   /**
@@ -76,20 +86,19 @@ entangle.extend({
   },
 
   /**
-   * @name sponge
-   * @desc cache the data for next converter
-   *       use `idattr` to access multiple context
-   *       sponge is stacked under different context
+   * @name diff
+   * @desc cache the input and output only differences,
+   *       will wrap data with metadata
    */
-  sponge: function () {
+  diff: function () {
 
   },
 
   /**
-   * @name diff
-   * @desc cache the input and output only differences
+   * @name patch
+   * @desc patch the cached output value with diff
    */
-  diff: function () {
+  patch: function () {
 
   },
 
