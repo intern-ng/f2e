@@ -29,6 +29,11 @@ var fapply = function (f, ctx, args) {
   return f.apply(ctx, Array.prototype.slice.call(args, 0));
 };
 
+var pair = function (k, v) {
+  var obj = {}; obj[k] = v;
+  return obj;
+};
+
 // AJAX Utility {{{
 
 var ajax = function (method, url, data, options, handler) {
