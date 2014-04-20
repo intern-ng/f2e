@@ -32,6 +32,21 @@ entangle.extend({
    * @param convs {object} - { channel_name -> converter }
    */
   hash: function (convs) {
+    return function () {
+      var _this = this;
+      var _args = array(arguments);
+      _.each(convs, function (converter, channel) {
+        converter.apply({
+          resolve: function (___) {
+            var _args = array(arguments);
+            return _this.resolve(
+              pair(channel, (_args.length == 1) ? ___ : _args)
+            );
+          },
+          failure: function (err) { /* TODO error handling */ }
+        }, _args);
+      });
+    };
   },
 
   /**
