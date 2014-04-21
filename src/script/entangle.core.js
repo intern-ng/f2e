@@ -164,9 +164,12 @@ entangle.extend({
     }
     if (!capture) {
       // autodetect from handler function definition
-      capture = handler ? (handler.capture || signatureof(handler).param) : ['___'];
+      capture = handler ? (handler.capture || signatureof(handler).param) : null;
     }
     return function (___) {
+      if (!capture) {
+        capture = this._next && (this._next.capture || signatureof(this._next).param) || [ '___' ];
+      }
       if (forceAll && _.any(capture, function (name) {
         return name != '___' && !___.hasOwnProperty(name);
       })) {
