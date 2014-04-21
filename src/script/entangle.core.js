@@ -180,6 +180,20 @@ entangle.extend({
   },
 
   /**
+   * @name pack
+   * @desc pack arguments with provided array name
+   * @param names {array} - name for positioned parameter
+   */
+  pack: function (names) {
+    if (typeid(names) != 'array') {
+      names = Array.prototype.slice.call(arguments, 0);
+    }
+    return function () {
+      this.resolve(_.object(names, arguments));
+    };
+  },
+
+  /**
    * @name transform
    * @desc transform data with simple function
    */
