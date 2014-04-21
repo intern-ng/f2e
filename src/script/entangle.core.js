@@ -27,11 +27,11 @@ entangle.extend({
   },
 
   /**
-   * @name hash
+   * @name fork
    * @desc pipe same input to group of converters
    * @param convs {object} - { channel_name -> converter }
    */
-  hash: function (convs) {
+  fork: function (convs) {
     return function () {
       var _this = this;
       var _args = array(arguments);
@@ -65,11 +65,11 @@ entangle.extend({
   },
 
   /**
-   * @name fork
+   * @name hash
    * @desc resolve each item to converter
    * @param create {function} - create a converter
    */
-  fork: function (create) {
+  hash: function (create) {
     var convs = {};
     return function (___) {
       var _this = this;
