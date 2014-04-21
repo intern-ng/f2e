@@ -159,6 +159,17 @@ entangle.extend({
     if (typeid(capture) == 'function') {
       handler = capture; capture = null;
     }
+    if (typeid(capture) == 'string') {
+      capture = [ capture ];
+      if (typeid(handler) == 'string') {
+        capture = array(arguments);
+        handler = capture.pop();
+        if (typeid(handler) == 'string') {
+          capture.push(handler);
+          handler = null;
+        }
+      }
+    }
     if (typeid(forceAll) != 'boolean') {
       forceAll = true;
     }
