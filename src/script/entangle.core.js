@@ -146,13 +146,13 @@ entangle.extend({
   },
 
   /**
-   * @name capture
+   * @name pick
    * @desc control next converter to be triggered when input matches a parameter specification
    * @param capture {array} - (optional) data handler or capturing array (auto-detect by default)
    * @param handler {function} - (optional) handler called with array (to resolve by default)
    * @param forceAll {boolean} - (optional) trigger only when input meets all captures (true by default)
    */
-  capture: function (capture, handler, forceAll) {
+  pick: function (capture, handler, forceAll) {
     if (typeid(handler) == 'boolean') {
       forceAll = handler; handler = null;
     }
@@ -215,17 +215,6 @@ entangle.extend({
   transform: function (process) {
     return process;
   },
-
-  /**
-   * @name pick
-   * @desc pick specific value as output
-   * @param valname {string} - name of value to be picked
-   */
-  pick: function (valname) {
-    return function (___) {
-      return this.resolve(___[valname]);
-    };
-  }
 
 });
 
