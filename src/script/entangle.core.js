@@ -148,9 +148,35 @@ entangle.extend({
   /**
    * @name capture
    * @desc control next converter to be triggered when input matches a parameter specification
+   * @param capture {array} - (optional) data handler or capturing array (auto-detect by default)
+   * @param handler {function} - (optional) handler called with array (to resolve by default)
+   * @param forceAll {boolean} - (optional) trigger only when input meets all captures (true by default)
    */
-  capture: function () {
-
+  capture: function (capture, handler, forceAll) {
+    if (typeid(handler) == 'boolean') {
+      forceAll = handler; handler = null;
+    }
+    if (typeid(capture) == 'function') {
+      handler = capture; capture = null;
+    }
+    if (typeid(forceAll) != 'boolean') {
+      forceAll = true;
+    }
+    if (!capture) {
+      // autodetect from handler function definition
+      capture = handler ? (handler.capture || signatureof(handler).param) : ['___'];
+    }
+    return function (___) {
+      if (forceAll && _.any(capture, function (name) {
+        return name != '___' && !___.hasOwnProperty(name);
+      })) {
+        return;
+      }
+      var args = _.map(capture, function (name) {
+        return (name == '___') ? ___ : ___[name];
+      });
+      fapply(handler || this.resolve, this, args);
+    };
   },
 
   /**
