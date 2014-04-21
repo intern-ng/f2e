@@ -9,8 +9,8 @@ entangle.extend({
    * @desc pass all data as-is to next converter
    */
   passby: function () {
-    return function (___) {
-      this.resolve(___);
+    return function () {
+      this.resolve.apply(this, arguments);
     };
   },
 
