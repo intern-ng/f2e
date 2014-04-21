@@ -2,50 +2,54 @@
 // Navigation Bar //
 ////////////////////
 
-entangle().location().fork({
+// jshint -W085: don't use 'with'
 
-  pick: entangle().pick(function (pathname) {
-    $('.navbar-collapse a[href="' + pathname + '"]').parent().addClass('active');
-  }),
-
-  user: entangle()
-  .pick().qs() // pick `search` parameter and pass to qs
-  .poll(eukit.io.HttpGet(function (qs) {
-    return '/u/' + qs.u;
-  }), 2000)
-  .fork({
-
-    data: entangle.pick('data'),
-
-    // set online status
-    online: entangle().pick(function (status) {
-      if (status == 200) {
-        return this.resolve({ set: 'online', reset: 'offline' });
-      } else {
-        return this.resolve({ set: 'offline', reset: 'online' });
-      }
-    })
-    .$apply('.navbar .navbar-control', {
-      addClass: 'set', removeClass: 'reset'
-    })
-
-  }).pick('data')
-
-}).pick('user').fork({
-
-  set_name: entangle()
-  .$apply('.navbar .text-profile-name', { text: 'name' }),
-
-  set_role: entangle()
-  .pick(function (role) {
-    return this.resolve({
-      set: role,
-      reset: _.without(['admin', 'teacher', 'student'], role).join(' ')
-    });
-  })
-  .$apply('.navbar .navbar-control', {
-      addClass: 'set', removeClass: 'reset'
-  })
-
-}).call();
+entangle()
+.location()
+.fork([
+      entangle().pick(function (pathname) {
+                  $('.navbar-collapse a[href="' + pathname + '"]').parent('li').addClass('active');
+                }),
+], {
+  user: entangle().pick( /* 'search' is auto-detected */ ).qs()
+                  .poll(eukit.io.HttpGet(function (qs) { return '/u/' + qs.u; }), 2000)
+                  .fork({
+                    data: entangle().pick('data'),
+                  }, [
+                    entangle()
+                    .fork({
+                      _states: entangle.data([ 'online', 'offline' ]),
+                      current: entangle.pick(function (status) { this.resolve([status == 200 ? 'online' : 'offline']); })
+                    })
+                    .sponge()
+                    .fork({
+                      set: entangle().pick('current').classname(),
+                      rem: entangle().pick('_states', 'current').difference().classname()
+                    })
+                    .sponge()
+                    .invoke$('.navbar .navbar-control', {
+                      addClass: 'set', removeClass: 'rem'
+                    })
+                  ])
+                  .pick('data')
+})
+.pick('user')
+.fork([
+      entangle().invoke$('.navbar .text-profile-name', { text: 'name' }),
+      entangle()
+      .fork({
+        _states: entangle.data([ 'admin', 'student', 'teacher' ]),
+        current: entangle.pick(function (role) { this.resolve([ role ]); })
+      })
+      .sponge()
+      .fork({
+        set: entangle().pick('current').classname(),
+        rem: entangle().pick('_states', 'current').difference().classname()
+      })
+      .sponge()
+      .invoke$('.navbar .navbar-control', {
+        addClass: 'set', removeClass: 'rem'
+      })
+])
+.call();
 
