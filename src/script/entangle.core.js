@@ -29,13 +29,43 @@ entangle.extend({
   /**
    * @name fork
    * @desc pipe same input to group of converters
-   * @param convs {object} - { channel_name -> converter }
+   * @param convs... {object/array} - Valued := { channel_name -> converter } | Non-valued := [ converter ]
    */
   fork: function (convs) { // {{{
+
+    convs = array(arguments);
+
+    var _noval = _(convs).filter(function (x) {
+      return typeid(x) == 'array';
+    }).flatten();
+
+    var _valed = _(convs).filter(function (x) {
+      return typeid(x) == 'object';
+    }).reduce(function (r, v, k) {
+      // XXX Safe Implementation
+      //
+      // _.each(v, function (v, k) {
+      //   if (!r.hasOwnProperty(k)) {
+      //     r[k] = v;
+      //   } else {
+      //     // TODO handle name conflict
+      //   }
+      // });
+      return r.extend(v);
+    }, _({}));
+
     return function () {
       var _this = this;
       var _args = array(arguments);
-      _.each(convs, function (converter, channel) {
+
+      _noval.each(function (converter) {
+        converter.apply({
+          resolve: function (___) { /* do nothing */ },
+          failure: function (err) { /* TODO error handling */ }
+        }, _args);
+      });
+
+      _valed.each(function (converter, channel) {
         converter.apply({
           resolve: function (___) {
             var _args = array(arguments);
@@ -46,7 +76,9 @@ entangle.extend({
           failure: function (err) { /* TODO error handling */ }
         }, _args);
       });
+
     };
+
   }, // }}} fork
 
   /**
