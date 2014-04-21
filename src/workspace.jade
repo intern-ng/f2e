@@ -3,6 +3,7 @@ append head
   title 贰叁叁课程管理
 append favicon
 append style
+  +stylesheet('/style/navbar-ctl.css')
 append script
   +javascript('/script/navigation.js')
 append content-container
@@ -14,24 +15,24 @@ append content-container
           span.icon-bar
           span.icon-bar
         img.navbar-brand(src='/img/logo/50.png')
-      .navbar-collapse.collapse
+      .navbar-collapse.collapse.navbar-control.offline
         ul.nav.navbar-nav
           li: a(href='/home.html')
             span.glyphicon.glyphicon-home
             | &nbsp; 主页
-          li: a(href='#')
+          li.student.can-access: a(href='#')
             span.glyphicon.glyphicon-book
             | &nbsp; 我的课程
-          li: a(href='#')
+          li.student.can-access: a(href='#')
             span.glyphicon.glyphicon-leaf
             | &nbsp; 新课程
-          li: a(href='#')
+          li.admin.teacher.can-access: a(href='#')
             span.glyphicon.glyphicon-tree-deciduous
             | &nbsp; 课程管理
-          li: a(href='#')
+          li.admin.teacher.can-access: a(href='#')
             span.glyphicon.glyphicon-th-list
             | &nbsp; 表单管理
-          li.dropdown
+          li.admin.can-access.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               span.glyphicon.glyphicon-magnet
               | &nbsp; 系统维护
@@ -42,10 +43,11 @@ append content-container
               li: a(href='#') 备份/恢复
               li: a(href='#') FAQ编辑
         ul.nav.navbar-nav.navbar-right
-          li.dropdown
+          li.online.can-access.dropdown
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               span.glyphicon.glyphicon-user
-              | &nbsp; Trinity
+              | &nbsp;
+              span.text-profile-name NAME
               | &nbsp;
               b.caret
             ul.dropdown-menu
@@ -56,7 +58,7 @@ append content-container
               li.divider
               li: a(href='#') 设置
               li: a(href='#') 登出
-          li: a(href='#')
+          li.offline.can-access: a(href='#')
             span.glyphicon.glyphicon-user
             | &nbsp; 登录
   .container
