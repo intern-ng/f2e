@@ -217,16 +217,14 @@ entangle.extend({
 
   /**
    * @name move
-   * @desc rename values
-   * @param mapping {object} - { destination : source }
+   * @desc rename values (safe for swap)
+   * @param mapping {object} - { source -> destination }
    */
   move: function (mapping) { // {{{
     return function (___) {
-      _.each(mapping, function (v, k) {
-        ___[k] = ___[v];
-        delete ___[v];
-      });
-      this.resolve(___);
+      this.resolve(_.transform(___, function (r, v, k) {
+        r[mapping[k] || k] = v;
+      }));
     };
   }, // }}} move
 
