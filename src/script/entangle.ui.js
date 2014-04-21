@@ -69,3 +69,12 @@ entangle.extend({
 
 });
 
+// Make jQuery shortcuts
+_.each([ 'invoke' ], function (name) {
+  entangle.extend(pair(name + '$', function () {
+    var args = array(arguments);
+    var selector = args.shift();
+    return entangle[name].apply(null, [ $(selector) ].concat(args));
+  }));
+});
+
