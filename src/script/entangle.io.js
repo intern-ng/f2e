@@ -5,6 +5,16 @@
 entangle.extend({
 
   /**
+   * @name data
+   * @desc resolves static data
+   */
+  data: function (data) {
+    return function () {
+      this.resolve(data);
+    };
+  },
+
+  /**
    * @name Poll
    * @desc Keep polling for data changes
    * @param juicer {function} - function to juice data
