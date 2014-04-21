@@ -63,7 +63,8 @@ module.exports = function(grunt) {
           require('axis-css'),
           require('rupture'),
           require('nib')
-        ]
+        ],
+        compress: false
       }
     },
 
