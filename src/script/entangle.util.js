@@ -27,13 +27,12 @@ _.extend(eukit.io, {
       return ajax.get(_url, data, {
         cache: false,
         dataType: 'json'
-      }, ajax.handler({
-        200: function (data) {
-          return _this.resolve(data);
-        },
-        ___: function (data) {
-          return _this.failure(data);
-        }
+      }, ajax.handler('*', function (data, status, xhr) {
+        return _this.resolve({
+          data: data,
+          status: status,
+          xhr: xhr
+        });
       }));
     };
   },
