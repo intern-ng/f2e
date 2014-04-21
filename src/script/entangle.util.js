@@ -25,7 +25,8 @@ _.extend(eukit.io, {
       var _this = this;
       var _url = (typeid(url) == 'function') ? url.apply(this, arguments) : url;
       return ajax.get(_url, data, {
-        cache: false
+        cache: false,
+        dataType: 'json'
       }, ajax.handler({
         200: function (data) {
           return _this.resolve(data);
