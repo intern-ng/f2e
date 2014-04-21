@@ -8,7 +8,7 @@ entangle.extend({
    * @name location
    * @desc window.location object
    */
-  location: function () {
+  location: function () { // {{{
 
     var converter = function () {
       this.resolve(location);
@@ -35,23 +35,24 @@ entangle.extend({
     });
 
     return converter;
-  },
+
+  }, // }}} location
 
   /**
    * @name qs
    * @desc parse querystring to object
    */
-  qs: function () {
+  qs: function () { // {{{
     return function (search) {
       this.resolve($.parseParams(search));
     };
-  },
+  }, // }}} qs
 
   /**
    * @name invoke
    * @desc apply a set of function calls to object with value(s) from pipe
    */
-  invoke: function (object, call) {
+  invoke: function (object, call) { // {{{
     var _call = _.transform(call, function (r, v, k) {
       r[k] = (typeid(v) == 'array') ? v : [v];
     });
@@ -65,11 +66,12 @@ entangle.extend({
         }));
       });
     };
-  },
+  }, // }}} invoke
 
 });
 
-// Make jQuery shortcuts
+// Make jQuery shortcuts {{{
+
 _.each([ 'invoke' ], function (name) {
   entangle.extend(pair(name + '$', function () {
     var args = array(arguments);
@@ -77,4 +79,6 @@ _.each([ 'invoke' ], function (name) {
     return entangle[name].apply(null, [ $(selector) ].concat(args));
   }));
 });
+
+// }}}
 
