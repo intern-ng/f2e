@@ -29,6 +29,19 @@ var fapply = function (f, ctx, args) {
   return f.apply(ctx, Array.prototype.slice.call(args, 0));
 };
 
+var signatureof = function (func) {
+  var s = func.toString();
+  var m = s.match(/^\s*function\s*([^(]*)\s*\(([^)]*)\)\s*\x7b/i);
+  if (m) {
+    return {
+      name: m[1] || null,
+      param: m[2] && m[2].split(/\s*,\s*/) || []
+    };
+  } else {
+    return null;
+  }
+};
+
 var pair = function (k, v) {
   var obj = {}; obj[k] = v;
   return obj;
