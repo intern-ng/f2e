@@ -209,6 +209,21 @@ entangle.extend({
   },
 
   /**
+   * @name move
+   * @desc rename values
+   * @param mapping {object} - { destination : source }
+   */
+  move: function (mapping) {
+    return function (___) {
+      _.each(mapping, function (v, k) {
+        ___[k] = ___[v];
+        delete ___[v];
+      });
+      this.resolve(___);
+    };
+  },
+
+  /**
    * @name transform
    * @desc transform data with simple function
    */
