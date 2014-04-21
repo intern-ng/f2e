@@ -14,12 +14,14 @@ var entangle = (function () {
   };
 
   Entangle.prototype.apply = function (ctx, args) {
-    return this.head.apply(this.contextof(this.head, ctx), args);
+    // XXX an entangle can only been attached once
+    this.context = ctx;
+    return this.head.apply(this.contextof(this.head), args);
   };
 
   // }}}
 
-  Entangle.prototype.contextof = function (converter, context) {
+  Entangle.prototype.contextof = function (converter) {
 
     var _this = this;
 
@@ -30,10 +32,12 @@ var entangle = (function () {
         var next = converter.next;
         if (next) {
           // FIXME use arguments expansion here (efficiency)
-          fapply(next, _this.contextof(next, context), arguments);
+          fapply(next, _this.contextof(next), arguments);
         } else {
           // cascading resolve
-          if (context.resolve) fapply(context.resolve, context, arguments);
+          if (_this.context && _this.context.resolve) {
+            fapply(_this.context.resolve, _this.context, arguments);
+          }
         }
         return this;
       },
