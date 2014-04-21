@@ -37,5 +37,15 @@ entangle.extend({
     return converter;
   },
 
+  /**
+   * @name qs
+   * @desc parse querystring to object
+   */
+  qs: function () {
+    return function (search) {
+      this.resolve($.parseParams(search));
+    };
+  },
+
 });
 
