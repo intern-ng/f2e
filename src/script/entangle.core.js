@@ -179,7 +179,8 @@ entangle.extend({
     }
     return function (___) {
       if (!capture) {
-        capture = this._next && (this._next.capture || signatureof(this._next).param) || [ '___' ];
+        var next = this.next();
+        capture = next && (next.capture || signatureof(next).param) || [ '___' ];
       }
       if (forceAll && _.any(capture, function (name) {
         return name != '___' && !___.hasOwnProperty(name);

@@ -27,11 +27,11 @@ var entangle = (function () {
 
     return {
 
-      _next: converter.next,
+      next: function () { return converter.next; },
 
       // resolve - call next converter {{{
       resolve: function () {
-        var next = this._next;
+        var next = this.next();
         if (next) {
           // FIXME use arguments expansion here (efficiency)
           fapply(next, _this.contextof(next), arguments);
