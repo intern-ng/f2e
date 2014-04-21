@@ -48,20 +48,19 @@ entangle.extend({
   },
 
   /**
-   * @name apply
-   * @desc apply a set of function calls to jQuery object with value(s) from pipe
+   * @name invoke
+   * @desc apply a set of function calls to object with value(s) from pipe
    */
-  $apply: function (selector, calls) {
-    var $el = $(selector);
-    calls = _.transform(calls, function (r, v, k) {
+  invoke: function (object, call) {
+    var _call = _.transform(call, function (r, v, k) {
       r[k] = (typeid(v) == 'array') ? v : [v];
     });
     return function (___) {
-      _.each(calls, function (v, k) {
+      _.each(_call, function (v, k) {
         if (_.any(v, function (name) { return !___.hasOwnProperty(name); })) {
           return;
         }
-        $.fn[k].apply($el, _.map(v, function (name) {
+        fapply(object[k], object, _.map(v, function (name) {
           return ___[name];
         }));
       });
