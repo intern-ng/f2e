@@ -200,8 +200,8 @@ entangle.extend({
    * @name transform
    * @desc transform data with simple function
    */
-  transform: function () {
-
+  transform: function (process) {
+    return process;
   },
 
   /**
