@@ -68,6 +68,16 @@ entangle.extend({
     };
   }, // }}} invoke
 
+  /**
+   * @name classname
+   * @desc transform list of classname to classname string
+   */
+  classname: function () {
+    return function () {
+      this.resolve(_.flatten(array(arguments)).join(' '));
+    };
+  }
+
 });
 
 // Make jQuery shortcuts {{{
