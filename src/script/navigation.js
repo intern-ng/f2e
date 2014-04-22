@@ -18,7 +18,7 @@ entangle()
                                 .class$('.navbar .navbar-control'),
                       entangle().pick('data')
                                 .fork([
-                                      entangle().invoke$('.navbar .text-profile-name', { text: 'name' }),
+                                      entangle().invoke$('.navbar .data-holder.data-profile-name', { text: 'name' }),
                                       entangle().radio([ 'admin', 'student', 'teacher' ],
                                                        entangle.pick(function (role) { this.resolve([ role ]); }))
                                                 .class$('.navbar .navbar-control')
