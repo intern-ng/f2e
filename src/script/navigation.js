@@ -11,16 +11,15 @@ entangle()
       entangle().pick( /* 'search' is auto-detected */ ).qs()
                 .poll(eukit.io.HttpGet(function (qs) { return '/u/' + qs.u; }), 2000)
                 .fork([
-                      entangle().radio(['online', 'offline'],
-                                       entangle.pick(function (status) {
-                                         this.resolve([ status == 200 ? 'online' : 'offline' ]);
-                                       }))
+                      entangle().pick('status')
+                                .array().cases({ 200: 'online', ___: 'offline' })
+                                .radio(['online', 'offline'])
                                 .class$('.navbar .navbar-control'),
                       entangle().pick('data')
                                 .fork([
                                       entangle().invoke$('.navbar .data-holder.data-profile-name', { text: 'name' }),
-                                      entangle().radio([ 'admin', 'student', 'teacher' ],
-                                                       entangle.pick(function (role) { this.resolve([ role ]); }))
+                                      entangle().pick('role').array()
+                                                .radio([ 'admin', 'student', 'teacher' ])
                                                 .class$('.navbar .navbar-control')
                                 ]),
                 ]),
