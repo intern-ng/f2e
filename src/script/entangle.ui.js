@@ -69,13 +69,22 @@ entangle.extend({
   }, // }}} invoke
 
   /**
+   * @name join
+   * @desc join list of values to string
+   * @param delimiter
+   */
+  join: function (delimiter) {
+    return function (___) {
+      this.resolve(_.flatten(___).join(delimiter));
+    };
+  },
+
+  /**
    * @name classname
    * @desc transform list of classname to classname string
    */
   classname: function () {
-    return function (___) {
-      this.resolve(_.flatten(___).join(' '));
-    };
+    return entangle.join(' ');
   },
 
   /**
