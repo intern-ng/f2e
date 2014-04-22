@@ -97,6 +97,19 @@ entangle.extend({
     });
   }, // }}}
 
+  /**
+   * @name class
+   * @desc add `on` classes and removes `off` classes
+   */
+  class$: function (selector) { // {{{
+    return entangle()
+    .hash(entangle.classname)
+    .sponge()
+    .invoke$(selector, {
+      addClass: 'on', removeClass: 'off'
+    });
+  }, // }}}
+
 });
 
 // Make jQuery shortcuts {{{
