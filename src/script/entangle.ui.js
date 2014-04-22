@@ -91,13 +91,12 @@ entangle.extend({
    * @name radio
    * @desc resolves radio selection (`on`/`off` set)
    * @param universe {array} - all states
-   * @param selector {converter} - figure out `on` set
    */
   radio: function (universe, selector) { // {{{
     return entangle()
     .fork({
       _states: entangle.data(universe),
-      current: selector
+      current: entangle.passby()
     })
     .sponge()
     .fork({
