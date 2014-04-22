@@ -69,6 +69,8 @@ var entangle = (function () {
 
   return _.extend(function () { return new Entangle(); }, {
 
+    Entangle: Entangle,
+
     initiator: function (fu) {
 
       return function () {
