@@ -200,6 +200,23 @@ entangle.extend({
   },
 
   /**
+   * @name array
+   * @desc wrap values with array
+   * @param skipArray - (optional) whether skip values that is already an array (false by default)
+   */
+  array: function (skipArray) {
+    return function () {
+      fapply(this.resolve, this, _.map(arguments, function (v) {
+        if (skipArray) {
+          return Array.isArray(v) ? v : [ v ];
+        } else {
+          return [ v ];
+        }
+      }));
+    };
+  },
+
+  /**
    * @name pick
    * @desc control next converter to be triggered when input matches a parameter specification
    * @param capture {array/strings} - (optional) data handler or capturing array (auto-detect by default)
