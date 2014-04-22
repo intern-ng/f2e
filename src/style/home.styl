@@ -1,0 +1,57 @@
+
+.fill-parent
+  position absolute
+  top 0px
+  left 0px
+  right 0px
+  bottom 0px
+
+.view-cover
+
+  +above(992px)
+    position absolute
+    top 0px
+    bottom 0px
+
+  padding 0px
+  background-size cover !important
+
+  .fill-parent.darken
+    background rgba(0,0,0,0.3)
+
+  .view-profile-summary
+    color #FFF
+    text-align center
+    width 100%
+
+  .view-photo-img
+    max-width 30%
+
+.view-profile
+  padding 0px
+  background #FFF
+
+.view-profile-detail
+  padding-bottom 60px
+
++above(992px)
+  .view-cover, .view-profile-detail
+    min-height 300px
+
++below(992px)
+  .view-cover
+    min-height 500px
+
+.view-notification
+  position absolute
+  left 0px
+  right 0px
+  bottom 0px
+  height 46px
+  padding 15px
+  color #FFF
+  background green
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap
+
