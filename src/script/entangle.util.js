@@ -10,6 +10,23 @@ _.extend(eukit, {
 
 });
 
+_.extend(eukit, {
+
+  cache: function (cache, data) {
+    if (data instanceof Object) {
+      return {
+        changed: _.any(data, function (v, k) {
+          return !(cache && cache.hasOwnProperty(k) && _.isEqual(cache[k], v));
+        }),
+        data: _.extend(cache || data, data)
+      };
+    } else {
+      return { changed: cache != data, data: data };
+    }
+  },
+
+});
+
 ////////
 // IO //
 ////////

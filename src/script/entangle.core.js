@@ -126,10 +126,15 @@ entangle.extend({
   /**
    * @name sponge
    * @desc cache the data for next converter
-   * @param cache - (optional) function to put cached data and input together (_.extend by default)
+   * @param always {boolean} - (optional) resolves result ignoring whether the buffered data has changed (false by default)
+   * @param cache {function} - (optional) function to put cached data and input together (`eukit.extend` by default)
    */
-  sponge: function (cache) { // {{{
-    var data, cc = cache || _.extend;
+  sponge: function (always, cache) { // {{{
+
+    if (typeid(always) == 'function') { cache = always; }
+    if (typeid(always) != 'boolean' ) { always = false; }
+
+    var data, _cache = cache || eukit.cache;
 
     var status;
 
@@ -139,8 +144,9 @@ entangle.extend({
     };
 
     var converter = function (___) {
-      data = data ? cc(data, ___) : data = ___;
-      if (status != 'waiting') {
+      var c = _cache(data, ___);
+      data = c.data;
+      if ((always || c.changed) && status != 'waiting') {
         setTimeout(resolv, 1); status = 'waiting';
       }
     };
@@ -148,6 +154,7 @@ entangle.extend({
     var context = this.contextof(converter);
 
     return converter;
+
   }, // }}} sponge
 
   /**
