@@ -73,10 +73,10 @@ entangle.extend({
    * @desc transform list of classname to classname string
    */
   classname: function () {
-    return function () {
-      this.resolve(_.flatten(array(arguments)).join(' '));
+    return function (___) {
+      this.resolve(_.flatten(___).join(' '));
     };
-  }
+  },
 
 });
 
