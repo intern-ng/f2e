@@ -217,6 +217,21 @@ entangle.extend({
   },
 
   /**
+   * @name cases
+   * @desc iterate an array and resolve value with appropriate case
+   */
+  cases: function (mapping) {
+    return function () {
+      fapply(this.resolve, this, _.map(arguments, function (arg) {
+        return _.map(arg, function (v) {
+          var caseval = mapping[v] || mapping.___;
+          return (typeid(caseval) == 'function') ? caseval(v) : caseval;
+        });
+      }));
+    };
+  },
+
+  /**
    * @name pick
    * @desc control next converter to be triggered when input matches a parameter specification
    * @param capture {array/strings} - (optional) data handler or capturing array (auto-detect by default)
