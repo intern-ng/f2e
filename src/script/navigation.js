@@ -23,9 +23,10 @@ entangle()
                     })
                     .sponge()
                     .fork({
-                      set: entangle().pick('current').classname(),
-                      rem: entangle().pick('_states', 'current').difference().classname()
+                      set: entangle().pick('current'),
+                      rem: entangle().pick('_states', 'current').difference()
                     })
+                    .hash(entangle.classname)
                     .sponge()
                     .invoke$('.navbar .navbar-control', {
                       addClass: 'set', removeClass: 'rem'
