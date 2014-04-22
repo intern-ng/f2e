@@ -130,9 +130,24 @@ entangle.extend({
    */
   sponge: function (cache) { // {{{
     var data, cc = cache || _.extend;
-    return function (___) {
-      this.resolve(data ? cc(data, ___) : data = ___);
+
+    var status;
+
+    var resolv = function () {
+      status = 'stopped';
+      context.resolve(data);
     };
+
+    var converter = function (___) {
+      data = data ? cc(data, ___) : data = ___;
+      if (status != 'waiting') {
+        setTimeout(resolv, 1); status = 'waiting';
+      }
+    };
+
+    var context = this.contextof(converter);
+
+    return converter;
   }, // }}} sponge
 
   /**
