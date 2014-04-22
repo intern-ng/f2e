@@ -13,44 +13,24 @@ entangle()
 ], {
   user: entangle().pick( /* 'search' is auto-detected */ ).qs()
                   .poll(eukit.io.HttpGet(function (qs) { return '/u/' + qs.u; }), 2000)
-                  .fork({
+                  .fork([
+                    entangle().radio(['online', 'offline'],
+                                     entangle.pick(function (status) {
+                                       this.resolve([ status == 200 ? 'online' : 'offline' ]);
+                                     }))
+                    .class$('.navbar .navbar-control')
+                  ], {
                     data: entangle().pick('data'),
-                  }, [
-                    entangle()
-                    .fork({
-                      _states: entangle.data([ 'online', 'offline' ]),
-                      current: entangle.pick(function (status) { this.resolve([status == 200 ? 'online' : 'offline']); })
-                    })
-                    .sponge()
-                    .fork({
-                      set: entangle().pick('current'),
-                      rem: entangle().pick('_states', 'current').difference()
-                    })
-                    .hash(entangle.classname)
-                    .sponge()
-                    .invoke$('.navbar .navbar-control', {
-                      addClass: 'set', removeClass: 'rem'
-                    })
-                  ])
+                  })
                   .pick('data')
 })
 .pick('user')
 .fork([
       entangle().invoke$('.navbar .text-profile-name', { text: 'name' }),
       entangle()
-      .fork({
-        _states: entangle.data([ 'admin', 'student', 'teacher' ]),
-        current: entangle.pick(function (role) { this.resolve([ role ]); })
-      })
-      .sponge()
-      .fork({
-        set: entangle().pick('current').classname(),
-        rem: entangle().pick('_states', 'current').difference().classname()
-      })
-      .sponge()
-      .invoke$('.navbar .navbar-control', {
-        addClass: 'set', removeClass: 'rem'
-      })
+      .radio([ 'admin', 'student', 'teacher' ],
+             entangle.pick(function (role) { this.resolve([ role ]); }))
+      .class$('.navbar .navbar-control')
 ])
 .call();
 
