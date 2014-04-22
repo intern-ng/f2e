@@ -56,7 +56,7 @@ input
 
 // navbar {{{
 .navbar~.container
-  margin-top (70px - 15px) // 15px for .v-center-ib-container::before
+  margin-top 70px
 .navbar img.navbar-brand
   padding 0px
   margin-right 15px
@@ -64,11 +64,23 @@ input
 
 .v-center-ib-container
 
+  // inline-block space workaround {{{
+
+  letter-spacing -4px
+  word-spacing -4px
+  line-height 0px
+
+  &>*
+    line-height normal
+    letter-spacing normal
+    word-spacing normal
+
+  // }}} inline-block whitespace
+
   &:before
     display inline-block
     content ""
     height  100%
-    // margin-right -0.25em
     vertical-align middle
 
   &>.v-center
