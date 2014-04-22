@@ -73,19 +73,19 @@ entangle.extend({
    * @desc join list of values to string
    * @param delimiter
    */
-  join: function (delimiter) {
+  join: function (delimiter) { // {{{
     return function (___) {
       this.resolve(_.flatten(___).join(delimiter));
     };
-  },
+  }, // }}} join
 
   /**
    * @name classname
    * @desc transform list of classname to classname string
    */
-  classname: function () {
+  classname: function () { // {{{
     return entangle.join(' ');
-  },
+  }, // }}} classname
 
   /**
    * @name radio
