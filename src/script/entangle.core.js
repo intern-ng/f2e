@@ -36,7 +36,7 @@ entangle.extend({
     convs = array(arguments);
 
     var _noval = _(convs).filter(function (x) {
-      return typeid(x) == 'array';
+      return typeid(x) != 'object' || (x instanceof Entangle);
     }).flatten();
 
     var _valed = _(convs).filter(function (x) {
