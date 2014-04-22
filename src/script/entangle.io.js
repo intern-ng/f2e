@@ -8,11 +8,11 @@ entangle.extend({
    * @name data
    * @desc resolves static data
    */
-  data: function (data) {
+  data: function (data) { // {{{
     return function () {
       this.resolve(data);
     };
-  },
+  }, // }}} data
 
   /**
    * @name Poll
@@ -20,7 +20,7 @@ entangle.extend({
    * @param juicer {function} - function to juice data
    * @param interval - time in milliseconds between each call to get data
    */
-  poll: function (juicer, interval) {
+  poll: function (juicer, interval) { // {{{
 
     var watch = (function () {
       var timer;
@@ -59,7 +59,7 @@ entangle.extend({
 
     return converter;
 
-  },
+  }, // }}} poll
 
 });
 
