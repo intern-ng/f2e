@@ -14,7 +14,7 @@ entangle.Application = (function () {
     constructor: Application,
 
     extend: function (obj) {
-      _.each(obj, function (v, k) {
+      _.forOwn(obj, function (v, k) {
         if (this[k]) {
           throw new ReferenceError ('duplicated declaration of `' + k + '`');
         } else {
