@@ -5,7 +5,6 @@
 entangle.Application = (function () {
 
   function Application (flow) {
-    this.main = entangle();
     _.extend(this, flow);
   }
 
@@ -42,7 +41,11 @@ entangle.Application = (function () {
     },
 
     setup: function () {
-      this.main.call();
+      if (this.main) {
+        this.main.call();
+      } else {
+        throw new ReferenceError ('`main` function is not defined for setup');
+      }
     },
 
   });
