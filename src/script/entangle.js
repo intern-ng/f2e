@@ -4,7 +4,16 @@
 
 var entangle = (function () {
 
-  function Entangle () { }
+  function Entangle () {
+    var _next = null;
+    Object.defineProperty(this, 'next', {
+      get: function () { return _next; },
+      set: function (value) {
+        _next = value;
+        this.last.next = value;
+      }
+    });
+  }
 
   // @interface(converter>function) {{{
 
@@ -28,6 +37,8 @@ var entangle = (function () {
     }
 
     this.last = converter;
+
+    this.last.next = this.next;
 
     return this;
 
