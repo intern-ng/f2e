@@ -77,6 +77,9 @@ var entangle = (function () {
 
         var converter = fapply(fu, this, arguments);
 
+        if (converter && !converter.isReady) {
+          converter = entangle.prepare(converter);
+        }
         if (converter) this.append(converter);
 
         return this;
