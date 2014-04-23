@@ -19,7 +19,7 @@ entangle.extend({
    * @desc create a slot(marker) for fork on a chain
    * @param name {string}
    */
-  slot: function (name) {
+  slot: function (name) { // {{{
     return _.extend(function () {
       this.resolve.apply(this, arguments);
       _.each(this.branches, function (converter) {
@@ -29,7 +29,7 @@ entangle.extend({
       slotname: name,
       branches: []
     });
-  },
+  }, // }}} slot
 
   /**
    * @name fork
@@ -77,7 +77,7 @@ entangle.extend({
    * @desc pipe same input to group of converters and obtained named values
    * @param convs {object} - { channel_name -> converter }
    */
-  hash: function (convs) {
+  hash: function (convs) { // {{{
     var converter = function () {
       var _args = arguments;
       _.each(convs, function (converter) {
@@ -92,7 +92,7 @@ entangle.extend({
     });
 
     return converter;
-  },
+  }, // }}} hash
 
   /**
    * @name fold
@@ -215,7 +215,7 @@ entangle.extend({
    * @desc wrap values with array
    * @param skipArray - (optional) whether skip values that is already an array (false by default)
    */
-  array: function (skipArray) {
+  array: function (skipArray) { // {{{
     return function () {
       fapply(this.resolve, this, _.map(arguments, function (v) {
         if (skipArray) {
@@ -225,13 +225,13 @@ entangle.extend({
         }
       }));
     };
-  },
+  }, // }}} array
 
   /**
    * @name cases
    * @desc iterate an array and resolve value with appropriate case
    */
-  cases: function (mapping) {
+  cases: function (mapping) { // {{{
     return function () {
       fapply(this.resolve, this, _.map(arguments, function (arg) {
         return _.map(arg, function (v) {
@@ -240,7 +240,7 @@ entangle.extend({
         });
       }));
     };
-  },
+  }, // }}} cases
 
   /**
    * @name pick
