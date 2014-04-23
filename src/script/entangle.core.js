@@ -16,51 +16,16 @@ entangle.extend({
 
   /**
    * @name fork
-   * @desc pipe same input to group of converters
-   * @param convs... {object/array} - Valued := { channel_name -> converter } | Non-valued := [ converter ]
+   * @desc fork current data to different converters
+   * @param convs {array}
    */
   fork: function (convs) { // {{{
-
-    convs = array(arguments);
-
-    var _noval = _(convs).filter(function (x) {
-      return typeid(x) != 'object' || (x instanceof entangle.Entangle);
-    }).flatten();
-
-    var _valed = _(convs).filter(function (x) {
-      return typeid(x) == 'object';
-    }).reduce(function (r, v, k) {
-      // XXX Safe Implementation
-      //
-      // _.each(v, function (v, k) {
-      //   if (!r.hasOwnProperty(k)) {
-      //     r[k] = v;
-      //   } else {
-      //     // TODO handle name conflict
-      //   }
-      // });
-      return r.extend(v);
-    }, _({}));
-
-    _valed.each(function (converter, channel) {
-      converter.next = function (___) {
-        var _args = array(arguments);
-        _converter.resolve(pair(channel, (_args.length == 1) ? ___ : _args));
-      };
-    });
-
-    var _converter = function () {
-      var _args = array(arguments);
-      _noval.each(function (converter) {
-        converter.apply(converter, _args);
-      });
-      _valed.each(function (converter, channel) {
+    return function () {
+      var _args = arguments;
+      _.each(convs, function (converter) {
         converter.apply(converter, _args);
       });
     };
-
-    return _converter;
-
   }, // }}} fork
 
   /**
