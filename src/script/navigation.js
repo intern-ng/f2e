@@ -35,12 +35,14 @@ var app = new entangle.Application({
 // jshint -W085: dont-use-with
 
 with (app) app.route({
-  navbar: {
-    location: set_path,
-    raw_data: set_line,
-    $       : [ set_name, set_role ]
-  },
   main: navbar,
+});
+
+app.dependency({
+  set_line: 'navbar raw_data',
+  set_path: 'navbar location',
+  set_name: 'navbar',
+  set_role: 'navbar',
 });
 
 app.setup();
