@@ -20,7 +20,7 @@ entangle.Application = (function () {
         } else {
           this[k] = v;
         }
-      });
+      }, this);
       return this;
     },
 
