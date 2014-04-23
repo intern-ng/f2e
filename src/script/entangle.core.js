@@ -140,7 +140,7 @@ entangle.extend({
 
     var resolv = function () {
       status = 'stopped';
-      context.resolve(data);
+      converter.resolve(data);
     };
 
     var converter = function (___) {
@@ -150,8 +150,6 @@ entangle.extend({
         setTimeout(resolv, 1); status = 'waiting';
       }
     };
-
-    var context = this.contextof(converter);
 
     return converter;
 

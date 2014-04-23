@@ -41,13 +41,11 @@ entangle.extend({
       if (status != 'running') loop();
     };
 
-    var context = this.contextof(converter);
-
     var loop = function () {
       status = 'running'; watch.clear();
       juicer.apply({
         resolve: function () {
-          fapply(context.resolve, context, arguments);
+          fapply(converter.resolve, converter, arguments);
           status = 'stopped'; watch.setup(loop);
         },
         failure: function () {

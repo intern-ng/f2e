@@ -14,44 +14,10 @@ var entangle = (function () {
   };
 
   Entangle.prototype.apply = function (ctx, args) {
-    // XXX an entangle can only been attached once
-    this.context = ctx;
-    return this.head.apply(this.contextof(this.head), args);
+    return this.head.apply(this.head, args);
   };
 
   // }}}
-
-  Entangle.prototype.contextof = function (converter) {
-
-    var _this = this;
-
-    return {
-
-      next: function () { return converter.next; },
-
-      // resolve - call next converter {{{
-      resolve: function () {
-        var next = this.next();
-        if (next) {
-          // FIXME use arguments expansion here (efficiency)
-          fapply(next, _this.contextof(next), arguments);
-        } else {
-          // cascading resolve
-          if (_this.context && _this.context.resolve) {
-            fapply(_this.context.resolve, _this.context, arguments);
-          }
-        }
-        return this;
-      },
-      // }}} resolve
-
-      // failure - TODO issue conversion failure(s) {{{
-      failure: function () { return this; },
-      // }}} failure
-
-    };
-
-  };
 
   Entangle.prototype.append = function (converter) {
 

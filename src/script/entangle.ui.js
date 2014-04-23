@@ -26,12 +26,10 @@ entangle.extend({
       hash: window.location.hash,
     };
 
-    var context = this.contextof(converter);
-
     // listen for hash change event
     $(window).on('hashchange', function () {
       location.hash = window.location.hash;
-      context.resolve(location);
+      converter.resolve(location);
     });
 
     return converter;
