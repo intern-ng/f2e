@@ -109,7 +109,7 @@ entangle.extend({
    */
   class$: function (selector) { // {{{
     return entangle()
-    .hash(entangle.classname)
+    .each(entangle.classname)
     .sponge()
     .invoke$(selector, {
       addClass: 'on', removeClass: 'off'

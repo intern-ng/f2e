@@ -91,11 +91,11 @@ entangle.extend({
   }, // }}} fold
 
   /**
-   * @name hash
+   * @name each
    * @desc resolve each item to converter
    * @param create {function} - create a converter
    */
-  hash: function (create) { // {{{
+  each: function (create) { // {{{
     var convs = {};
     return function (___) {
       var _this = this;
@@ -115,7 +115,7 @@ entangle.extend({
         }, v, d);
       });
     };
-  }, // }}} hash
+  }, // }}} each
 
   /**
    * @name sponge
