@@ -85,6 +85,25 @@ var entangle = (function () {
 
     },
 
+    prepare: function (converter) {
+      return _.extend(converter, {
+
+        isReady: true,
+
+        descend: function () { return converter.next; },
+
+        resolve: function () {
+          var next = this.descend();
+          if (next) next.apply(next, arguments);
+        },
+
+        failure: function () {
+
+        },
+
+      });
+    },
+
     extend: function (kis) {
       _.extend(Entangle.prototype, _.transform(kis, function (r, v, k) {
         r[k] = entangle.initiator(v);
