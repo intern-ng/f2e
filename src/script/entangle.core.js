@@ -54,30 +54,24 @@ entangle.extend({
       return r.extend(v);
     }, _({}));
 
-    return function () {
-      var _this = this;
+    _valed.each(function (converter, channel) {
+      converter.next = function (___) {
+        var _args = array(arguments);
+        _converter.resolve(pair(channel, (_args.length == 1) ? ___ : _args));
+      };
+    });
+
+    var _converter = function () {
       var _args = array(arguments);
-
       _noval.each(function (converter) {
-        converter.apply({
-          resolve: function (___) { /* do nothing */ },
-          failure: function (err) { /* TODO error handling */ }
-        }, _args);
+        converter.apply(converter, _args);
       });
-
       _valed.each(function (converter, channel) {
-        converter.apply({
-          resolve: function (___) {
-            var _args = array(arguments);
-            return _this.resolve(
-              pair(channel, (_args.length == 1) ? ___ : _args)
-            );
-          },
-          failure: function (err) { /* TODO error handling */ }
-        }, _args);
+        converter.apply(converter, _args);
       });
-
     };
+
+    return _converter;
 
   }, // }}} fork
 
