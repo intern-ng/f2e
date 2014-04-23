@@ -34,15 +34,42 @@ entangle.extend({
   /**
    * @name fork
    * @desc fork current data to different converters
+   * @param slotname {string} - (optional) fork from this slot
    * @param convs {array}
    */
-  fork: function (convs) { // {{{
-    return function () {
-      var _args = arguments;
-      _.each(convs, function (converter) {
-        converter.apply(converter, _args);
-      });
-    };
+  fork: function (name, convs) { // {{{
+    if (typeid(name) != 'string') {
+      convs = name; name = '___';
+    }
+    if (typeid(convs) != 'object') {
+      convs = pair(name, convs);
+    }
+    _.each(convs, function (converters, slotname) {
+      if (typeid(converters) != 'array') {
+        converters = [ converters ];
+      }
+
+      var slot;
+
+      if (slotname == '___') {
+        slot = this.slot().last; // append a new slot to current location
+      } else {
+        slot = (function find (conv) {
+          if (!conv) return null;
+          if (conv instanceof entangle.Entangle) conv = conv.head;
+          if (conv.slotname == slotname) return conv;
+          // Never search into branches in a slot
+          return find(conv.next);
+        })(this.head);
+
+        if (!slot) {
+          throw new ReferenceError ('Cannot find slot with name "' + slotname + '"');
+        }
+      }
+
+      slot.branches = slot.branches.concat(converters);
+
+    }, this);
   }, // }}} fork
 
   /**
