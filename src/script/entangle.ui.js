@@ -92,12 +92,12 @@ entangle.extend({
    */
   radio: function (universe, selector) { // {{{
     return entangle()
-    .fork({
+    .hash({
       _states: entangle.data(universe),
       current: entangle.passby()
     })
     .sponge()
-    .fork({
+    .hash({
       on: entangle().pick('current'),
       off: entangle().pick('_states', 'current').difference()
     });

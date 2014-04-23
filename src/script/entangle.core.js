@@ -64,6 +64,28 @@ entangle.extend({
   }, // }}} fork
 
   /**
+   * @name hash
+   * @desc pipe same input to group of converters and obtained named values
+   * @param convs {object} - { channel_name -> converter }
+   */
+  hash: function (convs) {
+    var converter = function () {
+      var _args = arguments;
+      _.each(convs, function (converter) {
+        converter.apply(converter, _args);
+      });
+    };
+
+    _.each(convs, function (convert, channel) {
+      convert.next = function (___) {
+        converter.resolve(pair(channel, (arguments.length == 1) ? ___ : array(arguments)));
+      };
+    });
+
+    return converter;
+  },
+
+  /**
    * @name fold
    * @desc fold/reduce the input
    * @param reducer - reduce function
