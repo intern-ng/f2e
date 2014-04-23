@@ -2,7 +2,7 @@
 // Navigation Bar //
 ////////////////////
 
-var app = {
+var app = new entangle.Application({
 
   navbar: entangle()
 
@@ -30,9 +30,18 @@ var app = {
   .pick('role').array()
   .radio([ 'admin', 'student', 'teacher' ]).class$('.navbar .navbar-control'),
 
-};
+});
 
-app.navbar.fork({ location: app.set_path, raw_data: app.set_line, ___: [ app.set_name, app.set_role ] });
+// jshint -W085: dont-use-with
 
-app.navbar.call();
+with (app) app.route({
+  navbar: {
+    location: set_path,
+    raw_data: set_line,
+    ___: [ set_name, set_role ]
+  },
+  main: navbar,
+});
+
+app.call();
 
