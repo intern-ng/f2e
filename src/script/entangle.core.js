@@ -15,18 +15,6 @@ entangle.extend({
   }, // }}} passby
 
   /**
-   * @name flow
-   * @desc combine different converter to one converter
-   * @param convs {array}   - [ converter ]
-   */
-  flow: function (convs) { // {{{
-    // construct an entangle chain by array
-    var q = entangle();
-    _(arguments).flatten().each(function (converter) { q.append(converter); });
-    return q;
-  }, // }}} flow
-
-  /**
    * @name fork
    * @desc pipe same input to group of converters
    * @param convs... {object/array} - Valued := { channel_name -> converter } | Non-valued := [ converter ]

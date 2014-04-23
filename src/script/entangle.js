@@ -31,7 +31,7 @@ var entangle = (function () {
 
   // }}}
 
-  Entangle.prototype.append = function (converter) { // {{{
+  Entangle.prototype.flow = function (converter) { // {{{
 
     if (this.last) {
       this.last.next = converter;
@@ -45,7 +45,7 @@ var entangle = (function () {
 
     return this;
 
-  }; // }}} append
+  }; // }}} flow
 
   return _.extend(function () { return new Entangle(); }, {
 
@@ -62,7 +62,7 @@ var entangle = (function () {
         }
 
         if (this instanceof Entangle) {
-          return converter ? this.append(converter) : this;
+          return converter ? this.flow(converter) : this;
         } else {
           return converter;
         }
