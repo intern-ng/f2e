@@ -37,8 +37,8 @@ _.extend(eukit.io, {
    * @name HttpGet
    * @desc data juicer by performing http get request
    */
-  HttpGet: function (url, data) {
-    return function () {
+  HttpGet: function () {
+    return function (url, data) {
       var _this = this;
       var _url = (typeid(url) == 'function') ? url.apply(this, arguments) : url;
       return ajax.get(_url, data, {

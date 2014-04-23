@@ -9,7 +9,8 @@ entangle()
                   $('.navbar-collapse a[href="' + pathname + '"]').parent('li').addClass('active');
                 }),
       entangle().pick( /* 'search' is auto-detected */ ).qs()
-                .poll(eukit.io.HttpGet(function (qs) { return '/u/' + qs.u; }), 2000)
+                .pick(function (u) { this.resolve('/u/' + u); })
+                .poll(eukit.io.HttpGet(), 2000)
                 .fork([
                       entangle().pick('status')
                                 .array().cases({ 200: 'online', ___: 'offline' })
