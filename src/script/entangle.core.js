@@ -15,6 +15,23 @@ entangle.extend({
   }, // }}} passby
 
   /**
+   * @name slot
+   * @desc create a slot(marker) for fork on a chain
+   * @param name {string}
+   */
+  slot: function (name) {
+    return _.extend(function () {
+      this.resolve.apply(this, arguments);
+      _.each(this.branches, function (converter) {
+        converter.apply(converter, this);
+      }, arguments);
+    }, {
+      slotname: name,
+      branches: []
+    });
+  },
+
+  /**
    * @name fork
    * @desc fork current data to different converters
    * @param convs {array}
