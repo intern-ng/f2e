@@ -39,7 +39,7 @@ entangle.extend({
    */
   fork: function (name, convs) { // {{{
     if (typeid(name) != 'string') {
-      convs = name; name = '___';
+      convs = name; name = '$';
     }
     if (typeid(convs) != 'object' || convs instanceof entangle.Entangle) {
       convs = pair(name, convs);
@@ -51,7 +51,7 @@ entangle.extend({
 
       var slot;
 
-      if (slotname == '___') {
+      if (slotname == '$') {
         slot = this.slot().last; // append a new slot to current location
       } else {
         slot = (function find (conv) {

@@ -38,7 +38,7 @@ with (app) app.route({
   navbar: {
     location: set_path,
     raw_data: set_line,
-    ___: [ set_name, set_role ]
+    $       : [ set_name, set_role ]
   },
   main: navbar,
 });
