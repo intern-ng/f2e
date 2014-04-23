@@ -266,7 +266,7 @@ entangle.extend({
     return function (___) {
 
       if (!capture) {
-        var next = this.next();
+        var next = this.descend();
         capture = next && (next.capture || signatureof(next).param) || [ '___' ];
       }
 
