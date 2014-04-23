@@ -5,7 +5,9 @@
 var entangle = (function () {
 
   function Entangle () {
+
     var _next = null;
+
     Object.defineProperty(this, 'next', {
       get: function () { return _next; },
       set: function (value) {
@@ -13,6 +15,7 @@ var entangle = (function () {
         this.last.next = value;
       }
     });
+
   }
 
   // @interface(converter>function) {{{
@@ -28,7 +31,7 @@ var entangle = (function () {
 
   // }}}
 
-  Entangle.prototype.append = function (converter) {
+  Entangle.prototype.append = function (converter) { // {{{
 
     if (this.last) {
       this.last.next = converter;
@@ -42,17 +45,17 @@ var entangle = (function () {
 
     return this;
 
-  };
+  }; // }}} append
 
   return _.extend(function () { return new Entangle(); }, {
 
     Entangle: Entangle,
 
-    initiator: function (fu) {
+    initiator: function (fu) { // {{{
 
       return function () {
 
-        var converter = fapply(fu, this, arguments);
+        var converter = fu.apply(this, arguments);
 
         if (converter && !converter.isReady) {
           converter = entangle.prepare(converter);
@@ -66,9 +69,9 @@ var entangle = (function () {
 
       };
 
-    },
+    }, // }}} initiator
 
-    prepare: function (converter) {
+    prepare: function (converter) { // {{{
       return _.extend(converter, {
 
         isReady: true,
@@ -85,16 +88,20 @@ var entangle = (function () {
         },
 
       });
-    },
+    }, // }}} prepare
 
-    extend: function (kis) {
+    extend: function (kis) { // {{{
+
       var _kis = _.transform(kis, function (r, v, k) {
         r[k] = entangle.initiator(v);
       });
+
       _.extend(Entangle.prototype, _kis);
       _.extend(this, _kis);
+
       return this;
-    }
+
+    }, // }}} extend
 
   });
 
