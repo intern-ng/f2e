@@ -80,9 +80,12 @@ var entangle = (function () {
         if (converter && !converter.isReady) {
           converter = entangle.prepare(converter);
         }
-        if (converter) this.append(converter);
 
-        return this;
+        if (this instanceof Entangle) {
+          return converter ? this.append(converter) : this;
+        } else {
+          return converter;
+        }
 
       };
 
@@ -108,10 +111,12 @@ var entangle = (function () {
     },
 
     extend: function (kis) {
-      _.extend(Entangle.prototype, _.transform(kis, function (r, v, k) {
+      var _kis = _.transform(kis, function (r, v, k) {
         r[k] = entangle.initiator(v);
-      }));
-      return _.extend(this, kis);
+      });
+      _.extend(Entangle.prototype, _kis);
+      _.extend(this, _kis);
+      return this;
     }
 
   });
