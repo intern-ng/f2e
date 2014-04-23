@@ -51,14 +51,14 @@ var entangle = (function () {
 
     Entangle: Entangle,
 
-    initiator: function (fu) { // {{{
+    initiator: function (fu, typename) { // {{{
 
       return function () {
 
         var converter = fu.apply(this, arguments);
 
         if (converter && !converter.isReady) {
-          converter = entangle.prepare(converter);
+          converter = entangle.prepare(converter, typename);
         }
 
         if (this instanceof Entangle) {
@@ -71,10 +71,12 @@ var entangle = (function () {
 
     }, // }}} initiator
 
-    prepare: function (converter) { // {{{
+    prepare: function (converter, typename) { // {{{
       return _.extend(converter, {
 
         isReady: true,
+
+        typename: typename,
 
         descend: function () { return converter.next; },
 
@@ -93,7 +95,7 @@ var entangle = (function () {
     extend: function (kis) { // {{{
 
       var _kis = _.transform(kis, function (r, v, k) {
-        r[k] = entangle.initiator(v);
+        r[k] = entangle.initiator(v, k);
       });
 
       _.extend(Entangle.prototype, _kis);
