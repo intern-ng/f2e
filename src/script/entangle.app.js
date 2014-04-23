@@ -24,6 +24,16 @@ entangle.Application = (function () {
       return this;
     },
 
+    dependency: function (obj) {
+      this.route(_.transform(obj, function (r, v, k) {
+        var ref = v.split(' ');
+        var chain = ref[0], slot = ref[1] || '$';
+        r[chain] = r[chain] || {};
+        r[chain][slot] = r[chain][slot] || [];
+        r[chain][slot].push(this[k]);
+      }, {}, this));
+    },
+
     route: function (obj) {
       _.each(obj, function (v, k) {
         this[k].fork(v);
