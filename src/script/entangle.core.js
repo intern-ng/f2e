@@ -20,14 +20,20 @@ entangle.extend({
    * @param name {string}
    */
   slot: function (name) { // {{{
+    var cache;
     return _.extend(function () {
+      cache = arguments;
       this.resolve.apply(this, arguments);
-      _.each(this.branches, function (converter) {
+      _.each(this.__branch, function (converter) {
         converter.apply(converter, this);
       }, arguments);
     }, {
       slotname: name,
-      branches: []
+      __branch: [],
+      fork: function (converter) {
+        this.__branch.push(converter);
+        if (cache) converter.apply(converter, cache);
+      }
     });
   }, // }}} slot
 
@@ -52,7 +58,7 @@ entangle.extend({
       var slot;
 
       if (slotname == '$') {
-        slot = this.slot().last; // append a new slot to current location
+        slot = this.last.typename == 'slot' ? this.last : this.slot().last; // append a new slot to current location
       } else {
         slot = (function find (conv) {
           if (!conv) return null;
@@ -67,7 +73,7 @@ entangle.extend({
         }
       }
 
-      slot.branches = slot.branches.concat(converters);
+      _.each(converters, slot.fork, slot);
 
     }, this);
   }, // }}} fork
