@@ -41,7 +41,7 @@ entangle.extend({
     if (typeid(name) != 'string') {
       convs = name; name = '___';
     }
-    if (typeid(convs) != 'object') {
+    if (typeid(convs) != 'object' || convs instanceof entangle.Entangle) {
       convs = pair(name, convs);
     }
     _.each(convs, function (converters, slotname) {
