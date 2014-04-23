@@ -43,5 +43,5 @@ with (app) app.route({
   main: navbar,
 });
 
-app.call();
+app.setup();
 

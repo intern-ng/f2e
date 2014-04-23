@@ -31,7 +31,7 @@ entangle.Application = (function () {
       return this;
     },
 
-    call: function () {
+    setup: function () {
       this.main.call();
     },
 
