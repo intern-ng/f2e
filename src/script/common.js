@@ -12,24 +12,22 @@ var noopa = function () {
 
 // }}}
 
-// Figure out type of `obj'
-var typeid = function (obj) {
+var typeid = function (obj) { // get type name of `obj' {{{
   return Object.prototype.toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
-};
+}; // }}} typeid
 
-// Get query component parameter by name
-var qscomponent = function (name) {
+var qscomponent = function (name) { // get query component parameter by name {{{
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
   results = regex.exec(location.search);
   return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-};
+}; // }}} qscomponent
 
 var fapply = function (f, ctx, args) {
   return f.apply(ctx, Array.prototype.slice.call(args, 0));
 };
 
-var signatureof = function (func) {
+var signatureof = function (func) { // {{{
   var s = func.toString();
   var m = s.match(/^\s*function\s*([^(]*)\s*\(([^)]*)\)\s*\x7b/i);
   if (m) {
@@ -40,23 +38,23 @@ var signatureof = function (func) {
   } else {
     return null;
   }
-};
+}; // }}} signatureof
 
-var uuid = function () {
+var uuid = function () { // {{{
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
     return v.toString(16);
   });
-};
+}; // }}} uuid
 
-var pair = function (k, v) {
+var pair = function (k, v) { // {{{
   var obj = {}; obj[k] = v;
   return obj;
-};
+}; // }}} pair
 
-var array = function (array, start) {
+var array = function (array, start) { // {{{
   return Array.prototype.slice.call(array, start || 0);
-};
+}; // }}} array
 
 // AJAX Utility {{{
 
