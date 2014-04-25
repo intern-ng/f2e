@@ -20,8 +20,10 @@ _.extend(eukit, {
         }),
         data: _.extend(cache || data, data)
       };
-    } else {
+    } else if (data) {
       return { changed: cache != data, data: data };
+    } else {
+      return { changed: false, data: cache };
     }
   },
 
