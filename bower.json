@@ -25,6 +25,7 @@
     "tagmanager": "~3.0.1",
     "typeahead.js": "~0.10.2",
     "jquery.fileDownload": "~1.4.2",
-    "jasny-bootstrap": "~3.1.2"
+    "jasny-bootstrap": "~3.1.2",
+    "pen": "~0.0.3"
   }
 }
