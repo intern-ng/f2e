@@ -28,11 +28,20 @@ append content
             .form-group
               label.col-md-3.control-label 用户名
               .col-md-5
-                input.form-control(type='text', name='')
+                input.form-control(type='text', name='username', disabled)
             .form-group
               label.col-md-3.control-label 邮箱地址
               .col-md-5
-                input.form-control(type='email', name='')
+                input.form-control(type='email', name='email')
+              .col-md-offset-3.col-md-9
+                span.help-block
+                  | 此邮箱地址为不公开邮箱, 仅用于密码找回
+                  br
+                  | 请进入
+                  a(href='#profile') 个人资料页
+                  | 管理您的联系方式, 或
+                  a(href='#message') 消息/提醒页
+                  | 设置用于接收消息与提醒的电子邮件地址
             .form-group
               .col-md-offset-3.col-md-9
                 button.btn.btn-default(type='submit') 保存
@@ -43,16 +52,19 @@ append content
             .form-group
               label.col-md-3.control-label 原密码
               .col-md-5
-                input.form-control(type='password', name='')
+                input.form-control(type='password', name='password')
             .form-group
               label.col-md-3.control-label 新密码
               .col-md-5
-                input.form-control(type='password', name='')
+                input.form-control(type='password', name='password')
             .form-group
-              label.col-md-3.control-label 重复新密码
+              label.col-md-3.control-label 重新输入
               .col-md-5
-                input.form-control(type='password', name='')
+                input.form-control(type='password', name='password')
+              .col-md-offset-3.col-md-9
+                span.help-block
+                  | 请您再次输入确认本账户的新密码
             .form-group
               .col-md-offset-3.col-md-9
-                button.btn.btn-default(type='submit') 保存
+                button.btn.btn-default(type='submit') 更改
 
