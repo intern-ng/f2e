@@ -26,13 +26,9 @@ append content
         a.list-group-item(href='#help')
           span.glyphicon.glyphicon-question-sign
           | &nbsp; 常见问题
-      .list-group.navlist
-        a.list-group-item(href='#')
-          span.glyphicon.glyphicon-log-out
-          | &nbsp; 退出登录
     .col-md-7.section-control
       .section-account.panel.panel-default
-        .panel-heading 用户信息
+        .panel-heading 账户信息
         .panel-body
           form.form-horizontal
             .form-group
@@ -77,6 +73,16 @@ append content
             .form-group
               .col-md-offset-3.col-md-9
                 button.btn.btn-default(type='submit') 更改
+      .section-account.panel.panel-default
+        .panel-heading 会话
+        .panel-body
+          .row
+            .col-md-offset-3.col-md-6
+              button.btn.btn-default.btn-block(type='button') 注销会话
+            .col-md-12.text-center
+              span.help-block
+                p 注销之后您将回到“未登录”状态, 您可以重新登录本账户或者更换账户登录
+                p 服务器将销毁您的临时状态, 但您的偏好设置和业务数据仍将保存在服务器上
       .section-profile.panel.panel-default
         .panel-heading 头像与封面
         .panel-body
