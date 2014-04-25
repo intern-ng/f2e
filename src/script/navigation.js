@@ -4,13 +4,20 @@
 
 var navbar = new entangle.Application({
 
-  navbar: entangle()
+  location: entangle().location(),
 
-  .location().slot('location')
+  user_uri: entangle()
+
   .pick( /* 'search' is auto-detected */ ).qs()
-  .pick(function (u) { this.resolve('/u/' + u); })
-  .poll(eukit.io.HttpGet(), 2000).slot('raw_data')
-  .pick('data'),
+  .pick(function (u) { this.resolve('/u/' + u); }),
+
+  userdata: entangle()
+
+  .sponge(true).json('get').slot('raw').pick('data'),
+
+  userdata_poll: entangle()
+
+  .timeout(2000).data(),
 
   navbar_set_path: entangle()
 
@@ -33,17 +40,24 @@ var navbar = new entangle.Application({
 });
 
 navbar.dependency({
-  navbar_set_line: 'navbar raw_data',
-  navbar_set_path: 'navbar location',
-  navbar_set_name: 'navbar',
-  navbar_set_role: 'navbar',
+  user_uri: 'location',
+  userdata: 'user_uri',
+  userdata_poll: 'userdata',
+  navbar_set_line: 'userdata raw',
+  navbar_set_path: 'location',
+  navbar_set_name: 'userdata',
+  navbar_set_role: 'userdata',
+});
+
+navbar.route({
+  userdata_poll: 'userdata',
 });
 
 app.extend(navbar);
 
 app.dependency({
 
-  navbar: 'main'
+  location: 'main'
 
 });
 
