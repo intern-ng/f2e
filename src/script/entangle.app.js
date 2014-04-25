@@ -23,14 +23,21 @@ entangle.Application = (function () {
       return this;
     },
 
+    // Syntax
+    //  DEPENDENCY := 'CONVNAME' | 'CONVNAME SLOTNAME'
+    //  OBJ        := { CONVNAME: DEPENDENCY | [ DEPENDENCY ] }
     dependency: function (obj) {
-      this.route(_.transform(obj, function (r, v, k) {
-        var ref = v.split(' ');
-        var chain = ref[0], slot = ref[1] || '$';
-        r[chain] = r[chain] || {};
-        r[chain][slot] = r[chain][slot] || [];
-        r[chain][slot].push(this[k]);
-      }, {}, this));
+      var app = this;
+      app.route(_.transform(obj, function (r, v, k) {
+        _.each(typeid(v) == 'array' ? v : [ v ], function (v) {
+          var ref = v.split(' ');
+          var chain = ref[0], slot = ref[1] || '$';
+          r[chain] = r[chain] || {};
+          r[chain][slot] = r[chain][slot] || [];
+          r[chain][slot].push(app[k]);
+        });
+      }));
+      return this;
     },
 
     route: function (obj) {
