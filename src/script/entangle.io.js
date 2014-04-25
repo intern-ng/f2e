@@ -63,5 +63,16 @@ entangle.extend({
     };
   }, // }}} http
 
+  /**
+   * @name json
+   * @desc ajax method with json data
+   */
+  json: function (method, option) { // {{{ json
+    return entangle.http(method, _.defaults(option || {}, {
+      cache: false,
+      dataType: 'json'
+    }));
+  }, // }}} json
+
 });
 
