@@ -8,9 +8,10 @@ entangle.extend({
    * @name data
    * @desc resolves static data
    */
-  data: function (data) { // {{{
+  data: function () { // {{{
+    var data = array(arguments);
     return function () {
-      this.resolve(data);
+      fapply(this.resolve, this, data);
     };
   }, // }}} data
 
