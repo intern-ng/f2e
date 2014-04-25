@@ -23,7 +23,7 @@ var setting = new entangle.Application({
     this.resolve('section-' + ___);
   })
   .array()
-  .radio([ 'section-account', 'section-profile', 'section-message', 'section-privacy' ])
+  .radio([ 'section-account', 'section-profile', 'section-message', 'section-privacy', 'section-help', 'section-feedback' ])
   .class$('.section-control')
 
 });

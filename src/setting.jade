@@ -19,7 +19,15 @@ append content
         a.list-group-item(href='#privacy')
           span.glyphicon.glyphicon-lock
           | &nbsp; 隐私保护
-        a.list-group-item(href='#signout')
+      .list-group.navlist
+        a.list-group-item(href='#feedback')
+          span.glyphicon.glyphicon-send
+          | &nbsp; 意见反馈
+        a.list-group-item(href='#help')
+          span.glyphicon.glyphicon-question-sign
+          | &nbsp; 常见问题
+      .list-group.navlist
+        a.list-group-item(href='#')
           span.glyphicon.glyphicon-log-out
           | &nbsp; 退出登录
     .col-md-7.section-control
@@ -213,3 +221,14 @@ append content
                     li: a(href='#') 登录用户可见
                     li: a(href='#') 所有导师可见
                     li: a(href='#') 不可见
+      .section-feedback.panel.panel-default
+        .panel-heading 意见反馈
+        .panel-body
+          center
+            p 对系统有任何意见请发送至管理员邮箱 foo (·A·) bar.com
+            h2 感谢您反馈意见
+      .section-help.panel.panel-default
+        .panel-heading 常见问题
+        .panel-body
+          p 本节暂未编辑...
+
