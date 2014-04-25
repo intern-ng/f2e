@@ -9,7 +9,8 @@ var navbar = new entangle.Application({
   user_uri: entangle()
 
   .pick( /* 'search' is auto-detected */ ).qs()
-  .pick(function (u) { this.resolve('/u/' + u); }),
+  .pick(function (u) { this.resolve('/u/' + u); })
+  .sponge(),
 
   userdata: entangle()
 
