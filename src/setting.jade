@@ -1,10 +1,12 @@
 extends workspace
 append style
   +stylesheet('/style/setting.css')
+append script
+  +javascript('/script/setting.js')
 append content
   .row
     .col-md-offset-1.col-md-3
-      .list-group
+      .list-group.navlist
         a.list-group-item(href='#account')
           span.glyphicon.glyphicon-star
           | &nbsp; 账户信息
