@@ -40,10 +40,31 @@ entangle.Application = (function () {
       return this;
     },
 
+    // Syntax
+    //  CONVERTER := STRING | CONVERTER_FUNCTION
+    //  CHILDREN  := [ CONVERTER ] | CONVERTER
+    //  SLOTDEFS  := { SLOTNAME: CHILDREN }
+    //  OBJ       := { CONVNAME: SLOTDEFS | CHILDREN }
     route: function (obj) {
+      var app = this;
       _.each(obj, function (v, k) {
-        this[k].fork(v);
-      }, this);
+        if (typeid(v) == 'string') {
+          v = app[v];
+        }
+        if (typeid(v) == 'object' && ! v instanceof entangle.Entangle) {
+          v = _.transform(v, function (r, v, k) {
+            if (typeid(v) != 'array') v = [ v ];
+            r[k] = _.map(v, function (v) {
+              if (typeid(v) == 'string') {
+                return app[v];
+              } else {
+                return v;
+              }
+            });
+          });
+        }
+        app[k].fork(v);
+      });
       return this;
     },
 
