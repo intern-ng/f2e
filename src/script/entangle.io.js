@@ -42,5 +42,26 @@ entangle.extend({
 
   }, // }}} timeout
 
+  /**
+   * @name http
+   * @desc performing http get request
+   * @param method - GET/PUT/POST/DELETE
+   * @param option - options passed to jQuery.ajax
+   */
+  http: function (method, option) { // {{{
+    return function (url, data, _option) {
+      var _this = this;
+      var _url = (typeid(url) == 'function') ? url.apply(this, arguments) : url;
+      _option = _.defaults(_option || {}, option);
+      return ajax(method, _url, data, _option, ajax.handler('*', function (data, status, xhr) {
+        return _this.resolve({
+          data: data,
+          status: status,
+          xhr: xhr
+        });
+      }));
+    };
+  }, // }}} http
+
 });
 
