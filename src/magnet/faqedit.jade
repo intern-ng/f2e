@@ -9,7 +9,7 @@ append script
 append content
   form
     .row.control-group
-      .col-sm-offset-1.col-sm-8.col-xs-10.col-lg-10.well.well-lg
+      .col-sm-offset-1.col-sm-8.col-xs-10.col-lg-10.box.box-well
         .editor(data-toggle='pen')
         hr
         small.pull-right.view-status-text 最后保存于 5 秒前
@@ -21,11 +21,11 @@ append content
                 button.btn.btn-default(type='submit')
                   span.glyphicon.glyphicon-save
                   span.hidden-xs &nbsp; 保存
-                button.btn.btn-default(type='button')
-                  span.glyphicon.hidden.glyphicon-eye-close
+                button.btn.btn-default#mode(type='button')
+                  span.glyphicon.glyphicon-eye-close
                   span.glyphicon.glyphicon-eye-open
                   span.hidden-xs &nbsp; 模式
-                button.btn.btn-default(type='button')
+                button.btn.btn-default#hinted(type='button')
                   span.glyphicon.glyphicon-tint
                   span.hidden-xs &nbsp; 提示
     .row.control-group
