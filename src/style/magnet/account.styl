@@ -1,0 +1,43 @@
+
+.box-item
+
+  position relative
+  background white
+
+.view-account-entry
+
+  padding-right 20px
+  padding-top 15px
+  padding-bottom 15px
+  padding-left 111px
+  height 96px
+
+  &::after
+    content ''
+    position absolute
+    top 0px
+    bottom 0px
+    right 0px
+    width 5px
+    background grey
+
+  &.activated::after
+    background green
+
+  &.selected::after
+    background blue
+
+.view-photo-img
+  position absolute
+  top 0px
+  bottom 0px
+  left 0px
+  max-height 100%
+  max-width 100%
+
+.list-group-item
+  overflow hidden
+
+.section
+  margin-bottom 20px
+

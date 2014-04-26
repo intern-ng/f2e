@@ -4,3 +4,28 @@ append style
 append script
   +javascript('/script/magnet/account.js')
 append content
+  .row
+    .col-md-offset-2.col-md-8.col-lg-offset-1.col-lg-10
+      .row.section
+        .col-xs-3
+          a.btn.btn-primary(href='#')
+            span.glyphicon.glyphicon-plus
+            | &nbsp; 创建用户
+        .col-xs-9.text-right
+          .btn-group
+            a.btn.btn-default(href='#')
+              span.glyphicon.glyphicon-import
+              | &nbsp; 导入
+            a.btn.btn-default(href='#')
+              span.glyphicon.glyphicon-export
+              | &nbsp; 导出
+      .row.section
+        .col-xs-12.col-lg-6
+          .box.box-item.view-account-entry.activated
+            img.view-photo-img(src='/img/default_avatar.jpg')
+            h4
+              span.view-name-text 王小二
+              span.view-username-text (koobur)
+            i.glyphicon.glyphicon-envelope
+            span.view-email-text foo@bar.com
+
