@@ -14,7 +14,7 @@ app.extend({
 
   userdata: entangle()
 
-  .sponge(true).json('get').slot('raw').pick('data'),
+  .sponge(true).json('get').slot('raw').pick('data').sponge(),
 
   userdata_poll: entangle()
 
@@ -43,7 +43,7 @@ app.extend({
 app.dependency({
   user_uri: 'location',
   userdata: 'user_uri',
-  userdata_poll: 'userdata',
+  userdata_poll: 'userdata raw',
   navbar_set_line: 'userdata raw',
   navbar_set_path: 'location',
   navbar_set_name: 'userdata',
