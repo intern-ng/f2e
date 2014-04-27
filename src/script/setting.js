@@ -2,7 +2,7 @@
 // Setting //
 /////////////
 
-var setting = new entangle.Application({
+app.extend({
 
   urlhash: entangle()
 
@@ -27,8 +27,6 @@ var setting = new entangle.Application({
   .class$('.section-control')
 
 });
-
-app.extend(setting);
 
 app.dependency({
   setting_set_section: 'urlhash',

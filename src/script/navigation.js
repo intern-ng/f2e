@@ -2,7 +2,7 @@
 // Navigation Bar //
 ////////////////////
 
-var navbar = new entangle.Application({
+app.extend({
 
   location: entangle().location(),
 
@@ -40,7 +40,7 @@ var navbar = new entangle.Application({
 
 });
 
-navbar.dependency({
+app.dependency({
   user_uri: 'location',
   userdata: 'user_uri',
   userdata_poll: 'userdata',
@@ -50,15 +50,11 @@ navbar.dependency({
   navbar_set_role: 'userdata',
 });
 
-navbar.route({
+app.route({
   userdata_poll: 'userdata',
 });
 
-app.extend(navbar);
-
 app.dependency({
-
   location: 'main'
-
 });
 
