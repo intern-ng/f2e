@@ -1,14 +1,16 @@
 extends workspace
 append style
   +stylesheet('/style/home.css')
+append script
+  +javascript('/script/home.js')
 append content
   .row
     .col-md-12.view-profile
-      .col-md-4.view-cover(style='background: url("/img/default_cover.jpg") no-repeat center;')
+      .col-md-4.view-cover
         .fill-parent.darken.h-center.v-center-ib-container
           .view-profile-summary.v-center
-            img.view-photo-img.img-circle(src='/img/default_photo.jpg')
-            h3.view-nickname Kirisetsz
+            img.view-photo-img.img-circle
+            h3.view-nickname
             .view-status 没有任何课程记录
       .col-md-8.col-md-offset-4
         .view-profile-detail
