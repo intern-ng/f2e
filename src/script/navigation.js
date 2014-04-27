@@ -54,7 +54,8 @@ app.route({
   userdata_poll: 'userdata',
 });
 
-app.dependency({
-  location: 'main'
+// attach to entry point `main`
+app.route({
+  main: 'location'
 });
 
