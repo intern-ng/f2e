@@ -24,8 +24,12 @@ append content
           .box.box-item.view-account-entry.activated
             img.view-photo-img(src='/img/default_avatar.jpg')
             h4
-              span.view-name-text 王小二
-              span.view-username-text (koobur)
-            i.glyphicon.glyphicon-envelope
-            span.view-email-text foo@bar.com
+              span.view-nickname-text 王小二
+              span.view-username
+                | (
+                span.view-username-text koobur
+                | )
+            .view-email
+              i.glyphicon.glyphicon-envelope
+              span.view-email-text foo@bar.com
 
