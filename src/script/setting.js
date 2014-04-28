@@ -19,12 +19,7 @@ app.extend({
 
   setting_set_section: entangle()
 
-  .pick(function (___) {
-    this.resolve('section-' + ___);
-  })
-  .array()
-  .radio([ 'section-account', 'section-profile', 'section-message', 'section-privacy', 'section-help', 'section-feedback' ])
-  .class$('.section-control')
+  .visibic$('.panel-control > [data-visibic]'),
 
 });
 

@@ -9,7 +9,7 @@ app.extend({
   user_uri: entangle()
 
   .pick( /* 'search' is auto-detected */ ).qs()
-  .pick(function (u) { this.resolve('/u/' + u); })
+  .pick(function (u) { this.resolve('/u/' + u); }, false)
   .sponge(),
 
   userdata: entangle()
@@ -27,7 +27,7 @@ app.extend({
   navbar_set_line: entangle()
 
   .pick('status').array().cases({ 200: 'online', ___: 'offline' })
-  .radio(['online', 'offline']).class$('.navbar .navbar-control'),
+  .visibic$('.navbar-right [data-visibic], .navbar-left'),
 
   navbar_set_name: entangle()
 
@@ -35,8 +35,8 @@ app.extend({
 
   navbar_set_role: entangle()
 
-  .pick('role').array()
-  .radio([ 'admin', 'student', 'teacher' ]).class$('.navbar .navbar-control'),
+  .pick('role')
+  .visibic$('.navbar-left [data-visibic]'),
 
 });
 
