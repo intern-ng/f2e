@@ -116,6 +116,23 @@ entangle.extend({
     });
   }, // }}}
 
+  /**
+   * @name visibic
+   * @desc `visibic` element visibility control
+   */
+  visibic$: function (selector) {
+    return function (enabled) {
+      enabled = typeid(enabled) == 'array' ? enabled : [ enabled ];
+      enabled.push('*');
+      $(selector)
+      .addClass('hidden')
+      .filter(_.map(enabled, function (v) {
+        return '[data-visibic~="' + v + '"]';
+      }).join(', '))
+      .removeClass('hidden');
+    };
+  },
+
 });
 
 // Make jQuery shortcuts {{{
