@@ -32,4 +32,63 @@ append content
             .view-email
               i.glyphicon.glyphicon-envelope
               span.view-email-text foo@bar.com
+      .row.section.editor.hidden
+        .col-md-12
+          .box.box-item.v-center-ib-container.view-account-entry.activated
+            img.view-photo-img(src='/img/default_avatar.jpg')
+            .v-center
+              h4
+                span.view-nickname-text 王小二
+                span.view-username
+                  | (
+                  span.view-username-text koobur
+                  | )
+              .view-email
+                i.glyphicon.glyphicon-envelope
+                span.view-email-text foo@bar.com
+        .col-md-12
+          .box.box-item.view-edit-account
+            form.form-horizontal
+              .form-group
+                label.col-md-3.control-label 用户名
+                .col-md-5
+                  input.form-control(type='text', name='username', disabled)
+              .form-group
+                label.col-md-3.control-label 电子邮箱
+                .col-md-5
+                  input.form-control(type='email', name='email')
+              .form-group
+                label.col-md-3.control-label 密码
+                .col-md-5
+                  button.btn.btn-danger(type='button') 重置密码
+                  input.form-control.hidden(type='text', name='password')
+              .form-group
+                label.col-md-3.control-label 权限
+                .col-xs-6.col-md-9
+                  .btn-group
+                    button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                      | 管理员
+                      | &nbsp;
+                      span.caret
+                    ul.dropdown-menu
+                      li: a(href='#') 导师
+                      li: a(href='#') 学员
+              .form-group
+                label.col-md-3.control-label 操作
+                .col-xs-6.col-md-9
+                  .btn-group
+                    button.btn.btn-default 删除帐号
+              hr
+              .form-group
+                label.col-md-3.control-label 姓名
+                .col-md-2
+                  input.form-control(type='text', name='nickname')
+              .form-group
+                label.col-md-3.control-label 标签
+                .col-md-5
+                  input.form-control(type='text', name='usertag')
+
+              .form-group
+                .col-md-offset-3.col-md-9
+                  button.btn.btn-primary(type='submit') 保存
 
