@@ -9,27 +9,27 @@ append script
 append container
   form
     .row.control-group
-      .col-sm-offset-1.col-sm-8.col-xs-10.col-lg-10.box.box-well
+      .col-md-offset-1.col-md-10.box.box-default.box-rounded.padding-md.margin-bottom.margin-md
         .editor(data-toggle='pen')
+        .btn-group.pull-right
+          button.btn.btn-default#mode(type='button')
+            span.mode-readonly
+              span.glyphicon.glyphicon-eye-open
+              span.hidden-xs &nbsp; 只读
+            span.mode-editable
+              span.glyphicon.glyphicon-pencil
+              span.hidden-xs &nbsp; 编辑
+          button.btn.btn-default#hinted.off(type='button')
+            span.glyphicon.glyphicon-tint
+            span.hidden-xs.hint-on &nbsp; 代码(开)
+            span.hidden-xs.hint-off &nbsp; 代码(关)
+          button.btn.btn-default(type='submit')
+            span.glyphicon.glyphicon-save
+            span.hidden-xs &nbsp; 保存
         hr
-        small.pull-right.view-status-text 最后保存于 5 秒前
-      .col-sm-2.col-xs-2.col-lg-1
-        .affix-top(data-spy="affix")
-          .row
-            .col-sm-12
-              .btn-group-vertical
-                button.btn.btn-default(type='submit')
-                  span.glyphicon.glyphicon-save
-                  span.hidden-xs &nbsp; 保存
-                button.btn.btn-default#mode(type='button')
-                  span.glyphicon.glyphicon-eye-close
-                  span.glyphicon.glyphicon-eye-open
-                  span.hidden-xs &nbsp; 模式
-                button.btn.btn-default#hinted(type='button')
-                  span.glyphicon.glyphicon-tint
-                  span.hidden-xs &nbsp; 提示
+        small.view-status-text 最后保存于 5 秒前
     .row.control-group
-      .col-sm-offset-1.col-sm-8.col-xs-10.col-lg-10
+      .col-md-offset-1.col-md-10
         p.pull-left
           | 在编辑器中输入文本, 然后选择文本即可编辑样式
         p.pull-right

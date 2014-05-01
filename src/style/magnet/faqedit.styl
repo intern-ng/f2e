@@ -7,15 +7,29 @@
 
 #mode
 
-  .glyphicon-eye-close
+  .mode-editable
     display inline-block
-  .glyphicon-eye-open
+  .mode-readonly
     display none
 
   &.off
-    .glyphicon-eye-close
+    .mode-editable
       display none
-    .glyphicon-eye-open
+    .mode-readonly
       display inline-block
+
+#hinted
+
+  .hint-off
+    display none
+  .hint-on
+    display inline-block
+
+  &.off
+    .hint-off
+      display inline-block
+    .hint-on
+      display none
+
 
 
