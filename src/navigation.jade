@@ -1,0 +1,58 @@
+
+.container
+
+  .navbar-header
+
+    button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+
+    img.navbar-brand(src='/img/logo/50.png')
+
+  .navbar-collapse.collapse
+
+    ul.nav.navbar-nav.navbar-left.hidden(data-visibic='online')
+      li: a(href='/home.html')
+        span.glyphicon.glyphicon-home
+        | &nbsp; 主页
+      li.hidden(data-visibic='student'): a(href='#')
+        span.glyphicon.glyphicon-book
+        | &nbsp; 我的课程
+      li.hidden(data-visibic='student'): a(href='#')
+        span.glyphicon.glyphicon-leaf
+        | &nbsp; 新课程
+      li.hidden(data-visibic='admin teacher'): a(href='#')
+        span.glyphicon.glyphicon-tree-deciduous
+        | &nbsp; 课程管理
+      li.hidden(data-visibic='admin teacher'): a(href='#')
+        span.glyphicon.glyphicon-th-list
+        | &nbsp; 表单管理
+      li.hidden(data-visibic='admin').dropdown
+        a.dropdown-toggle(href='/magnet.html', data-toggle='dropdown')
+          span.glyphicon.glyphicon-magnet
+          | &nbsp; 系统维护
+          | &nbsp;
+          b.caret
+        ul.dropdown-menu
+          li: a(href='/magnet/account.html') 用户账户
+          li: a(href='/magnet/faqedit.html') FAQ编辑
+          li.hidden: a(href='/magnet/backup.html') 备份/恢复
+
+    ul.nav.navbar-nav.navbar-right
+      li.hidden(data-visibic='online').dropdown
+        a.dropdown-toggle(href='#', data-toggle='dropdown')
+          span.glyphicon.glyphicon-user
+          | &nbsp;
+          span.data-holder.data-profile-name NAME
+          | &nbsp;
+          b.caret
+        ul.dropdown-menu
+          li: a(href='/setting.html#profile') 个人资料
+          li.divider
+          li: a(href='/setting.html#help') 常见问题
+          li: a(href='/setting.html#account') 设置
+      li.hidden(data-visibic='offline'): a(href='#')
+        span.glyphicon.glyphicon-user
+        | &nbsp; 登录
+
