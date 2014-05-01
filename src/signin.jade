@@ -7,7 +7,8 @@ append script
   +javascript('/script/signin.js')
 block content
   .vertical-center.box.box-default.box-fullwidth.padding-lg
-    form.position.horizontal-center.signin
+    form.position.horizontal-center.signin(method='get', action='/dashboard.html')
+      input(type='hidden', name='u', value='0')
       .form-group
         input.form-control(type='text', name='username', placeholder='用户名')
       .form-group
