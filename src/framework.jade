@@ -17,8 +17,11 @@ html
     .wrapper
       .content-container.position-container.vertical-center-ib
         .navbar.navbar-default.navbar-fixed-top
-          include navigation
+          .container
+            include navigation
         block content
+          .container
+            block container
       .footer-container
         .footer
           .container
