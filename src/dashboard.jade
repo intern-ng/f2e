@@ -1,9 +1,9 @@
-extends workspace
+extends framework
 append style
   +stylesheet('/style/dashboard.css')
 append script
   +javascript('/script/dashboard.js')
-append content
+block container
   .row
     .col-md-12.view-profile
       .col-md-4.view-cover
@@ -29,6 +29,4 @@ append content
           | “社区强迫症患者专项整治行动通告”、
           | “《治疗不能放弃》专题讲座”、
           | “2010级毕业设计论文提交已开放”
-
-
 

@@ -1,12 +1,11 @@
 extends framework
 append head
   title 贰叁叁课程管理 - 用户登录
-append favicon
 append style
   +stylesheet('/style/signin.css')
 append script
   +javascript('/script/signin.js')
-append content-container
+block content
   .vertical-center.box.box-default.box-fullwidth.padding-lg
     form.position.horizontal-center.signin
       .form-group
@@ -15,5 +14,3 @@ append content-container
         input.form-control(type='password', name='password', placeholder='密码')
       .form-group
         button.btn.btn-default.btn-block.pull-right(type='submit') 登录
-
-
