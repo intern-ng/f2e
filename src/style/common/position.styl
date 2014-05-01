@@ -1,0 +1,27 @@
+
+.position-container.vertical-center-ib
+
+  // inline-block space workaround {{{
+
+  word-spacing -0.3em
+  line-height 0px
+
+  &>*
+    word-spacing normal
+    line-height normal
+
+  // }}} inline-block whitespace
+
+  &:before
+    display inline-block
+    content ""
+    height  100%
+    vertical-align middle
+
+  &>.vertical-center
+    display inline-block
+    vertical-align middle
+
+.position-container.horizontal-center
+  text-align center
+

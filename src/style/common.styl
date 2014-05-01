@@ -4,30 +4,12 @@ html, body
   background #EEE
   height 100%
 
-.form-horizontal label.control-label
-  font-weight normal
-  padding-top 9px
-  padding-bottom 9px
-
 // Selection Area Style {{{
 
 ::selection
   background #FF5E99
   color #FFF
   text-shadow none
-
-// }}}
-
-// No border {{{
-
-a:focus, :focus
-  outline none !important
-
-::-moz-focus-inner
-  border 0 !important
-
-input
-  outline-style none !important
 
 // }}}
 
@@ -57,55 +39,16 @@ input
 // }}}
 
 // navbar {{{
-.navbar~.container
+
+.navbar.navbar-fixed-top~.container
   margin-top 70px
   margin-bottom 20px
+
 .navbar img.navbar-brand
   padding 0px
   margin-right 15px
+
 // }}}
-
-.v-center-ib-container
-
-  // inline-block space workaround {{{
-
-  word-spacing -0.3em
-  line-height 0px
-
-  &>*
-    word-spacing normal
-    line-height normal
-
-  // }}} inline-block whitespace
-
-  &.h-center
-    text-align center
-
-  &:before
-    display inline-block
-    content ""
-    height  100%
-    vertical-align middle
-
-  &>.v-center
-    display inline-block
-    vertical-align middle
-
-.box
-
-  &.box-ribbon
-    width 100%
-    background white
-    padding 30px 15px
-
-  &.box-well
-    background white
-    padding 24px
-    margin-bottom 20px
-    border-radius 4px
-
-.inline-block
-  display inline-block
 
 .fill-parent
   position absolute
@@ -114,10 +57,11 @@ input
   right 0px
   bottom 0px
 
-.view-img
+img
   max-width 100%
 
-i.glyphicon::before
-  margin-right 0.25em
-  vertical-align text-bottom
+@import 'common/reset'
+@import 'common/position'
+@import 'common/box'
+@import 'common/card'
 
