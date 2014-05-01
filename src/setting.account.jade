@@ -1,0 +1,60 @@
+
+.panel.panel-default(data-visibic='account')
+  .panel-heading 账户信息
+  .panel-body
+    form.form-horizontal
+      .form-group
+        label.col-md-3.control-label 用户名
+        .col-md-5
+          input.form-control(type='text', name='username', disabled)
+      .form-group
+        label.col-md-3.control-label 电子邮箱
+        .col-md-5
+          input.form-control(type='email', name='email')
+        .col-md-offset-3.col-md-9
+          span.help-block
+            | 此邮箱地址为不公开邮箱, 仅用于密码找回
+            br
+            | 请进入
+            a(href='#profile') 个人资料页
+            | 管理您的联系方式, 或
+            a(href='#message') 消息/提醒页
+            | 设置用于接收消息与提醒的电子邮件地址
+      .form-group
+        .col-md-offset-3.col-md-9
+          button.btn.btn-default(type='submit') 保存
+
+.panel.panel-default(data-visibic='account')
+  .panel-heading 密码变更
+  .panel-body
+    form.form-horizontal
+      .form-group
+        label.col-md-3.control-label 原密码
+        .col-md-5
+          input.form-control(type='password', name='password')
+      .form-group
+        label.col-md-3.control-label 新密码
+        .col-md-5
+          input.form-control(type='password', name='password')
+      .form-group
+        label.col-md-3.control-label 重新输入
+        .col-md-5
+          input.form-control(type='password', name='password')
+        .col-md-offset-3.col-md-9
+          span.help-block
+            | 请您再次输入确认本账户的新密码
+      .form-group
+        .col-md-offset-3.col-md-9
+          button.btn.btn-default(type='submit') 更改
+
+.panel.panel-default(data-visibic='account')
+  .panel-heading 会话
+  .panel-body
+    .row
+      .col-md-offset-3.col-md-6
+        button.btn.btn-default.btn-block(type='button') 注销会话
+      .col-md-12.text-center
+        span.help-block
+          p 注销之后您将回到“未登录”状态, 您可以重新登录本账户或者更换账户登录
+          p 服务器将销毁您的临时状态, 但您的偏好设置和业务数据仍将保存在服务器上
+

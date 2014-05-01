@@ -1,0 +1,60 @@
+
+.panel.panel-default(data-visibic='profile')
+  .panel-heading 头像与封面
+  .panel-body
+    form.form-horizontal
+      .form-group
+        label.col-md-3.control-label 头像
+        .col-md-5
+          img.img-thumbnail.view-img.view-photo(src='/img/default_avatar.jpg')
+      .form-group
+        .col-md-offset-3.col-md-8
+          .input-group
+            input.form-control(type='text', name='photo_url')
+            .input-group-btn
+              span.btn.btn-default.btn-file
+                span.fileinput-new 上传头像
+                input(type='file', name='photo')
+      .form-group
+        label.col-md-3.control-label 封面图片
+        .col-md-8
+          img.img-thumbnail.view-img.view-cover(src='/img/default_cover.jpg')
+      .form-group
+        .col-md-offset-3.col-md-8
+          .input-group
+            input.form-control(type='text', name='cover_url')
+            .input-group-btn
+              span.btn.btn-default.btn-file
+                span.fileinput-new 上传图片
+                input(type='file', name='cover')
+
+.panel.panel-default(data-visibic='profile')
+  .panel-heading 个人资料
+  .panel-body
+    form.form-horizontal
+      .form-group
+        label.col-md-3.control-label 姓名
+        .col-md-5
+          input.form-control(type='text', name='fullname', disabled)
+      .form-group
+        label.col-md-3.control-label 编号
+        .col-md-5
+          input.form-control(type='text', name='idnumber', disabled)
+      .form-group
+        label.col-md-3.control-label 电子邮箱
+        .col-md-5
+          input.form-control(type='email', name='email')
+      .form-group
+        label.col-md-3.control-label 联系电话
+        .col-md-5
+          input.form-control(type='text', name='telephone')
+
+.panel.panel-default(data-visibic='profile')
+  .panel-heading 个人介绍
+  .panel-body
+    form
+      .form-group
+        textarea.form-control(rows=5)
+      .form-group
+        button.btn.btn-default.pull-right(type='submit') 保存
+

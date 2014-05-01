@@ -1,0 +1,49 @@
+
+.panel.panel-default(data-visibic='message')
+  .panel-heading 系统消息
+  .panel-body
+
+.panel.panel-default(data-visibic='message')
+  .panel-heading 邮件提醒/订阅
+  .panel-body
+    form.form-horizontal
+      .form-group
+        label.col-md-3.control-label 电子邮箱
+        .col-md-8
+          .input-group
+            span.input-group-btn
+              button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                | 不使用
+                | &nbsp;
+                span.caret
+              ul.dropdown-menu
+                li: a(href='#') 自定义
+                li: a(href='#') 使用联系方式
+                li: a(href='#') 使用账户邮箱
+                li: a(href='#') 不使用
+            input.form-control(type='email', name='email')
+        .col-md-offset-3.col-md-9
+          span.help-block
+            | 将此处电子邮箱留空, 系统会自动取消所有订阅/通知的发送
+      .form-group
+        label.col-md-3.control-label 事件
+        .col-md-9
+          button.btn.btn-default(type='button') 全选
+          button.btn.btn-default(type='button') 取消全部
+      .form-group
+        .col-md-offset-3.col-md-8
+          .list-group
+            a.list-group-item(href='#') 发现新课程类目
+            a.list-group-item(href='#') 发现新的选课申请
+          .list-group
+            a.list-group-item(href='#') 开设新的课程类目
+            a.list-group-item(href='#') 课程参与邀请
+            a.list-group-item(href='#') 选课申请成功/失败
+            a.list-group-item(href='#') 自主课题申请审核通过
+            a.list-group-item(href='#') 未完成的课程任务(提前一周)
+            a.list-group-item(href='#') 未完成的课程任务(提前两日)
+            a.list-group-item(href='#') 获得课程任务评价
+            a.list-group-item(href='#') 获得课程评分
+          .list-group
+            a.list-group-item(href='#') 每周课题精选
+
