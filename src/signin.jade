@@ -6,12 +6,11 @@ append style
 append script
   +javascript('/script/signin.js')
 block content
-  .vertical-center.box.box-default.box-fullwidth.padding-lg
-    form.position.horizontal-center.signin(method='get', action='/dashboard.html')
+  .vertical-center.box.box-fullwidth
+    form.box.box-default.box-rounded.padding-md.position.horizontal-center.signin(method='get', action='/dashboard.html')
       input(type='hidden', name='u', value='0')
       .form-group
         input.form-control(type='text', name='username', placeholder='用户名')
       .form-group
         input.form-control(type='password', name='password', placeholder='密码')
-      .form-group
-        button.btn.btn-default.btn-block.pull-right(type='submit') 登录
+      button.btn.btn-default.btn-block(type='submit') 登录
