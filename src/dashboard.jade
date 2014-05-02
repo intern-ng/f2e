@@ -6,7 +6,7 @@ append style
 append script
   +javascript('/script/dashboard.js')
 block container
-  .row
+  .row.margin-bottom
     .col-md-12.view-profile
       .col-md-4.view-cover
         .fill-parent.darken.text-center.position-container.vertical-center-ib
@@ -31,4 +31,20 @@ block container
           | “社区强迫症患者专项整治行动通告”、
           | “《治疗不能放弃》专题讲座”、
           | “2010级毕业设计论文提交已开放”
+  .dashboard.hidden.row.margin-bottom(data-visibic='student teacher admin')
+    .box.box-default.box-colorful.box-color-green.box-caption-text(data-box-caption='进行中')
+      .box-caption-padding.visible-xs.visible-sm
+      .box.box-default.clearfix.padding-lg
+  .dashboard.hidden.row.margin-bottom(data-visibic='student')
+    .box.box-default.box-colorful.box-color-blue.box-caption-text(data-box-caption='正在申请')
+      .box-caption-padding.visible-xs.visible-sm
+      .box.box-default.clearfix.padding-lg
+  .dashboard.hidden.row.margin-bottom(data-visibic='student')
+    .box.box-default.box-colorful.box-color-orange.box-caption-text(data-box-caption='申请成功')
+      .box-caption-padding.visible-xs.visible-sm
+      .box.box-default.clearfix.padding-lg
+  .dashboard.hidden.row.margin-bottom(data-visibic='teacher admin')
+    .box.box-default.box-colorful.box-color-blue.box-caption-text(data-box-caption='开放申请中')
+      .box-caption-padding.visible-xs.visible-sm
+      .box.box-default.clearfix.padding-lg
 

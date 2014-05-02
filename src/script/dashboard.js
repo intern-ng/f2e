@@ -10,9 +10,15 @@ app.extend({
     $('.view-nickname').text(name);
   }),
 
+  home_set_dashboard: entangle()
+
+  .pick('role')
+  .visibic$('.dashboard[data-visibic]')
+
 });
 
 app.dependency({
-  home_set_profile: 'userdata'
+  home_set_profile: 'userdata',
+  home_set_dashboard: 'userdata'
 });
 
