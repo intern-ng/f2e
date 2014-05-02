@@ -1,5 +1,6 @@
 
 .box
+  position relative
   display block
 
 .box.box-rounded
@@ -14,4 +15,48 @@
 
 .box.box-fullwidth
   width 100%
+
+.box.box-colorful
+
+  &::before
+    content ''
+    display block
+    position absolute
+    top 0
+    left 0
+    bottom 0
+    width 5px
+    background-color grey
+    z-index 999
+
+  &.box-color-blue::before
+    background-color blue
+
+  &.box-color-green::before
+    background-color green
+
+  &.box-color-orange::before
+    background-color orange
+
+  &.box-color-red::before
+    background-color red
+
+.box.box-caption-text
+
+  &::after
+    content attr(data-box-caption)
+    display block
+    position absolute
+    top 0
+    right 0
+    width auto
+    height auto
+    font-size 4em
+    color grey
+    opacity 0.3
+    z-index 999
+
+  .box-caption-padding
+    display block
+    height 4em
 
