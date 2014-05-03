@@ -1,7 +1,20 @@
 
 .panel.panel-default(data-visibic='message')
-  .panel-heading 系统消息
+  .panel-heading 消息
   .panel-body
+    form.form-horizontal
+      .form-group
+        label.col-xs-6.col-md-3.control-label 私信
+        .col-xs-6.col-md-9
+          .btn-group
+            button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+              | 接收来自任何人的消息
+              | &nbsp;
+              span.caret
+            ul.dropdown-menu
+              li: a(href='#') 接收来自任何人的消息
+              li: a(href='#') 仅接收来自导师的消息
+              li: a(href='#') 禁用此功能
 
 .panel.panel-default(data-visibic='message')
   .panel-heading 邮件提醒/订阅
