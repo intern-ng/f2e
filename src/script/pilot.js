@@ -22,16 +22,16 @@ app.extend({
 
   navbar_set_path: entangle()
 
-  .pick(function (pathname) { $('.navbar-collapse a[href="' + pathname + '"]').parent('li').addClass('active'); }),
+  .pick().string('.navbar-collapse a[href="{{pathname}}"]').$().$parent('li').$addClass('active'),
 
   navbar_set_line: entangle()
 
   .pick('status').array().cases({ 200: 'online', ___: 'offline' })
   .visibic$('.navbar-right [data-visibic], .navbar-left'),
 
-  navbar_set_name: entangle()
+  $el_navbar_name: entangle().data('.navbar .data-holder.data-profile-name').$().pack('$el'),
 
-  .invoke$('.navbar .data-holder.data-profile-name', { text: 'name' }),
+  navbar_set_name: entangle().sponge().pick().$text('{{name}}'),
 
   navbar_set_role: entangle()
 
@@ -46,7 +46,7 @@ app.dependency({
   userdata_poll: 'userdata raw',
   navbar_set_line: 'userdata raw',
   navbar_set_path: 'location',
-  navbar_set_name: 'userdata',
+  navbar_set_name: [ 'userdata', '$el_navbar_name' ],
   navbar_set_role: 'userdata',
 });
 
@@ -56,6 +56,6 @@ app.route({
 
 // attach to entry point `main`
 app.route({
-  main: 'location'
+  main: [ 'location', '$el_navbar_name' ]
 });
 
