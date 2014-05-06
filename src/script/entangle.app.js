@@ -48,21 +48,18 @@ entangle.Application = (function () {
     route: function (obj) {
       var app = this;
       _.each(obj, function (v, k) {
-        if (typeid(v) == 'string') {
-          v = app[v];
-        }
-        if (typeid(v) == 'object' && ! v instanceof entangle.Entangle) {
-          v = _.transform(v, function (r, v, k) {
-            if (typeid(v) != 'array') v = [ v ];
-            r[k] = _.map(v, function (v) {
-              if (typeid(v) == 'string') {
-                return app[v];
-              } else {
-                return v;
-              }
-            });
+        if (typeid(v) == 'function' || v instanceof entangle.Entangle) v = [ v ];
+        if (typeid(v) != 'object') v = { $: v };
+        v = _.transform(v, function (r, v, k) {
+          if (typeid(v) != 'array') v = [ v ];
+          r[k] = _.map(v, function (v) {
+            if (typeid(v) == 'string') {
+              return app[v];
+            } else {
+              return v;
+            }
           });
-        }
+        });
         app[k].fork(v);
       });
       return this;
