@@ -24,19 +24,32 @@ entangle.Application = (function () {
     },
 
     // Syntax
-    //  DEPENDENCY := 'CONVNAME' | 'CONVNAME SLOTNAME'
+    //  DEPENDENCY := 'CONVNAME' | 'CONVNAME SLOTNAME' | [ 'CONVNAME', 'SLOTNAME', ... ]
+    //              |  CONVERTER | [ CONVERTER, 'SLOTNAME', ... ]
     //  OBJ        := { CONVNAME: DEPENDENCY | [ DEPENDENCY ] }
     dependency: function (obj) {
       var app = this;
-      app.route(_.transform(obj, function (r, v, k) {
+      _.each(obj, function (v, k) {
         _.each(typeid(v) == 'array' ? v : [ v ], function (v) {
-          var ref = v.split(' ');
-          var chain = ref[0], slot = ref[1] || '$';
-          r[chain] = r[chain] || {};
-          r[chain][slot] = r[chain][slot] || [];
-          r[chain][slot].push(app[k]);
+
+          var descender = app[k];
+
+          if (typeid(v) == 'string') v = v.split(' ');
+          if (typeid(v) != 'array') v = [ v ];
+          if (v.length < 2) v = v.concat([ '$' ]);
+
+          if (typeid(v[0]) == 'string') {
+            v[0] = app[v[0]];
+          }
+
+          var chain = v.shift();
+
+          _.each(v, function (slotname) {
+            chain.fork(slotname, descender);
+          });
+
         });
-      }));
+      });
       return this;
     },
 
