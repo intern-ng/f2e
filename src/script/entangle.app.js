@@ -79,10 +79,10 @@ entangle.Application = (function () {
     },
 
     setup: function () {
-      if (this.main) {
-        this.main.call();
+      if (this.init) {
+        this.init.call();
       } else {
-        throw new ReferenceError ('`main` function is not defined for setup');
+        throw new ReferenceError ('`init` function is not defined for setup');
       }
     },
 

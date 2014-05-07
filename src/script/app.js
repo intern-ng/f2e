@@ -1,7 +1,7 @@
 
 var app = new entangle.Application({
 
-  main: entangle().slot()
+  init: entangle().slot()
 
 });
 
