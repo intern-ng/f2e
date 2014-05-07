@@ -16,6 +16,20 @@ entangle.extend({
   }, // }}} data
 
   /**
+   * @name inject
+   * @desc inject static value to data object
+   * @param conv...
+   */
+  inject: function () {
+    var conv = [ entangle.passby() ].concat(array(arguments));
+    return entangle()
+    .hash(conv)
+    .sponge()
+    .fold(_.merge, Object);
+  },
+
+
+  /**
    * @name timeout
    * @desc set timeout to next converter
    * @param interval - time in milliseconds
