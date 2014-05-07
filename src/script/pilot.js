@@ -13,8 +13,8 @@ app.extend({
   user_uri: entangle()
 
   .pick().qs()      // pick `search` and resolve it use `qs`
-  .pick(false)      // do not force paremeter `u`
-  .string('u/{{u}}'),
+  .preset(entangle.data({ u: 'null' }))
+  .pick().string('u/{{u}}'),
 
   userdata: entangle()
 

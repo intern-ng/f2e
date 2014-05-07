@@ -28,6 +28,19 @@ entangle.extend({
     .fold(_.merge, Object);
   },
 
+  /**
+   * @name preset
+   * @desc inject static value to data object
+   * @param conv...
+   */
+  preset: function () {
+    var conv = array(arguments);
+    conv.push(entangle.passby());
+    return entangle()
+    .hash(conv)
+    .sponge()
+    .fold(_.merge, Object);
+  },
 
   /**
    * @name timeout
