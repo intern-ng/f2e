@@ -10,30 +10,28 @@ app.extend({
 
   .location(),      // provide window.location
 
-  user_uri: entangle()
-
-  .pick().qs()      // pick `search` and resolve it use `qs`
-  .preset(entangle.data({ u: 'null' }))
-  .pick().string('u/{{u}}'),
-
   userdata: entangle()
 
   .sponge(true)     // always trigger
+  .data('/u')
   .json('get')      // get json data from server
   .slot('response')
   .pick('data')     // pick data from response
   .sponge(),        // cache the result & trigger limiter
 
+  profile: entangle()
+
+  .pick('p')
+
 });
 
 app.dependency({
-  user_uri: 'location',
-  userdata: 'user_uri',
+  profile : 'userdata',
 });
 
 // attach to entry point `main`
 app.route({
-  init: [ 'location' ]
+  init: [ 'location', 'userdata' ]
 });
 
 // connect timeout between `userdata response` and `userdata`
@@ -47,21 +45,11 @@ app.route({
 
   userdata: {
 
-    $: [
+    $: entangle()
 
-      entangle()
+    .pick('role')
+    .visibic$('.navbar-left [data-visibic]'),
 
-      .pick('role')
-      .visibic$('.navbar-left [data-visibic]'),
-
-      entangle()
-
-      .inject(
-        entangle().string('.navbar .data-holder.data-profile-name').$().pack('$el')
-      )
-      .pick().$text('{{name}}')
-
-    ],
 
     response: entangle()
 
@@ -70,6 +58,13 @@ app.route({
     .visibic$('.navbar-right [data-visibic], .navbar-left')
 
   },
+
+  profile: entangle()
+
+  .inject(
+    entangle().$('.navbar .data-holder.data-profile-name').pack('$el')
+  )
+  .pick().$text('{{nickname}}'),
 
   location: entangle()
 

@@ -2,12 +2,13 @@
 app.extend({
 
   home_set_profile: entangle()
-  .pick(function (name, photo, cover) {
+
+  .pick(function (nickname, photo, cover) {
     $('.view-profile-summary .view-photo-img').attr('src', photo);
     $('.view-cover').css({
       background: 'url("' + cover + '") no-repeat center'
     });
-    $('.view-nickname').text(name);
+    $('.view-nickname').text(nickname);
   }),
 
   home_set_dashboard: entangle()
@@ -18,7 +19,7 @@ app.extend({
 });
 
 app.dependency({
-  home_set_profile: 'userdata',
-  home_set_dashboard: 'userdata'
+  home_set_profile: 'profile',
+  home_set_dashboard: 'profile'
 });
 
