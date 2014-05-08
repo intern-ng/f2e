@@ -60,4 +60,28 @@
     .value()
   );
 
+
+entangle.extend({
+
+  $on: function (event, option) {
+
+    option = option || {};
+
+    var data = option.data,
+    selector = option.selector,
+    preventDefault = !!option.preventDefault;
+
+    return function ($el) {
+      var _this = this;
+      $el.on(event, selector, data, function (e) {
+        if (preventDefault) e.preventDefault();
+        _this.resolve($el, e);
+      });
+      return this.resolve($el);
+    };
+
+  },
+
+});
+
 })();
