@@ -82,6 +82,14 @@ entangle.extend({
 
   },
 
+  $pick: function () {
+    return entangle.pick.apply(entangle, [ '$el' ].concat(array(arguments)));
+  },
+
+  $pack: function () {
+    return entangle.pack.apply(entangle, [ '$el' ].concat(array(arguments)));
+  },
+
 });
 
 })();
