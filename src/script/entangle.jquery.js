@@ -34,7 +34,11 @@
             // parameter key
             value = match[1];
             capture.push(value);
-            return function (___) { return ___[value]; };
+            if (value == '___') {
+              return function (___) { return ___; };
+            } else {
+              return function (___) { return ___[value]; };
+            }
           } else {
             // static value
             return function () { return value; };
