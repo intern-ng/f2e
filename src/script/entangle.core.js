@@ -249,6 +249,41 @@ entangle.extend({
   }, // }}} cases
 
   /**
+   * @name cond
+   * @desc describe data condition to resolve the convert
+   */
+  cond: function () {
+
+    var validate = function (def, arg) {
+      var t_def = typeid(def), t_arg = typeid(arg);
+      if (t_def != t_arg) return false;
+      if (t_def == 'object') {
+        return !_.any(def, function (d, k) {
+          var v = arg[k];
+          return (typeid(d) == 'string') ? typeid(v) != d : !validate(d, v);
+        });
+      }
+      if (t_def == 'array') {
+        if (def.length > arg.length) return false;
+        return !_.any(arg, function (v, i) {
+          var d = def[i%def.length];
+          return (typeid(d) == 'string') ? typeid(v) != d : !validate(d, v);
+        });
+      }
+      return true;
+    };
+
+    var defs = array(arguments);
+
+    return function () {
+      var args = array(arguments);
+      if (validate(defs, args)) {
+        return this.resolve.apply(this, args);
+      }
+    };
+  },
+
+  /**
    * @name pick
    * @desc control next converter to be triggered when input matches a parameter specification
    * @param capture {array/strings} - (optional) data handler or capturing array (auto-detect by default)
