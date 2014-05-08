@@ -46,8 +46,7 @@
         });
 
         return _.extend(function ($el, ___) {
-          return this.resolve(
-            jQuery.fn[name]
+          return this.resolve($el, jQuery.fn[name]
             .apply($el, _.map(args, function (get) {
               return get(___);
             }))
