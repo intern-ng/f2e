@@ -12,9 +12,9 @@
      * @name jQuery($)
      * @desc create jQuery object
      */
-    $: function () {
+    $: function (_el) {
       return function (el) {
-        return this.resolve($(el));
+        return this.resolve($(_el || el));
       };
     },
 
