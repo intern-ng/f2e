@@ -184,7 +184,7 @@ var stub = {
 
         var result = {
           status: account? 200: 404,
-          data: account && _.extend(account, data),
+          data: account && _.merge(account, data),
         };
 
         stub.save('u');
