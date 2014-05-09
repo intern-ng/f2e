@@ -103,7 +103,7 @@ var stub = {
         var added = _.map(data, function (data) {
 
           var account = {
-            uid: stub.data.u.length,
+            id: stub.data.u.length,
             p: {},
             c: [],
             m: [],
