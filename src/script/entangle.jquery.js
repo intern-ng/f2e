@@ -75,7 +75,7 @@ entangle.extend({
       var _this = this;
       $el.on(event, selector, data, function (e) {
         if (preventDefault) e.preventDefault();
-        _this.resolve($el, e);
+        _this.resolve($(this), e);
       });
       return this.resolve($el);
     };
