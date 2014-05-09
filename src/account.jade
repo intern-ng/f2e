@@ -4,13 +4,26 @@ append head
 append style
   +stylesheet('/style/account.css')
 append script
+  script#account-item(type='text/template')
+    .account-item.col-xs-12.col-lg-6
+      .box.box-item.view-account-entry.activated
+        img.view-photo-img(src='/img/default_photo.jpg')
+        h4
+          span.view-nickname-text 王小二
+          span.view-username
+            | (
+            span.view-username-text koobur
+            | )
+        .view-email
+          i.glyphicon.glyphicon-envelope
+          span.view-email-text foo@bar.com
   +javascript('/script/account.js')
 append container
   .row
     .col-md-offset-2.col-md-8.col-lg-offset-1.col-lg-10
       .row.margin-bottom
         .col-xs-3
-          a.btn.btn-primary(href='#')
+          a.btn.btn-primary#create-account(href='#')
             span.glyphicon.glyphicon-plus
             | &nbsp; 创建用户
         .col-xs-9.text-right
@@ -21,40 +34,15 @@ append container
             a.btn.btn-default(href='#')
               span.glyphicon.glyphicon-export
               | &nbsp; 导出
-      .row.margin-bottom
-        .col-xs-12.col-lg-6
-          .box.box-item.view-account-entry.activated
-            img.view-photo-img(src='/img/default_photo.jpg')
-            h4
-              span.view-nickname-text 王小二
-              span.view-username
-                | (
-                span.view-username-text koobur
-                | )
-            .view-email
-              i.glyphicon.glyphicon-envelope
-              span.view-email-text foo@bar.com
-      .row.margin-bottom.editor
-        .col-md-12
-          .box.box-item.positioning-conteiner.vertical-center-ib.view-account-entry.activated
-            img.view-photo-img(src='/img/default_photo.jpg')
-            .vertical-center
-              h4
-                span.view-nickname-text 王小二
-                span.view-username
-                  | (
-                  span.view-username-text koobur
-                  | )
-              .view-email
-                i.glyphicon.glyphicon-envelope
-                span.view-email-text foo@bar.com
+      .row.margin-bottom.account-list
+      .row.margin-bottom.account-editor.hidden
         .col-md-12
           .box.box-item.view-edit-account
             form.form-horizontal
               .form-group
                 label.col-md-3.control-label 用户名
                 .col-md-5
-                  input.form-control(type='text', name='username', disabled)
+                  input.form-control(type='text', name='username')
               .form-group
                 label.col-md-3.control-label 电子邮箱
                 .col-md-5
@@ -62,35 +50,29 @@ append container
               .form-group
                 label.col-md-3.control-label 密码
                 .col-md-5
-                  button.btn.btn-danger(type='button') 重置密码
-                  input.form-control.hidden(type='text', name='password')
+                  input.form-control(type='text', name='password', placeholder='输入新密码')
               .form-group
                 label.col-md-3.control-label 权限
-                .col-xs-6.col-md-9
-                  .btn-group
+                .col-md-9
+                  .btn-group#dropdown-role
                     button.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
-                      | 管理员
+                      span.selected 学员
                       | &nbsp;
                       span.caret
                     ul.dropdown-menu
                       li: a(href='#') 导师
                       li: a(href='#') 学员
-              .form-group
+              .form-group.delete-account
                 label.col-md-3.control-label 操作
-                .col-xs-6.col-md-9
-                  .btn-group
-                    button.btn.btn-default 删除帐号
+                .col-md-9
+                  button.btn.btn-default(type='button') 删除帐号
               hr
               .form-group
                 label.col-md-3.control-label 姓名
                 .col-md-2
                   input.form-control(type='text', name='nickname')
               .form-group
-                label.col-md-3.control-label 标签
-                .col-md-5
-                  input.form-control(type='text', name='usertag')
-
-              .form-group
                 .col-md-offset-3.col-md-9
                   button.btn.btn-primary(type='submit') 保存
+                  button.btn.btn-default#cancel(type='button') 取消
 
