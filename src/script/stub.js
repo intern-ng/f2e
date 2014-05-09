@@ -136,15 +136,6 @@ var stub = {
 
       },
 
-      delete: function (data, match) {
-        var removed = _.remove(stub.data.u, function (u) { return '' + u.id == match[1]; });
-        stub.save('u');
-        return {
-          status: 200,
-          data: removed,
-        };
-      },
-
     }, // }}}
 
     u_prof: { // {{{
@@ -203,6 +194,16 @@ var stub = {
 
         return result;
 
+      },
+
+      'delete': function (data, match) {
+        var account = _.find(stub.data.u, function (u) { return '' + u.id == match[1]; });
+        account.deleted = true;
+        stub.save('u');
+        return {
+          status: 200,
+          data: account,
+        };
       },
 
     }, // }}}
