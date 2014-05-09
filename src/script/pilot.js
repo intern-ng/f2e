@@ -8,7 +8,7 @@ app.extend({
 
   location: entangle()
 
-  .location(),      // provide window.location
+  .location().slot(),      // provide window.location
 
   userdata: entangle()
 
