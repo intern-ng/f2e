@@ -37,7 +37,12 @@ app.extend({
   .pick('e')
   .pick('timeStamp')
   .data('/logout')
-  .json('post'),
+  .json('post')
+  .pick(function (status) {
+    if (status == 200) {
+      window.location = '/signin.html';
+    }
+  }),
 
 });
 
