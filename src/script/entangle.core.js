@@ -193,7 +193,7 @@ entangle.extend({
       idattr = function (v) { return v[idname]; };
     }
     return function (___) {
-      this.resolve(_.reduce(___, function (r, v, k) {
+      this.resolve(_.transform(___, function (r, v, k) {
         r[idattr ? idattr(v) : k] = v;
       }, {}));
     };
