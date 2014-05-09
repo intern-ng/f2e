@@ -21,11 +21,31 @@ app.extend({
 
   .visibic$('.panel-control > [data-visibic]'),
 
+  setting_set_account: entangle()
+
+  .pick(function (username, email) {
+    $('input[name="username"]').val(username);
+    $('input[name="email"]').val(email);
+  }),
+
+  setting_logout: entangle()
+
+  .$('button[name="logout"]')
+  .$on('click', { preventDefault: true })
+  .cond('object', 'object')
+  .pack('$el', 'e')
+  .pick('e')
+  .pick('timeStamp')
+  .data('/logout')
+  .json('post'),
+
 });
 
 app.dependency({
   setting_set_section: 'urlhash',
+  setting_set_account: 'userdata',
   setting_set_path: 'location',
+  setting_logout: 'init',
   urlhash: 'location'
 });
 
