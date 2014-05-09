@@ -249,10 +249,10 @@ entangle.extend({
   }, // }}} cases
 
   /**
-   * @name cond
+   * @name spec
    * @desc describe data condition to resolve the convert
    */
-  cond: function () {
+  spec: function () {
 
     var validate = function (def, arg) {
       var t_def = typeid(def), t_arg = typeid(arg);

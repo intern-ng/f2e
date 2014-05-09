@@ -29,7 +29,7 @@ signin.extend({
 
   .$('form')
   .$on('submit', { preventDefault: true })
-  .cond('object', 'object')
+  .spec('object', 'object')
   .pack('$el', 'e')
   .pick('e')
   .pick('timeStamp')
