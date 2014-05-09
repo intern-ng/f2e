@@ -52,6 +52,7 @@ $('#dropdown-role li a').click(function () {
 });
 
 var closeEditor = function () {
+  $('input[name="username"]').removeAttr('disabled');
   $('.account-editor').addClass('hidden');
   $('.account-list').removeClass('hidden');
   return false;
@@ -64,6 +65,8 @@ var editAccount = function () {
   var $el = $(this);
 
   var u = $el.data('u');
+
+  $('input[name="username"]').attr('disabled', 'disabled');
 
   $('.account-list').addClass('hidden');
   $('.account-editor').removeClass('hidden');
