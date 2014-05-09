@@ -72,6 +72,8 @@ app.route({
   .string('.navbar-collapse a[href="{{pathname}}"]')
   .$()
   .$parent('li')
+  .pack('$el', '$parent')
+  .pick('$parent')
   .$addClass('active'),
 
 });
