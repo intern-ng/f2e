@@ -18,7 +18,7 @@ entangle.extend({
             console.debug('stub>', method, url, '=>', k);
             var res = stub.server[k][method](data, match);
             console.debug('stub:', res);
-            _this.resolve(res);
+            _this.resolve(_.cloneDeep(res));
             return true;
           } else {
             console.error('stub>', method, url, '=> NOT FOUND');
