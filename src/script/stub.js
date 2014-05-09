@@ -94,7 +94,7 @@ var stub = {
       get: function (data, match) {
         return {
           status: 200,
-          data: _.map(stub.data.u, function (u, i) { return u.id; } )
+          data: _(stub.data.u).filter(function (u) { return !u.deleted; }).map(function (u) { return u.id; }).value()
         };
       },
 
