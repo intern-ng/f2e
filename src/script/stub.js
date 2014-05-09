@@ -59,7 +59,7 @@ var stub = {
         if (!account) return { status: 404 };
         if (account.password != data.password) return { status: 403 };
         stub.data.e = {};
-        stub.data.e.account = account;
+        stub.data.e.account = account.id;
         stub.save('e');
         return {
           status: 200,
@@ -84,10 +84,7 @@ var stub = {
     u_curr: {
 
       get: function () {
-        return {
-          status: stub.data.e.account? 200: 403,
-          data: stub.data.e.account
-        };
+        return stub.server.u_item.get({}, [ undefined, stub.data.e.account ]);
       },
 
     },
