@@ -46,7 +46,7 @@ var stub = {
     logout: /\/logout/i,
     u_item: /\/u\/([^/]+)/i,
     u_prof: /\/u\/([^/]+)\/p/i,
-    u_curr: /\/u/i,
+    u_curr: /\/u$/i,
     u_list: /\/u\//i,
   },
 
