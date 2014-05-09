@@ -24,7 +24,7 @@ entangle.extend({
     var conv = [ entangle.passby() ].concat(array(arguments));
     return entangle()
     .hash(conv)
-    .sponge()
+    .sponge(true)
     .fold(_.merge, Object);
   },
 
@@ -38,7 +38,7 @@ entangle.extend({
     conv.push(entangle.passby());
     return entangle()
     .hash(conv)
-    .sponge()
+    .sponge(true)
     .fold(_.merge, Object);
   },
 
