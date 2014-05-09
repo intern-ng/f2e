@@ -20,6 +20,6 @@ app.extend({
 
 app.dependency({
   home_set_profile: 'profile',
-  home_set_dashboard: 'profile'
+  home_set_dashboard: 'userdata'
 });
 
