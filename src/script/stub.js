@@ -44,6 +44,7 @@ var stub = {
   router: {
     signin: /\/signin/i,
     logout: /\/logout/i,
+    faq   : /\/faq/i,
     u_item: /\/u\/([^/]+)/i,
     u_prof: /\/u\/([^/]+)\/p/i,
     u_curr: /\/u$/i,
@@ -205,6 +206,25 @@ var stub = {
 
     }, // }}}
 
+    faq: {
+
+      get: function (data) {
+        return {
+          status: 200,
+          data: stub.data.faq
+        };
+      },
+
+      post: function (data) {
+        stub.data.faq = data;
+        stub.save('faq');
+        return {
+          status: 200
+        };
+      },
+
+    },
+
   },
 
 };
@@ -235,6 +255,7 @@ stub.data = {
 
   e: JSON.parse(localStorage.getItem('e')) || {},
   u: JSON.parse(localStorage.getItem('u')) || [],
+  faq: JSON.parse(localStorage.getItem('faq')) || '',
 
 };
 

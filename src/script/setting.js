@@ -44,6 +44,14 @@ app.extend({
     }
   }),
 
+  setting_load_faq: entangle()
+
+  .data('/faq')
+  .http('get')
+  .pick('data')
+  .$()
+  .$appendTo('.view-faq')
+
 });
 
 app.dependency({
@@ -52,5 +60,9 @@ app.dependency({
   setting_set_path: 'location',
   setting_logout: 'init',
   urlhash: 'location'
+});
+
+app.route({
+  init: 'setting_load_faq'
 });
 
