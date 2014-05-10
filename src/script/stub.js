@@ -51,6 +51,7 @@ var stub = {
     u_list: /^\/u\/$/i,
     c_item: /^\/c\/([^/]+)$/i,
     c_list: /^\/c\/$/i,
+    y_item: /^\/c\/([^/]+)\/y\/([^/]+)$/i,
   },
 
   server: {
@@ -223,6 +224,60 @@ var stub = {
           status: 200,
           data: account,
         };
+      },
+
+    }, // }}}
+
+    y_item: { // {{{
+
+      get: function (data, match) {
+
+        var c = stub.server.c_item.get(data, match).data;
+
+        var i = _.find(c.y, function (u) { return u.id == match[2]; });
+
+        return {
+          status: i? 200: 404,
+          data: i,
+        };
+
+      },
+
+      post: function (data, match) {
+
+        var c = stub.server.c_item.get(data, match).data;
+
+        var i = _.find(c.y, function (u) { return u.id == match[2]; });
+
+        if (!i) c.y.push(i = { id: match[2], accepted: false, created_at: Date.now() });
+
+        delete i.deleted;
+
+        i = _.merge(i, data);
+
+        stub.save('c');
+
+        return {
+          status: 200,
+          data: i
+        };
+
+      },
+
+      'delete': function (data, match) {
+
+        var c = stub.server.c_item.get(data, match).data;
+        var i = _.find(c.y, function (u) { return u.id == match[2]; });
+
+        if(i) i.deleted = true;
+
+        stub.save('c');
+
+        return {
+          status: 200,
+          data: i,
+        };
+
       },
 
     }, // }}}

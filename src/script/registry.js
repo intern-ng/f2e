@@ -22,6 +22,38 @@ $('#back-course-list').click(function () {
 
 });
 
+$('#apply').click(function () {
+
+  var c = $('.course-view').data('c');
+
+  var request = entangle()
+  .sponge()
+  .pick()
+  .string('/c/{{cid}}/y/{{uid}}')
+  .json('post')
+  .pick(function (status, data) {
+    course.list.call(null, [ c.id ]);
+  })
+  .call(null, { cid: c.id, uid: window.user.id });
+
+});
+
+$('#cancel').click(function () {
+
+  var c = $('.course-view').data('c');
+
+  var request = entangle()
+  .sponge()
+  .pick()
+  .string('/c/{{cid}}/y/{{uid}}')
+  .json('delete')
+  .pick(function (status, data) {
+    course.list.call(null, [ c.id ]);
+  })
+  .call(null, { cid: c.id, uid: window.user.id });
+
+});
+
 var course = new entangle.Application();
 
 course.extend({
@@ -68,7 +100,7 @@ course.extend({
           }),
           entangle().pick(function (y) {
             $el.find('.view-enrolled-count').text('' + _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0));
-            $el.find('.view-applying-count').text('' + y.length);
+            $el.find('.view-applying-count').text('' + _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0));
           }),
           entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
           .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
@@ -77,6 +109,16 @@ course.extend({
           }),
           entangle().pick(function (deleted) {
             $el.remove();
+          }),
+          entangle().sponge().pick(function (y) {
+            y = _.find(y, function (y) { return y.id == window.user.id; });
+            $el.find('.box-colorful').removeClass('box-color-blue box-color-green');
+            if (!y || y.deleted) {
+            } else if (y.accepted) {
+              $el.find('.box-colorful').addClass('box-color-green');
+            } else {
+              $el.find('.box-colorful').addClass('box-color-blue');
+            }
           }),
           course.view,
 
@@ -108,7 +150,7 @@ course.extend({
           }),
           entangle().pick(function (y) {
             $el.find('.view-enrolled-count').text('' + _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0));
-            $el.find('.view-applying-count').text('' + y.length);
+            $el.find('.view-applying-count').text('' + _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0));
           }),
           entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
           .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
@@ -124,16 +166,16 @@ course.extend({
 
           entangle()
           .pick(function (y, uid) {
-            y = _.find(y, function (y) { return y.u == uid; });
+            y = _.find(y, function (y) { return y.id == uid; });
             $el.find('button.btn.btn-lg').addClass('hidden');
-            $el.find('box-colorful').removeClass('box-color-blue box-color-green');
-            if (!y) {
+            $el.find('.box-colorful').removeClass('box-color-blue box-color-green');
+            if (!y || y.deleted) {
               $el.find('#apply').removeClass('hidden');
             } else if (y.accepted) {
-              $el.find('box-colorful').addClass('box-color-green');
+              $el.find('.box-colorful').addClass('box-color-green');
               $el.find('#accepted').removeClass('hidden');
             } else {
-              $el.find('box-colorful').addClass('box-color-blue');
+              $el.find('.box-colorful').addClass('box-color-blue');
               $el.find('#cancel').removeClass('hidden');
             }
           })

@@ -168,7 +168,7 @@ course.extend({
           }),
           entangle().pick(function (y) {
             $el.find('.view-enrolled-count').text('' + _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0));
-            $el.find('.view-applying-count').text('' + y.length);
+            $el.find('.view-applying-count').text('' + _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0));
           }),
           entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
           .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
@@ -207,7 +207,7 @@ course.extend({
           }),
           entangle().pick(function (y) {
             $el.find('.view-enrolled-count').text('' + _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0));
-            $el.find('.view-applying-count').text('' + y.length);
+            $el.find('.view-applying-count').text('' + _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0));
           }),
           entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
           .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
