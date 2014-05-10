@@ -17,6 +17,10 @@ app.extend({
   .json('get')      // get json data from server
   .slot('response')
   .pick('data')     // pick data from response
+  .pick(function (___) {
+    window.user = ___; // shim export user information
+    this.resolve(___);
+  })
   .sponge(),        // cache the result & trigger limiter
 
   profile: entangle()
