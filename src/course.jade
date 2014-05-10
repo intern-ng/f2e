@@ -44,7 +44,7 @@ append template
               span.view-created-at
 
   +jstemplate('registry-item')
-    .registry-item.col-md-12
+    .registry-item
       .registry-select.fill-parent.text-right
         span.glyphicon.glyphicon-ok-sign.padding-xs
       a.view-nickname-link(href='#') 无名
@@ -167,15 +167,7 @@ append container
         .col-md-12
           .box.box-default.box-colorful.box-colorful-top.box-color-orange
             .box.box-default.clearfix.padding-md
-              .row.list-content
-                .registry-item
-                  .registry-select.fill-parent.text-right
-                    span.glyphicon.glyphicon-ok-sign.padding-xs
-                  a.view-nickname-link(href='#') 无名
-                .registry-item.selected
-                  .registry-select.fill-parent.text-right
-                    span.glyphicon.glyphicon-ok-sign.padding-xs
-                  a.view-nickname-link(href='#') 有名
+              .list-content
 
       .row.margin-bottom.task-list.hidden
         .col-md-12

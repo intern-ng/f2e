@@ -1,8 +1,8 @@
 
 var createCourse = function () {
 
-  $('.course-list').addClass('hidden');
-  $('.course-editor').removeClass('hidden');
+  hide('courselist');
+  show('courseedit');
 
   $('.course-editor input[name="title"]').val('');
   $('.course-editor input[name="capacity"]').val('');
@@ -22,8 +22,8 @@ var createCourse = function () {
     .pick(function (status, data) {
       if (status == 200) {
         course.list.call(null, _(data).filter(function (v, k) { return !v.err; }).pluck('id').value());
-        $('.course-list').removeClass('hidden');
-        $('.course-editor').addClass('hidden');
+        show('courselist');
+        hide('courseedit');
       }
     }).call();
 
@@ -33,8 +33,8 @@ var createCourse = function () {
 
   $('.course-editor button#cancel').off('click').click(function () {
 
-    $('.course-list').removeClass('hidden');
-    $('.course-editor').addClass('hidden');
+    show('courselist');
+    hide('courseedit');
 
   });
 
@@ -44,8 +44,8 @@ var createCourse = function () {
 
 var editCourse = function (c) {
 
-  $('.course-view').addClass('hidden');
-  $('.course-editor').removeClass('hidden');
+  hide('courseview');
+  show('courseedit');
 
   $('.course-editor input[name="title"]').val(c.title);
   $('.course-editor input[name="capacity"]').val(c.capacity || '');
@@ -65,8 +65,8 @@ var editCourse = function (c) {
     .pick(function (status, data) {
       if (status == 200) {
         course.list.call(null, [ c.id ]);
-        $('.course-view').removeClass('hidden');
-        $('.course-editor').addClass('hidden');
+        show('courseview');
+        hide('courseedit');
       }
     }).call();
 
@@ -81,16 +81,16 @@ var editCourse = function (c) {
     .pick(function (status) {
       if (status == 200) {
         course.list.call(null, [ c.id ]);
-        $('.course-list').removeClass('hidden');
-        $('.course-view').addClass('hidden');
-        $('.course-editor').addClass('hidden');
+        show('courselist');
+        hide('courseview');
+        hide('courseedit');
       }
     }).call();
   });
 
   $('.course-editor button#cancel').off('click').click(function () {
-    $('.course-view').removeClass('hidden');
-    $('.course-editor').addClass('hidden');
+    show('courseview');
+    hide('courseedit');
   });
 
   return false;
@@ -99,8 +99,8 @@ var editCourse = function (c) {
 
 var openCourse = function (c) {
 
-  $('.course-list').addClass('hidden');
-  $('.course-view').removeClass('hidden');
+  hide('courselist');
+  show('courseview');
 
   $('.course-view').data('id', c.id);
   $('.course-view').data('c', c);
@@ -115,9 +115,25 @@ var openCourse = function (c) {
 
 $('#back-course-list').click(function () {
 
-  $('.course-list').removeClass('hidden');
-  $('.course-view').addClass('hidden');
+  show('courselist');
+  hide('courseview');
 
+});
+
+var hide = _.extend(function (what) {
+  $(hide[what] || what).addClass('hidden');
+}, {
+  courseview: '.course-view, .registry-list',
+  courselist: '.course-list',
+  courseedit: '.course-editor',
+});
+
+var show = _.extend(function (what) {
+  $(show[what] || what).removeClass('hidden');
+}, {
+  courseview: '.course-view',
+  courselist: '.course-list',
+  courseedit: '.course-editor',
 });
 
 $('.course-list #create-course').click(createCourse);
@@ -222,10 +238,68 @@ course.extend({
 
   })($('.course-view')),
 
+  registry: entangle()
+
+  .pick(function (___) {
+    if (___.state == 'preparing') {
+
+      show('.registry-list');
+
+      var id = _.pluck(___.y, 'id');
+
+      $('.registry-list .registry-item').each(function (i, el) {
+        var $el = $(el);
+        if (!~id.indexOf($el.data('id'))) $el.remove();
+      });
+
+      this.resolve(___.y);
+    }
+  })
+
+  .collect(function (x) { return x.id; })
+  .each(function () {
+
+    var $el = $($('script#registry-item').text());
+
+    $el.click(function () {
+
+      entangle()
+      .data('/c/' + $('.course-view').data('id') + '/y/' + $el.data('id'), { accepted: !$el.hasClass('selected') })
+      .json('post')
+      .pick(function (status, data) {
+        course.list.call(null, [ $('.course-view').data('id') ]);
+      })
+      .call();
+
+    });
+
+    return entangle()
+    .slot()
+    .fork([
+          entangle().pick('___').inject(entangle.data({ $el: $el })).pick().$attr('data-id', '{{id}}'),
+          entangle().pick('___').inject(entangle.data({ $el: $el })).pick().$data('y', '{{___}}'),
+          entangle().pick(function (___) {
+            if (___.accepted) $el.addClass('selected');
+            else $el.removeClass('selected');
+          }),
+          entangle().pick(function (___) {
+            if (___.deleted) $el.remove();
+            else $el.appendTo('.registry-list .list-content');
+          }),
+          entangle().pick().string('/u/{{id}}/p').json('get').pick('data')
+          .fork([
+                entangle().inject(entangle.data({ $el: $el })).pick().$css('background-image', '{{photo}}'),
+                entangle().inject(entangle.data({ $el: $el.find('.view-nickname-link') })).pick().$text('{{nickname}}'),
+          ]),
+    ]);
+
+  })
+
 });
 
 course.route({
-  init: 'list'
+  init: 'list',
+  view: 'registry'
 });
 
 course.setup();

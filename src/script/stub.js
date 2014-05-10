@@ -389,6 +389,7 @@ crud('c', function (course, data) {
 
   _.extend(course, {
 
+    state: 'preparing',
     t: [],
     y: [],
 
