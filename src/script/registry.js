@@ -144,16 +144,8 @@ course.extend({
 
 });
 
-var get_uid = entangle().pick(function (id) {
-  return this.resolve({ uid: id });
-});
-
-course.dependency({
-  view: get_uid,
-});
-
 app.route({
-  userdata: get_uid,
+  userdata: entangle().pick('id').pack('uid').fork(course.view),
 });
 
 course.route({
