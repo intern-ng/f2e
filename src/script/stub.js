@@ -82,13 +82,32 @@ var stub = {
 
     }, // }}}
 
-    u_curr: {
+    faq: { // {{{
+
+      get: function (data) {
+        return {
+          status: 200,
+          data: stub.data.faq
+        };
+      },
+
+      post: function (data) {
+        stub.data.faq = data;
+        stub.save('faq');
+        return {
+          status: 200
+        };
+      },
+
+    }, // }}}
+
+    u_curr: { // {{{
 
       get: function () {
         return stub.server.u_item.get({}, [ undefined, stub.data.e.account ]);
       },
 
-    },
+    }, // }}}
 
     u_list: { // {{{
 
@@ -205,25 +224,6 @@ var stub = {
       },
 
     }, // }}}
-
-    faq: {
-
-      get: function (data) {
-        return {
-          status: 200,
-          data: stub.data.faq
-        };
-      },
-
-      post: function (data) {
-        stub.data.faq = data;
-        stub.save('faq');
-        return {
-          status: 200
-        };
-      },
-
-    },
 
   },
 
