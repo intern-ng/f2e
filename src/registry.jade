@@ -1,0 +1,104 @@
+extends framework
+append head
+  title 贰叁叁课程管理
+append style
+  +stylesheet('/style/course.css')
+append script
+  +javascript('/script/registry.js')
+append template
+  +jstemplate('course-item')
+    .course-item.col-md-12
+      .box.box-default.box-colorful.box-colorful-right.box-color-blue
+        .box.box-default.clearfix.padding-md
+          h4.view-title-text
+          .row.view-summary
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-stats
+              | 学员数
+              | &nbsp;
+              span.view-enrolled-count 0
+              | &nbsp;
+              span.view-capacity
+                | /
+                | &nbsp;
+                span.view-capacity-count 50
+                | &nbsp;
+              span.view-registry
+                | (
+                span.view-applying-count 0
+                | )
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-tasks
+              | 任务数
+              | &nbsp;
+              span.view-task-count 0
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-user
+              | 管理人
+              | &nbsp;
+              span.view-creator
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-time
+              | 创建时间
+              | &nbsp;
+              span.view-created-at
+
+append container
+  .row
+    .col-lg-offset-1.col-lg-10
+
+      .row.margin-bottom.course-list
+        .list-content
+
+      .row.margin-bottom.course-view.hidden
+        .col-md-12
+          .row.margin-bottom
+            .col-xs-6.text-left
+              a.btn.btn-default#back-course-list(href='#')
+                span.glyphicon.glyphicon-chevron-left
+                | &nbsp; 课程列表
+          .row.view-content
+            .col-md-12.margin-bottom
+              .box.box-default.box-colorful.box-colorful-top.view-course
+                .box-caption-padding.visible-xs.visible-sm
+                .box.box-default.clearfix.padding-md
+                  h3.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
+                  .row.view-summary
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-stats
+                      | 学员数
+                      | &nbsp;
+                      span.view-enrolled-count 0
+                      | &nbsp;
+                      span.view-capacity
+                        | /
+                        | &nbsp;
+                        span.view-capacity-count 50
+                        | &nbsp;
+                      span.view-registry
+                        | (
+                        span.view-applying-count 0
+                        | )
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-tasks
+                      | 任务数
+                      | &nbsp;
+                      span.view-task-count 0
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-user
+                      | 管理人
+                      | &nbsp;
+                      span.view-creator
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-time
+                      | 创建时间
+                      | &nbsp;
+                      span.view-created-at
+                  h4 课程要求
+                  .view-description
+                    p 本项目要求学员参与企业生产实践活动、需要具备 XXX XXX XXX 等综合能力
+              .padding-md.text-center
+                button#apply.btn.btn-lg.btn-primary.hidden(type='button') 提交申请
+                button#cancel.btn.btn-lg.btn-inverted.hidden(type='button') 申请撤销
+                button#accepted.btn.btn-lg.btn-success.disabled.hidden(type='button') 已通过
+
