@@ -193,6 +193,7 @@ course.extend({
 
           entangle().inject(entangle.data({ $el: $el })).pick().$data('c', '{{___}}'),
           entangle().inject(entangle.data({ $el: $el.find('.view-title-text') })).pick().$text('{{title}}'),
+          entangle().inject(entangle.data({ $el: $el.find('.view-description') })).pick().$text('{{description}}'),
           entangle().pick(function (t) {
             $el.find('.view-task-count').text('' + t.length);
           }),
