@@ -117,6 +117,16 @@ entangle.extend({
   }, // }}}
 
   /**
+   * @name date
+   * @desc add `on` classes and removes `off` classes
+   */
+  date: function () { // {{{
+    return function (data) {
+      return this.resolve(new Date(data));
+    };
+  }, // }}}
+
+  /**
    * @name visibic
    * @desc `visibic` element visibility control
    */
