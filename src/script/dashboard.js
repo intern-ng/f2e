@@ -3,13 +3,13 @@ app.extend({
 
   home_set_profile: entangle()
 
-  .pick(function (nickname, photo, cover) {
-    $('.view-profile-summary .view-photo-img').attr('src', photo);
-    $('.view-cover').css({
-      background: 'url("' + cover + '") no-repeat center'
-    });
-    $('.view-nickname').text(nickname);
-  }),
+  .slot()
+  .fork([
+        entangle().inject(entangle().$('.view-profile-summary .view-photo-img').$pack()).pick().$attr('src', '{{photo}}'),
+        entangle().pick().string('url("{{cover}}") no-repeat center').pack('css').inject(entangle().$('.view-cover').$pack()).pick().$css('background', '{{css}}'),
+        entangle().inject(entangle().$('.view-nickname').$pack()).pick().$text('{{nickname}}'),
+
+  ]),
 
   home_set_dashboard: entangle()
 
