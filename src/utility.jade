@@ -4,3 +4,7 @@ mixin stylesheet(path)
 mixin javascript(path)
   script(type="text/javascript", src=path)
 
+mixin jstemplate(a)
+  script(id=a, type="text/template")
+    block
+

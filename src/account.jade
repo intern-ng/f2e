@@ -4,7 +4,9 @@ append head
 append style
   +stylesheet('/style/account.css')
 append script
-  script#account-item(type='text/template')
+  +javascript('/script/account.js')
+append template
+  +jstemplate('account-item')
     .account-item.col-xs-12.col-lg-6
       .box.box-default.box-colorful.box-colorful-right.view-account-entry.box-color-green
         img.view-photo-img(src='/img/default_photo.jpg')
@@ -17,7 +19,6 @@ append script
         .view-email
           i.glyphicon.glyphicon-envelope
           span.view-email-text foo@bar.com
-  +javascript('/script/account.js')
 append container
   .row
     .col-md-offset-2.col-md-8.col-lg-offset-1.col-lg-10
