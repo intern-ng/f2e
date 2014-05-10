@@ -261,7 +261,9 @@ course.extend({
 
     var $el = $($('script#registry-item').text());
 
-    $el.click(function () {
+    $el.click(setEnrollment);
+
+    var setEnrollment = function () {
 
       entangle()
       .data('/c/' + $('.course-view').data('id') + '/y/' + $el.data('id'), { accepted: !$el.hasClass('selected') })
@@ -271,24 +273,30 @@ course.extend({
       })
       .call();
 
-    });
+    };
 
     return entangle()
-    .slot()
+    .pack('item')
+    .pick('item')
     .fork([
-          entangle().pick('___').inject(entangle.data({ $el: $el })).pick().$attr('data-id', '{{id}}'),
-          entangle().pick('___').inject(entangle.data({ $el: $el })).pick().$data('y', '{{___}}'),
+          entangle().inject(entangle.data({ $el: $el })).pick().$attr('data-id', '{{id}}'),
+          entangle().inject(entangle.data({ $el: $el })).pick().$data('y', '{{___}}'),
           entangle().pick(function (___) {
             if (___.accepted) $el.addClass('selected');
             else $el.removeClass('selected');
           }),
           entangle().pick(function (___) {
             if (___.deleted) $el.remove();
-            else $el.appendTo('.registry-list .list-content');
+            else $el.appendTo('.registry-list .list-content').click(setEnrollment);
           }),
-          entangle().pick().string('/u/{{id}}/p').json('get').pick('data')
+          entangle().pick().string('/u/{{id}}/p').json('get').pick('data').sponge()
           .fork([
-                entangle().inject(entangle.data({ $el: $el })).pick().$css('background-image', '{{photo}}'),
+                entangle()
+                .pick(function (___) {
+                  ___.url = 'url(' + ___.photo + ')';
+                  this.resolve($el, ___);
+                })
+                .$css('background-image', '{{url}}'),
                 entangle().inject(entangle.data({ $el: $el.find('.view-nickname-link') })).pick().$text('{{nickname}}'),
           ]),
     ]);
