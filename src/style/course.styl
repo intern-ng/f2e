@@ -1,0 +1,32 @@
+
+.registry-item
+  display inline-block
+  position relative
+  width 96px
+  height 96px
+  background-size cover
+  background-repeat no-repeat
+  background-image url('/img/default_photo.jpg')
+
+  .registry-select
+    font-size 20px
+    opacity 0
+    z-index 1
+
+  &.selected .registry-select
+    opacity 1
+
+  .view-nickname-link
+    display block
+    background-color rgba(0,0,0,0.5)
+    position absolute
+    bottom 0
+    left 0
+    right 0
+    padding 6px
+    color white
+    z-index 2
+
+
+
+

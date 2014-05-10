@@ -1,0 +1,280 @@
+extends framework
+append head
+  title 贰叁叁课程管理
+append style
+  +stylesheet('/style/course.css')
+append script
+  +javascript('/script/course.js')
+append template
+  +jstemplate('course-item')
+    .course-item.col-md-12
+      .box.box-default.box-colorful.box-colorful-right.box-color-blue
+        .box.box-default.clearfix.padding-md
+          h4.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
+          .row.view-summary
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-stats
+              | 学员数
+              | &nbsp;
+              span.view-enrolled-count 0
+              | &nbsp;
+              | /
+              | &nbsp;
+              span.view-capacity-count 50
+              | &nbsp;
+              span.view-registry
+                | (
+                span.view-applying-count 0
+                | )
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-tasks
+              | 任务数
+              | &nbsp;
+              span.view-task-count 0
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-user
+              | 管理人
+              | &nbsp;
+              span.view-creator admin
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-time
+              | 创建时间
+              | &nbsp;
+              span.view-created-at 2014-4-20
+
+  +jstemplate('registry-item')
+    .registry-item
+      .registry-select.fill-parent.text-right
+        span.glyphicon.glyphicon-ok-sign.padding-xs
+      a.view-nickname-link(href='#') 无名
+
+  +jstemplate('task-item')
+    .task-item.col-md-6
+      .box.box-default.box-colorful.box-colorful-right.box-color-blue
+        .box.box-default.clearfix.padding-md
+          h4.view-title-text 提交第一周周报
+          .row.view-summary
+            p.col-lg-6.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-stats
+              | 完成量
+              | &nbsp;
+              span.view-enrolled-count 0
+              | &nbsp;
+              | /
+              | &nbsp;
+              span.view-capacity-count 50
+            p.col-lg-6.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-time
+              | 创建时间
+              | &nbsp;
+              span.view-created-at 2014-4-20
+
+append container
+  .row
+    .col-lg-offset-1.col-lg-10
+
+      .row.margin-bottom.course-list-container
+        .col-md-12
+          .row.margin-bottom
+            .col-xs-12.text-right
+              a.btn.btn-primary#create-course(href='#')
+                span.glyphicon.glyphicon-plus
+                | &nbsp; 新建课程
+          .row.course-list
+            .course-item.col-md-12
+              .box.box-default.box-colorful.box-colorful-right.box-color-blue
+                .box.box-default.clearfix.padding-md
+                  h4.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
+                  .row.view-summary
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-stats
+                      | 学员数
+                      | &nbsp;
+                      span.view-enrolled-count 0
+                      | &nbsp;
+                      | /
+                      | &nbsp;
+                      span.view-capacity-count 50
+                      | &nbsp;
+                      span.view-registry
+                        | (
+                        span.view-applying-count 0
+                        | )
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-tasks
+                      | 任务数
+                      | &nbsp;
+                      span.view-task-count 0
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-user
+                      | 管理人
+                      | &nbsp;
+                      span.view-creator admin
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-time
+                      | 创建时间
+                      | &nbsp;
+                      span.view-created-at 2014-4-20
+
+      .row.margin-bottom.course-view-container.hidden
+        .col-md-12
+          .row.margin-bottom
+            .col-xs-6.text-left
+              a.btn.btn-default#back-course-list(href='#')
+                span.glyphicon.glyphicon-chevron-left
+                | &nbsp; 课程列表
+            .col-xs-6.text-right
+              a.btn.btn-default#back-course-list(href='#')
+                | 学员列表 &nbsp;
+                span.glyphicon.glyphicon-chevron-right
+          .row.course-view
+            .col-md-12.margin-bottom
+              .box.box-default.box-colorful.box-colorful-top.box-color-blue.view-course
+                .box-caption-padding.visible-xs.visible-sm
+                .box.box-default.clearfix.padding-md
+                  a.btn.btn-default.pull-right(href='#') 编辑
+                  h3.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
+                  .row.view-summary
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-stats
+                      | 学员数
+                      | &nbsp;
+                      span.view-enrolled-count 0
+                      | &nbsp;
+                      | /
+                      | &nbsp;
+                      span.view-capacity-count 50
+                      | &nbsp;
+                      span.view-registry
+                        | (
+                        span.view-applying-count 0
+                        | )
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-tasks
+                      | 任务数
+                      | &nbsp;
+                      span.view-task-count 0
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-user
+                      | 管理人
+                      | &nbsp;
+                      span.view-creator admin
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-time
+                      | 创建时间
+                      | &nbsp;
+                      span.view-created-at 2014-4-20
+                  h4 课程要求
+                  .view-description
+                    p 本项目要求学员参与企业生产实践活动、需要具备 XXX XXX XXX 等综合能力
+                  .text-right
+                    button.btn.btn-danger.hidden(type='button') 课程结束
+                    button.btn.btn-danger.hidden(type='button') 录取结束
+
+      .row.margin-bottom.course-editor.hidden
+        .col-md-12
+          .box.box-default.box-colorful.box-colorful-top.box-color-orange.view-edit-course
+            form.form-horizontal.padding-lg
+              .form-group
+                label.col-md-3.control-label 标题
+                .col-md-5
+                  input.form-control(type='text', name='title')
+              .form-group
+                label.col-md-3.control-label 上限学员数
+                .col-md-2
+                  input.form-control(type='text', name='capacity', placeholder='0 (无上限)')
+              .form-group
+                label.col-md-3.control-label 课程要求
+                .col-md-9
+                  textarea.form-control(rows='9', placeholder='简要描述课程的起止时间、课题细节、研究过程、知识要求等...')
+              .form-group.delete-course
+                label.col-md-3.control-label 操作
+                .col-md-9
+                  button.btn.btn-danger(type='button') 删除课程
+              .form-group
+                .col-md-offset-3.col-md-9
+                  button.btn.btn-primary(type='submit') 保存
+                  button.btn.btn-default#cancel(type='button') 取消
+
+      .row.margin-bottom.registry-list-container.hidden
+        .col-md-12
+          .box.box-default.box-colorful.box-colorful-top.box-color-orange
+            .box.box-default.clearfix.padding-md
+              .registry-list
+                .registry-item
+                  .registry-select.fill-parent.text-right
+                    span.glyphicon.glyphicon-ok-sign.padding-xs
+                  a.view-nickname-link(href='#') 无名
+                .registry-item.selected
+                  .registry-select.fill-parent.text-right
+                    span.glyphicon.glyphicon-ok-sign.padding-xs
+                  a.view-nickname-link(href='#') 有名
+
+      .row.margin-bottom.task-list-container.hidden
+        .col-md-12
+          .padding-sm
+            h2 课程任务
+              a.btn.btn-primary.pull-right(href='#') 新任务
+          .row.task-list
+            .task-item.col-md-6
+              .box.box-default.box-colorful.box-colorful-right.box-color-blue
+                .box.box-default.clearfix.padding-md
+                  h4.view-title-text 提交第一周周报
+                  .row.view-summary
+                    p.col-lg-6.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-stats
+                      | 完成量
+                      | &nbsp;
+                      span.view-enrolled-count 0
+                      | &nbsp;
+                      | /
+                      | &nbsp;
+                      span.view-capacity-count 50
+                    p.col-lg-6.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-time
+                      | 创建时间
+                      | &nbsp;
+                      span.view-created-at 2014-4-20
+
+      .row.margin-bottom.task-view.hidden
+        .col-md-12
+          .box.box-default.box-colorful.box-colorful-top.box-color-blue.view-course
+            .box-caption-padding.visible-xs.visible-sm
+            .box.box-default.clearfix.padding-md
+              a.btn.btn-default.pull-right(href='#') 编辑
+              h3.view-title-text 提交第一周周报
+              .row.view-summary
+                p.col-lg-6.col-md-6.col-sm-6
+                  i.glyphicon.glyphicon-stats
+                  | 完成量
+                  | &nbsp;
+                  span.view-enrolled-count 0
+                  | &nbsp;
+                  | /
+                  | &nbsp;
+                  span.view-capacity-count 50
+              h4 任务要求
+              .view-description
+                p 提交一份周报
+
+      .row.margin-bottom.task-editor.hidden
+        .col-md-12
+          .box.box-default.box-colorful.box-colorful-top.box-color-orange.view-edit-course
+            form.form-horizontal.padding-lg
+              .form-group
+                label.col-md-3.control-label 标题
+                .col-md-5
+                  input.form-control(type='text', name='title')
+              .form-group
+                label.col-md-3.control-label 任务要求
+                .col-md-9
+                  textarea.form-control(rows='9', placeholder='简要描述课程的起止时间、课题细节、研究过程、知识要求等...')
+              .form-group.delete-course
+                label.col-md-3.control-label 操作
+                .col-md-9
+                  button.btn.btn-danger(type='button') 删除任务
+              .form-group
+                .col-md-offset-3.col-md-9
+                  button.btn.btn-primary(type='submit') 保存
+                  button.btn.btn-default#cancel(type='button') 取消
+
