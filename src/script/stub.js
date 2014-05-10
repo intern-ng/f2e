@@ -42,13 +42,13 @@ var stub = {
   }, // }}}
 
   router: {
-    signin: /\/signin/i,
-    logout: /\/logout/i,
-    faq   : /\/faq/i,
-    u_item: /\/u\/([^/]+)/i,
-    u_prof: /\/u\/([^/]+)\/p/i,
-    u_curr: /\/u$/i,
-    u_list: /\/u\//i,
+    signin: /^\/signin$/i,
+    logout: /^\/logout$/i,
+    faq   : /^\/faq$/i,
+    u_item: /^\/u\/([^/]+)$/i,
+    u_prof: /^\/u\/([^/]+)\/p$/i,
+    u_curr: /^\/u$/i,
+    u_list: /^\/u\/$/i,
   },
 
   server: {
