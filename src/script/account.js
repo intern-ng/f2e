@@ -4,6 +4,8 @@ var createAccount = function () {
   $('.account-list').addClass('hidden');
   $('.account-editor').removeClass('hidden');
 
+  $('input[name="username"]').removeAttr('disabled');
+
   $('.delete-item').addClass('hidden');
   $('#dropdown-role').removeClass('disabled');
 
@@ -52,7 +54,6 @@ $('#dropdown-role li a').click(function () {
 });
 
 var closeEditor = function () {
-  $('input[name="username"]').removeAttr('disabled');
   $('.account-editor').addClass('hidden');
   $('.account-list').removeClass('hidden');
   return false;
