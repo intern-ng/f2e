@@ -229,6 +229,105 @@ var stub = {
 
 };
 
+var crud = function (name, create, list, update, remove, itemdata) { // {{{
+
+  create = create || _.merge;
+  list = list || _.partialRight(_.map, function (i) { return i.id; });
+  update = update || _.merge;
+  remove = remove || _.identity;
+  itemdata = itemdata || _.identity;
+
+  stub.server[name + '_list'] = {
+
+    get: function (data, match) { // {{{
+
+      return {
+        status: 200,
+        data: list(_.filter(stub.data[name], function (i) { return !i.deleted; }))
+      };
+
+    }, // }}}
+
+    post: function (data, match) { // {{{
+
+      var added = _.map(data, function (data) {
+
+        var item = {
+          id: stub.data[name].length,
+          creator: stub.data.e.account,
+          created_at: Date.now(),
+        };
+
+        item = create(item, data) || item;
+
+        stub.data[name].push(item);
+
+        return item;
+
+      });
+
+      stub.save(name);
+
+      return {
+        status: 200,
+        data: added,
+      };
+
+    }, // }}}
+
+  };
+
+  stub.server[name + '_item'] = {
+
+    get: function (data, match) { // {{{
+
+      var item = _.find(stub.data[name], function (i) { return i.id == match[1]; });
+
+      item = itemdata(item || item);
+
+      return {
+        status: item? 200: 404,
+        data: item,
+      };
+
+    }, // }}}
+
+    post: function (data, match) { // {{{
+
+      var item = _.find(stub.data[name], function (i) { return i.id == match[1]; });
+
+      item = update(item, data) || item;
+
+      stub.save(name);
+
+      return {
+        status: item? 200: 404,
+        data: item,
+      };
+
+    }, // }}}
+
+    'delete': function (data, match) { // {{{
+
+      var item = _.find(stub.data[name], function (i) { return '' + i.id == match[1]; });
+
+      item = remove(item) || item;
+
+      if(item) item.deleted = true;
+
+      stub.save(name);
+
+      return {
+        status: 200,
+        data: item,
+      };
+
+    }, // }}}
+
+  };
+
+}; // }}}
+
 if (!localStorage.getItem('inited')) {
 
   localStorage.setItem('inited', true);
