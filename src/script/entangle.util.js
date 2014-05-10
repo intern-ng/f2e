@@ -18,7 +18,7 @@ _.extend(eukit, {
         changed: _.any(data, function (v, k) {
           return !(cache && cache.hasOwnProperty(k) && _.isEqual(cache[k], v));
         }),
-        data: _.extend(cache || data, data)
+        data: _.extend(cache || _.cloneDeep(data), data)
       };
     } else if (data) {
       return { changed: cache != data, data: data };
