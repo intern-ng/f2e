@@ -43,7 +43,7 @@ append template
               span.view-created-at 2014-4-20
 
   +jstemplate('registry-item')
-    .registry-item
+    .registry-item.col-md-12
       .registry-select.fill-parent.text-right
         span.glyphicon.glyphicon-ok-sign.padding-xs
       a.view-nickname-link(href='#') 无名
@@ -73,7 +73,7 @@ append container
   .row
     .col-lg-offset-1.col-lg-10
 
-      .row.margin-bottom.course-list-container
+      .row.margin-bottom.course-list
         .col-md-12
           .row.margin-bottom
             .col-xs-12.text-right
@@ -116,7 +116,7 @@ append container
                       | &nbsp;
                       span.view-created-at 2014-4-20
 
-      .row.margin-bottom.course-view-container.hidden
+      .row.margin-bottom.course-view.hidden
         .col-md-12
           .row.margin-bottom
             .col-xs-6.text-left
@@ -124,10 +124,10 @@ append container
                 span.glyphicon.glyphicon-chevron-left
                 | &nbsp; 课程列表
             .col-xs-6.text-right
-              a.btn.btn-default#back-course-list(href='#')
+              a.btn.btn-default#goto-student-list(href='#')
                 | 学员列表 &nbsp;
                 span.glyphicon.glyphicon-chevron-right
-          .row.course-view
+          .row.view-content
             .col-md-12.margin-bottom
               .box.box-default.box-colorful.box-colorful-top.box-color-blue.view-course
                 .box-caption-padding.visible-xs.visible-sm
@@ -182,12 +182,12 @@ append container
               .form-group
                 label.col-md-3.control-label 上限学员数
                 .col-md-2
-                  input.form-control(type='text', name='capacity', placeholder='0 (无上限)')
+                  input.form-control(type='number', name='capacity', placeholder='0 (无上限)')
               .form-group
                 label.col-md-3.control-label 课程要求
                 .col-md-9
                   textarea.form-control(rows='9', placeholder='简要描述课程的起止时间、课题细节、研究过程、知识要求等...')
-              .form-group.delete-course
+              .form-group.delete-item
                 label.col-md-3.control-label 操作
                 .col-md-9
                   button.btn.btn-danger(type='button') 删除课程
@@ -196,11 +196,11 @@ append container
                   button.btn.btn-primary(type='submit') 保存
                   button.btn.btn-default#cancel(type='button') 取消
 
-      .row.margin-bottom.registry-list-container.hidden
+      .row.margin-bottom.registry-list.hidden
         .col-md-12
           .box.box-default.box-colorful.box-colorful-top.box-color-orange
             .box.box-default.clearfix.padding-md
-              .registry-list
+              .row.list-content
                 .registry-item
                   .registry-select.fill-parent.text-right
                     span.glyphicon.glyphicon-ok-sign.padding-xs
@@ -210,12 +210,12 @@ append container
                     span.glyphicon.glyphicon-ok-sign.padding-xs
                   a.view-nickname-link(href='#') 有名
 
-      .row.margin-bottom.task-list-container.hidden
+      .row.margin-bottom.task-list.hidden
         .col-md-12
           .padding-sm
             h2 课程任务
               a.btn.btn-primary.pull-right(href='#') 新任务
-          .row.task-list
+          .row.list-content
             .task-item.col-md-6
               .box.box-default.box-colorful.box-colorful-right.box-color-blue
                 .box.box-default.clearfix.padding-md
@@ -269,7 +269,7 @@ append container
                 label.col-md-3.control-label 任务要求
                 .col-md-9
                   textarea.form-control(rows='9', placeholder='简要描述课程的起止时间、课题细节、研究过程、知识要求等...')
-              .form-group.delete-course
+              .form-group.delete-item
                 label.col-md-3.control-label 操作
                 .col-md-9
                   button.btn.btn-danger(type='button') 删除任务
