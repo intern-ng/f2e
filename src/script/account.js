@@ -4,7 +4,7 @@ var createAccount = function () {
   $('.account-list').addClass('hidden');
   $('.account-editor').removeClass('hidden');
 
-  $('.delete-account').addClass('hidden');
+  $('.delete-item').addClass('hidden');
   $('#dropdown-role').removeClass('disabled');
 
   $('input[name="username"]').val('');
@@ -71,7 +71,7 @@ var editAccount = function () {
   $('.account-list').addClass('hidden');
   $('.account-editor').removeClass('hidden');
 
-  $('.delete-account').addClass('hidden');
+  $('.delete-item').addClass('hidden');
   $('#dropdown-role').removeClass('disabled');
 
   $('input[name="username"]').val(u.username);
@@ -81,9 +81,9 @@ var editAccount = function () {
   $('#dropdown-role .selected').text({ admin: '管理员', student: '学员', teacher: '导师' }[u.role]);
 
   if (u.role == 'admin') $('#dropdown-role').addClass('disabled');
-  if (u.role != 'admin') $('.delete-account').removeClass('hidden');
+  if (u.role != 'admin') $('.delete-item').removeClass('hidden');
 
-  $('.delete-account button').off('click').click(function () {
+  $('.delete-item button').off('click').click(function () {
     entangle()
     .data('/u/' + u.id)
     .json('delete')
