@@ -10,7 +10,7 @@ append template
     .course-item.col-md-12
       .box.box-default.box-colorful.box-colorful-right.box-color-blue
         .box.box-default.clearfix.padding-md
-          h4.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
+          h4.view-title-text
           .row.view-summary
             p.col-lg-3.col-md-6.col-sm-6
               i.glyphicon.glyphicon-stats
@@ -18,10 +18,11 @@ append template
               | &nbsp;
               span.view-enrolled-count 0
               | &nbsp;
-              | /
-              | &nbsp;
-              span.view-capacity-count 50
-              | &nbsp;
+              span.view-capacity
+                | /
+                | &nbsp;
+                span.view-capacity-count 50
+                | &nbsp;
               span.view-registry
                 | (
                 span.view-applying-count 0
@@ -35,12 +36,12 @@ append template
               i.glyphicon.glyphicon-user
               | 管理人
               | &nbsp;
-              span.view-creator admin
+              span.view-creator
             p.col-lg-3.col-md-6.col-sm-6
               i.glyphicon.glyphicon-time
               | 创建时间
               | &nbsp;
-              span.view-created-at 2014-4-20
+              span.view-created-at
 
   +jstemplate('registry-item')
     .registry-item.col-md-12
@@ -80,41 +81,7 @@ append container
               a.btn.btn-primary#create-course(href='#')
                 span.glyphicon.glyphicon-plus
                 | &nbsp; 新建课程
-          .row.course-list
-            .course-item.col-md-12
-              .box.box-default.box-colorful.box-colorful-right.box-color-blue
-                .box.box-default.clearfix.padding-md
-                  h4.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
-                  .row.view-summary
-                    p.col-lg-3.col-md-6.col-sm-6
-                      i.glyphicon.glyphicon-stats
-                      | 学员数
-                      | &nbsp;
-                      span.view-enrolled-count 0
-                      | &nbsp;
-                      | /
-                      | &nbsp;
-                      span.view-capacity-count 50
-                      | &nbsp;
-                      span.view-registry
-                        | (
-                        span.view-applying-count 0
-                        | )
-                    p.col-lg-3.col-md-6.col-sm-6
-                      i.glyphicon.glyphicon-tasks
-                      | 任务数
-                      | &nbsp;
-                      span.view-task-count 0
-                    p.col-lg-3.col-md-6.col-sm-6
-                      i.glyphicon.glyphicon-user
-                      | 管理人
-                      | &nbsp;
-                      span.view-creator admin
-                    p.col-lg-3.col-md-6.col-sm-6
-                      i.glyphicon.glyphicon-time
-                      | 创建时间
-                      | &nbsp;
-                      span.view-created-at 2014-4-20
+          .row.list-content
 
       .row.margin-bottom.course-view.hidden
         .col-md-12

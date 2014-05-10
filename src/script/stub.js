@@ -49,6 +49,8 @@ var stub = {
     u_prof: /^\/u\/([^/]+)\/p$/i,
     u_curr: /^\/u$/i,
     u_list: /^\/u\/$/i,
+    c_item: /^\/c\/([^/]+)$/i,
+    c_list: /^\/c\/$/i,
   },
 
   server: {
@@ -328,6 +330,19 @@ var crud = function (name, create, list, update, remove, itemdata) { // {{{
 
 }; // }}}
 
+crud('c', function (course, data) {
+
+  _.extend(course, {
+
+    t: [],
+    y: [],
+
+  });
+
+  _.extend(course, data);
+
+});
+
 if (!localStorage.getItem('inited')) {
 
   localStorage.setItem('inited', true);
@@ -354,6 +369,7 @@ stub.data = {
 
   e: JSON.parse(localStorage.getItem('e')) || {},
   u: JSON.parse(localStorage.getItem('u')) || [],
+  c: JSON.parse(localStorage.getItem('c')) || [],
   faq: JSON.parse(localStorage.getItem('faq')) || '',
 
 };
