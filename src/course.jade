@@ -99,7 +99,7 @@ append container
               .box.box-default.box-colorful.box-colorful-top.box-color-blue.view-course
                 .box-caption-padding.visible-xs.visible-sm
                 .box.box-default.clearfix.padding-md
-                  a.btn.btn-default.pull-right(href='#') 编辑
+                  a.btn.btn-default.pull-right#edit-course(href='#') 编辑
                   h3.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
                   .row.view-summary
                     p.col-lg-3.col-md-6.col-sm-6
@@ -108,10 +108,11 @@ append container
                       | &nbsp;
                       span.view-enrolled-count 0
                       | &nbsp;
-                      | /
-                      | &nbsp;
-                      span.view-capacity-count 50
-                      | &nbsp;
+                      span.view-capacity
+                        | /
+                        | &nbsp;
+                        span.view-capacity-count 50
+                        | &nbsp;
                       span.view-registry
                         | (
                         span.view-applying-count 0
@@ -125,12 +126,12 @@ append container
                       i.glyphicon.glyphicon-user
                       | 管理人
                       | &nbsp;
-                      span.view-creator admin
+                      span.view-creator
                     p.col-lg-3.col-md-6.col-sm-6
                       i.glyphicon.glyphicon-time
                       | 创建时间
                       | &nbsp;
-                      span.view-created-at 2014-4-20
+                      span.view-created-at
                   h4 课程要求
                   .view-description
                     p 本项目要求学员参与企业生产实践活动、需要具备 XXX XXX XXX 等综合能力
@@ -226,7 +227,7 @@ append container
 
       .row.margin-bottom.task-editor.hidden
         .col-md-12
-          .box.box-default.box-colorful.box-colorful-top.box-color-orange.view-edit-course
+          .box.box-default.box-colorful.box-colorful-top.box-color-orange.view-edit-task
             form.form-horizontal.padding-lg
               .form-group
                 label.col-md-3.control-label 标题

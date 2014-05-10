@@ -1,7 +1,12 @@
 
 var createCourse = function () {
 
-  openCourseEditor();
+  $('.course-list').addClass('hidden');
+  $('.course-editor').removeClass('hidden');
+
+  $('.course-editor input[name="title"]').val('');
+  $('.course-editor input[name="capacity"]').val('');
+  $('.course-editor textarea').val('');
 
   $('.course-editor .delete-item').addClass('hidden');
 
@@ -17,7 +22,8 @@ var createCourse = function () {
     .pick(function (status, data) {
       if (status == 200) {
         course.list.call(null, _(data).filter(function (v, k) { return !v.err; }).pluck('id').value());
-        closeCourseEditor();
+        $('.course-list').removeClass('hidden');
+        $('.course-editor').addClass('hidden');
       }
     }).call();
 
@@ -25,17 +31,21 @@ var createCourse = function () {
 
   });
 
+  $('.course-editor button#cancel').off('click').click(function () {
+
+    $('.course-list').removeClass('hidden');
+    $('.course-editor').addClass('hidden');
+
+  });
+
   return false;
 
 };
 
-var editCourse = function () {
+var editCourse = function (c) {
 
-  var $el = $(this);
-
-  openCourseEditor();
-
-  var c = $el.data('c');
+  $('.course-view').addClass('hidden');
+  $('.course-editor').removeClass('hidden');
 
   $('.course-editor input[name="title"]').val(c.title);
   $('.course-editor input[name="capacity"]').val(c.capacity || '');
@@ -55,7 +65,8 @@ var editCourse = function () {
     .pick(function (status, data) {
       if (status == 200) {
         course.list.call(null, [ c.id ]);
-        closeCourseEditor();
+        $('.course-view').removeClass('hidden');
+        $('.course-editor').addClass('hidden');
       }
     }).call();
 
@@ -70,34 +81,44 @@ var editCourse = function () {
     .pick(function (status) {
       if (status == 200) {
         course.list.call(null, [ c.id ]);
-        closeCourseEditor();
+        $('.course-list').removeClass('hidden');
+        $('.course-view').addClass('hidden');
+        $('.course-editor').addClass('hidden');
       }
     }).call();
+  });
+
+  $('.course-editor button#cancel').off('click').click(function () {
+    $('.course-view').removeClass('hidden');
+    $('.course-editor').addClass('hidden');
   });
 
   return false;
 
 };
 
-var openCourseEditor = function () {
+var openCourse = function (c) {
 
   $('.course-list').addClass('hidden');
-  $('.course-editor').removeClass('hidden');
+  $('.course-view').removeClass('hidden');
 
-  $('.course-editor input[name="title"]').val('');
-  $('.course-editor input[name="capacity"]').val('');
-  $('.course-editor textarea').val('');
+  $('.course-view').data('id', c.id);
+  $('.course-view').data('c', c);
+
+  $('.course-view #edit-course').off('click').click(function () {
+    editCourse($('.course-view').data('c'));
+  });
+
+  course.view.call(null, c);
 
 };
 
-var closeCourseEditor = function () {
+$('#back-course-list').click(function () {
 
   $('.course-list').removeClass('hidden');
-  $('.course-editor').addClass('hidden');
+  $('.course-view').addClass('hidden');
 
-};
-
-$('.course-editor button#cancel').click(closeCourseEditor);
+});
 
 $('.course-list #create-course').click(createCourse);
 
@@ -119,7 +140,9 @@ course.extend({
 
     var $el = $($('script#course-item').text()).appendTo('.course-list .list-content');
 
-    $el.click(editCourse);
+    $el.click(function () {
+      return openCourse($(this).data('c'));
+    });
 
     return entangle()
 
@@ -154,11 +177,49 @@ course.extend({
           }),
           entangle().pick(function (deleted) {
             $el.remove();
-          })
+          }),
+          course.view,
 
     ]);
 
   }),
+
+  view: (function ($el) {
+
+    return entangle()
+
+    .pick(function (___) { if ('' + ___.id == $el.data('id')) this.resolve(___); })
+    .fork([
+
+          entangle().inject(entangle.data({ $el: $el })).pick().$data('c', '{{___}}'),
+          entangle().inject(entangle.data({ $el: $el.find('.view-title-text') })).pick().$text('{{title}}'),
+          entangle().pick(function (t) {
+            $el.find('.view-task-count').text('' + t.length);
+          }),
+          entangle().pick(function (capacity) {
+            if (!capacity || Number.isNaN(capacity)) {
+              $el.find('.view-capacity').addClass('hidden');
+            } else {
+              $el.find('.view-capacity').removeClass('hidden');
+            }
+            $el.find('.view-capacity-count').text('' + capacity);
+          }),
+          entangle().pick(function (y) {
+            $el.find('.view-enrolled-count').text('' + _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0));
+            $el.find('.view-applying-count').text('' + y.length);
+          }),
+          entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
+          .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
+          entangle().pick('created_at').date().transform(function (date) {
+            $el.find('.view-created-at').text(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+          }),
+          entangle().pick(function (deleted) {
+            $el.addClass('hidden');
+          })
+
+    ]);
+
+  })($('.course-view')),
 
 });
 
