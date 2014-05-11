@@ -69,8 +69,8 @@ append template
           .view-description
 
   +jstemplate('member-item')
-    .member-item
-      .box.box-default.box-colorful.box-colorful-left.view-account-entry.box-color-green
+    .member-item.col-md-12
+      .box.box-default.box-hover.box-clickable.box-colorful.box-colorful-right.view-account-entry
         img.view-photo-img(src='/img/default_photo.jpg')
         .pull-right.view-review
           strong.view-review-text 80
@@ -82,7 +82,7 @@ append template
 
   +jstemplate('answer-item')
     .answer-item
-      .box.box-default.box-colorful.box-colorful-right.box-color-blue
+      .box.box-default.box-colorful.box-colorful-right
         .clearfix.padding-md.padding-half
           h4.view-title-text 第一周周报
           .view-answer
@@ -118,7 +118,7 @@ append container
                 span.glyphicon.glyphicon-chevron-left
                 | &nbsp; 课程列表
             .col-xs-6.text-right
-              a.btn.btn-default#goto-student-list(href='#')
+              a.btn.btn-default#goto-member-list(href='#')
                 | 学员列表 &nbsp;
                 span.glyphicon.glyphicon-chevron-right
           .row.view-content
@@ -248,8 +248,8 @@ append container
               h4 课程评分
               p
                 .input-group
-                  input.form-control(type='text', placeholder='评价/评分')
+                  input.form-control(type='text', name='review', placeholder='评价/评分')
                   .input-group-btn
-                    a.btn.btn-default.btn-cancel(href='#') 撤销
+                    a.btn.btn-default.btn-cancel.hidden(href='#') 撤销
                     a.btn.btn-primary.btn-review(href='#') 保存
 

@@ -265,6 +265,7 @@ var hide = _.extend(function (what) {
   courselist: '.course-list',
   courseedit: '.course-editor',
   'taskview': '.task-list, .task-editor',
+  memberview: '.member-list, .member-view',
 });
 
 var show = _.extend(function (what) {
@@ -273,6 +274,7 @@ var show = _.extend(function (what) {
   courseview: '.course-view',
   courselist: '.course-list',
   courseedit: '.course-editor',
+  memberview: '.member-list',
 });
 
 $('.course-list #create-course').click(createCourse);
@@ -486,7 +488,7 @@ task.extend({
   .pick(function (___) {
     if (___.state != 'preparing') {
 
-      show('.task-list');
+      if (!$('.course-view').hasClass('hidden')) show('.task-list');
 
       $('.task-list .task-item').each(function (i, el) {
         var $el = $(el);
@@ -534,6 +536,7 @@ task.extend({
           entangle().pick(function (deleted) {
             $el.remove();
           }),
+          member.view
 
     ]);
 
@@ -545,9 +548,218 @@ task.route({
   init: 'list',
 });
 
+$('#goto-member-list').click(function () {
+  show('memberview');
+  hide('courseview');
+  $('.member-list').removeClass('hidden-xs hidden-sm');
+  $('.member-list .box-colorful').removeClass('box-color-blue');
+});
+
+$('#back-course-view').click(function () {
+  hide('memberview');
+  $('.member-list').removeClass('hidden-xs hidden-sm');
+  show('courseview');
+  course.view.call(null, $('.course-view').data('c'));
+});
+
+$('#back-member-list').click(function () {
+  hide('.member-view');
+  $('.member-list').removeClass('hidden-xs hidden-sm');
+});
+
+var member = new entangle.Application();
+
+member.extend({
+
+  init: entangle()
+
+  .pick(function (___) {
+    if (___.state != 'preparing') {
+
+      show('#goto-member-list');
+
+      var y = _(___.y).filter(function (y) { return !y.deleted && y.accepted; }).pluck('id').value();
+
+      $('.member-list .member-item').each(function (i, v) {
+        var $el = $(v);
+        if (!~y.indexOf($el.data('id'))) $el.remove();
+      });
+
+      $('.member-view .answer-list .answer-item').each(function (i, v) {
+        var $el = $(v);
+        if (!~___.t.indexOf($el.data('id'))) $el.remove();
+      });
+
+      this.resolve(y);
+
+    } else {
+
+      hide('#goto-member-list');
+
+    }
+  }),
+
+  list: entangle()
+
+  .collect(_.identity)
+  .each(function () {
+
+    var $el = $($('script#member-item').text());
+
+    var viewMember = function () {
+      // Open Member View
+      var id = $el.data('id');
+      $('.member-list').addClass('hidden-xs hidden-sm');
+      $('.member-view').data('id', id);
+      show('.member-view');
+      $('.member-list .box-colorful').removeClass('box-color-blue');
+      $el.find('.box-colorful').addClass('box-color-blue');
+      $('.task-list .task-item')
+      .map(function (i, v) { return $(v).data('t'); })
+      .each(function (i, v) {
+        member.view.call(null, v);
+      });
+      var c = $('.course-view').data('c');
+      var y = _.find(c.y, function (y) { return y.id == id; });
+      if (y && y.review) {
+        $('.member-view .course-review-editor input[name="review"]').val(y.review);
+        $('.member-view .course-review-editor .btn-cancel').removeClass('hidden');
+      } else {
+        $('.member-view .course-review-editor input[name="review"]').val('');
+        $('.member-view .course-review-editor .btn-cancel').addClass('hidden');
+      }
+    };
+
+    return entangle()
+
+    .pack('id')
+    .pick().string('/u/{{id}}')
+    .json('get')
+    .pick('data')
+    .fork([
+
+          entangle().pick(function (id) { $el.attr('data-id', id); }),
+          entangle().pick(function (___) {
+            $el.data('u', ___);
+          }),
+          entangle().inject(entangle.data({ $el: $el.find('.view-email-text') })).pick().$text('{{email}}'),
+          entangle().pick(function (id) {
+            var c = $('.course-view').data('c');
+            var y = _.find(c.y, function (y) { return y.id == id; });
+            if (y && y.review) $el.find('.view-review-text').text(y.review);
+            else $el.find('.view-review-text').text('');
+          }),
+          entangle().pick(function (___) {
+            $el.remove();
+            if (___.deleted) $el.remove();
+            else $el.appendTo('.member-list .list-content').click(viewMember);
+          }),
+          entangle().pick().string('/u/{{id}}/p').json('get').pick('data').sponge()
+          .fork([
+                entangle().pick(function (photo) { $el.find('.view-photo-img').attr('src', photo); }),
+                entangle().pick(function (nickname) { $el.find('.view-nickname-text').text(nickname); }),
+          ]),
+
+    ]);
+
+  }),
+
+  view: entangle()
+  .transform(function (t) {
+
+    var id = t.id;
+    var $el = $('.member-view .answer-list .answer-item[data-id="' + id + '"]');
+    if (!$el.length) {
+      $el = $($('script#answer-item').text()).appendTo('.member-view .answer-list').attr('data-id', id);
+    }
+
+    $el.data('t', t);
+
+    $el.find('.view-title-text').text(t.title);
+
+    var uid = $('.member-view').data('id');
+
+    var a = _.find(t.a, function (a) { return a.id == uid; });
+
+    $el.find('.box-colorful').removeClass('box-color-blue box-color-green box-color-red');
+    $el.find('input[name="review"]').val('');
+    $el.find('.view-answer').removeClass('hidden');
+    $el.find('.view-answer .btn-cancel').addClass('hidden');
+
+    if (!a) {
+      $el.find('.box-colorful').addClass('box-color-red');
+      $el.find('.view-answer').addClass('hidden');
+    } else if (a.review) {
+      $el.find('.box-colorful').addClass('box-color-green');
+      $el.find('.view-answer .btn-cancel').removeClass('hidden');
+      $el.find('input[name="review"]').val(a.review);
+    } else {
+      $el.find('.box-colorful').addClass('box-color-blue');
+    }
+
+    if (a && a.location) {
+      $el.find('.view-answer .btn-download').attr({
+        href: localStorage.getItem(a.location),
+        download: a.location.split('/').slice(-1)[0]
+      });
+    }
+
+    $el.find('.view-answer .btn-cancel').off('click').click(function () {
+      $el.find('input[name="review"]').val('');
+      $el.find('.view-answer .btn-review').click();
+    });
+
+    $el.find('.view-answer .btn-review').off('click').click(function () {
+      var t = $el.data('t');
+      var uid = $('.member-view').data('id');
+      var a = _.find(t.a, function (a) { return a.id == uid; });
+      a.review = $el.find('input[name="review"]').val();
+      entangle()
+      .data('/t/' + t.id, {
+        a: t.a
+      })
+      .json('post')
+      .pick(function (status, data) {
+        localStorage.removeItem(a.location);
+        task.list.call(null, [ t.id ]);
+      })
+      .call();
+    });
+
+  }),
+
+});
+
+$('.member-view .course-review-editor .btn-cancel').click(function () {
+  $('.member-view .course-review-editor input[name="review"]').val('');
+  $('.member-view .course-review-editor .btn-review').click();
+});
+
+$('.member-view .course-review-editor .btn-review').click(function () {
+  var uid = $('.member-view').data('id');
+  var c = $('.course-view').data('c');
+  var y = _.find(c.y, function (y) { return y.id == uid; });
+  if (y) {
+    y.review = $('.member-view .course-review-editor input[name="review"]').val();
+    entangle()
+    .data('/c/' + c.id, {
+      y: c.y
+    })
+    .json('post')
+    .pick(function (status, data) {
+      course.list.call(null, [ c.id ]);
+    })
+    .call();
+  }
+});
+
+member.route({
+  init: 'list',
+});
+
 course.route({
   init: 'list',
-  view: [ 'registry', task.init ],
+  view: [ 'registry', task.init, member.init ],
 });
 
 course.setup();
