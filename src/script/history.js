@@ -235,6 +235,8 @@ task.extend({
 
       reader.readAsDataURL(file);
 
+      $(this).replaceWith($(this).clone(true));
+
       return false;
     });
 
