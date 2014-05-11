@@ -51,6 +51,8 @@ var stub = {
     u_list: /^\/u\/$/i,
     c_item: /^\/c\/([^/]+)$/i,
     c_list: /^\/c\/$/i,
+    t_item: /^\/t\/([^/]+)$/i,
+    t_list: /^\/t\/$/i,
     y_item: /^\/c\/([^/]+)\/y\/([^/]+)$/i,
   },
 
@@ -397,7 +399,20 @@ crud('c', function (course, data) {
 
   _.extend(course, data);
 
+}, undefined, _.extend);
+
+crud('t', function (task, data) {
+
+  _.extend(task, {
+
+    a: [],
+
+  });
+
+  _.extend(task, data);
+
 });
+
 
 if (!localStorage.getItem('inited')) {
 
@@ -426,6 +441,7 @@ stub.data = {
   e: JSON.parse(localStorage.getItem('e')) || {},
   u: JSON.parse(localStorage.getItem('u')) || [],
   c: JSON.parse(localStorage.getItem('c')) || [],
+  t: JSON.parse(localStorage.getItem('t')) || [],
   faq: JSON.parse(localStorage.getItem('faq')) || '',
 
 };

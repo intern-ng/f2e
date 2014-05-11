@@ -10,7 +10,7 @@ var createCourse = function () {
 
   $('.course-editor .delete-item').addClass('hidden');
 
-  $('form').off('submit').on('submit', function () {
+  $('.course-editor form').off('submit').on('submit', function () {
 
     entangle()
     .data('/c/', [{
@@ -113,6 +113,109 @@ var openCourse = function (c) {
 
 };
 
+var createTask = function () {
+
+  hide('.task-list');
+  show('.task-editor');
+
+  $('.task-editor input[name="title"]').val('');
+  $('.task-editor textarea').val('');
+
+  $('.task-editor .delete-item').addClass('hidden');
+
+  $('.task-editor form').off('submit').on('submit', function () {
+
+    entangle()
+    .data('/t/', [{
+      title: $('.task-editor input[name="title"]').val(),
+      description: $('.task-editor textarea').val(),
+    }])
+    .json('post')
+    .pick(function (status, data) {
+      if (status == 200) {
+        this.resolve(_(data).filter(function (v, k) { return !v.err; }).pluck('id').value());
+      }
+    })
+    .transform(function (ids) {
+      var c = $('.course-view').data('c');
+      entangle()
+      .data('/c/' + c.id, { t: c.t.concat(ids) })
+      .json('post')
+      .pick(function (status, data) {
+        course.list.call(null, [ c.id ]);
+        task.list.call(null, ids);
+        show('.task-list');
+        hide('.task-editor');
+      }).call();
+    }).call();
+
+    return false;
+
+  });
+
+  return false;
+
+};
+
+$('.task-editor button#cancel').off('click').click(function () {
+
+  show('.task-list');
+  hide('.task-editor');
+
+});
+
+var editTask = function (t) {
+
+  hide('.task-list');
+  show('.task-editor');
+
+  $('.task-editor input[name="title"]').val(t.title);
+  $('.task-editor textarea').val(t.description);
+
+  $('.task-editor .delete-item').removeClass('hidden');
+
+  $('.task-editor form').off('submit').on('submit', function () {
+
+    entangle()
+    .data('/t/' + t.id, {
+      title: $('.task-editor input[name="title"]').val(),
+      description: $('.task-editor textarea').val(),
+    })
+    .json('post')
+    .pick(function (status, data) {
+      if (status == 200) {
+        task.list.call(null, [ t.id ]);
+        show('.task-list');
+        hide('.task-editor');
+      }
+    }).call();
+
+    return false;
+
+  });
+
+  $('.task-editor .delete-item button').off('click').click(function () {
+    entangle()
+    .data('/t/' + t.id)
+    .json('delete')
+    .pick(function (status) {
+      var c = $('.course-view').data('c');
+      entangle()
+      .data('/c/' + c.id, { t: _.without(c.t, t.id) })
+      .json('post')
+      .pick(function (status, data) {
+        course.list.call(null, [ c.id ]);
+        task.list.call(null, [ t.id ]);
+        show('.task-list');
+        hide('.task-editor');
+      }).call();
+    }).call();
+  });
+
+  return false;
+
+};
+
 $('#back-course-list').click(function () {
 
   show('courselist');
@@ -157,9 +260,10 @@ $('#state-close').click(function () {
 var hide = _.extend(function (what) {
   $(hide[what] || what).addClass('hidden');
 }, {
-  courseview: '.course-view, .registry-list',
+  courseview: '.course-view, .registry-list, .task-list, .task-editor',
   courselist: '.course-list',
   courseedit: '.course-editor',
+  'taskview': '.task-list, .task-editor',
 });
 
 var show = _.extend(function (what) {
@@ -171,6 +275,7 @@ var show = _.extend(function (what) {
 });
 
 $('.course-list #create-course').click(createCourse);
+$('.task-list #create-task').click(createTask);
 
 var course = new entangle.Application();
 
@@ -369,12 +474,79 @@ course.extend({
     ]);
 
   })
+});
 
+var task = new entangle.Application();
+
+task.extend({
+
+  init: entangle()
+
+  .pick(function (___) {
+    if (___.state != 'preparing') {
+
+      show('.task-list');
+
+      $('.task-list .task-item').each(function (i, el) {
+        var $el = $(el);
+        if (!~___.t.indexOf($el.data('id'))) $el.remove();
+      });
+
+      this.resolve(___.t);
+
+    } else {
+
+      hide('taskview');
+
+    }
+  }),
+
+  list: entangle()
+
+  .collect(_.identity)
+  .each(function () {
+
+    var $el = $($('script#task-item').text()).appendTo('.task-list .list-content');
+
+    $el.click(function () {
+      return editTask($(this).data('t'));
+    });
+
+    return entangle()
+
+    .pack('id')
+    .pick().string('/t/{{id}}')
+    .json('get')
+    .pick('data')
+    .fork([
+
+          entangle().inject(entangle.data({ $el: $el })).pick().$attr('data-id', '{{id}}'),
+          entangle().inject(entangle.data({ $el: $el })).pick().$data('t', '{{___}}'),
+          entangle().inject(entangle.data({ $el: $el.find('.view-title-text') })).pick().$text('{{title}}'),
+          entangle().inject(entangle.data({ $el: $el.find('.view-description') })).pick().$text('{{description}}'),
+          entangle().pick(function (a) {
+            $el.find('.view-complete-count').text(_.reduce(a, function (s, a) { return a.deleted ? s : s + 1; }, 0));
+          }),
+          entangle().pick('created_at').date().transform(function (date) {
+            $el.find('.view-created-at').text(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
+          }),
+          entangle().pick(function (deleted) {
+            $el.remove();
+          }),
+
+    ]);
+
+  }),
+
+});
+
+task.route({
+  init: 'list',
 });
 
 course.route({
   init: 'list',
-  view: 'registry'
+  view: [ 'registry', task.init ],
 });
 
 course.setup();

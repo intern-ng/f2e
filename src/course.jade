@@ -59,16 +59,13 @@ append template
               i.glyphicon.glyphicon-stats
               | 完成量
               | &nbsp;
-              span.view-enrolled-count 0
-              | &nbsp;
-              | /
-              | &nbsp;
-              span.view-capacity-count 50
+              span.view-complete-count 0
             p.col-lg-6.col-md-6.col-sm-6
               i.glyphicon.glyphicon-time
               | 创建时间
               | &nbsp;
               span.view-created-at 2014-4-20
+          .view-description
 
 append container
   .row
@@ -173,47 +170,8 @@ append container
         .col-md-12
           .padding-sm
             h2 课程任务
-              a.btn.btn-primary.pull-right(href='#') 新任务
+              a.btn.btn-primary.pull-right#create-task(href='#') 新任务
           .row.list-content
-            .task-item.col-md-6
-              .box.box-default.box-colorful.box-colorful-right.box-color-blue
-                .box.box-default.clearfix.padding-md
-                  h4.view-title-text 提交第一周周报
-                  .row.view-summary
-                    p.col-lg-6.col-md-6.col-sm-6
-                      i.glyphicon.glyphicon-stats
-                      | 完成量
-                      | &nbsp;
-                      span.view-enrolled-count 0
-                      | &nbsp;
-                      | /
-                      | &nbsp;
-                      span.view-capacity-count 50
-                    p.col-lg-6.col-md-6.col-sm-6
-                      i.glyphicon.glyphicon-time
-                      | 创建时间
-                      | &nbsp;
-                      span.view-created-at 2014-4-20
-
-      .row.margin-bottom.task-view.hidden
-        .col-md-12
-          .box.box-default.box-colorful.box-colorful-top.box-color-blue.view-course
-            .box-caption-padding.visible-xs.visible-sm
-            .box.box-default.clearfix.padding-md
-              a.btn.btn-default.pull-right(href='#') 编辑
-              h3.view-title-text 提交第一周周报
-              .row.view-summary
-                p.col-lg-6.col-md-6.col-sm-6
-                  i.glyphicon.glyphicon-stats
-                  | 完成量
-                  | &nbsp;
-                  span.view-enrolled-count 0
-                  | &nbsp;
-                  | /
-                  | &nbsp;
-                  span.view-capacity-count 50
-              .view-description
-                p 提交一份周报
 
       .row.margin-bottom.task-editor.hidden
         .col-md-12
