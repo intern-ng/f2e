@@ -25,7 +25,7 @@ var createAccount = function () {
       role: $('#dropdown-role .selected').text() == '学员' ? 'student': 'teacher',
       p: {
         nickname: $('input[name="nickname"]').val(),
-        photo: '//en.gravatar.com/avatar/' + md5($('input[name="email"]').val()) + '?d=identicon&s=200'
+        photo: '//en.gravatar.com/avatar/' + md5($('input[name="email"]').val()) + '?d=retro&s=200'
       }
     }])
     .json('post')
