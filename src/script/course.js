@@ -488,7 +488,8 @@ task.extend({
   .pick(function (___) {
     if (___.state != 'preparing') {
 
-      if (!$('.course-view').hasClass('hidden')) show('.task-list');
+      if (___.state == 'opened') show('.task-list');
+      else hide('taskview');
 
       $('.task-list .task-item').each(function (i, el) {
         var $el = $(el);
