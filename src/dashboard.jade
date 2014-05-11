@@ -13,7 +13,7 @@ block container
           .view-profile-summary.vertical-center
             img.view-photo-img.img-circle
             h3.view-nickname
-            .view-status 没有任何课程记录
+            .view-status.hidden 没有任何课程记录
       .col-md-8.col-md-offset-4
         .view-profile-detail
           h2 公告版
@@ -21,26 +21,9 @@ block container
           .announcement
             .announcement-text
             textarea.form-control.announcement-editor.fill-parent.hidden
-        .view-notification
+        .view-notification.hidden
           span.glyphicon.glyphicon-bell &nbsp;
           | 您有 25 条未读消息 -
           | “社区强迫症患者专项整治行动通告”、
           | “《治疗不能放弃》专题讲座”、
           | “2010级毕业设计论文提交已开放”
-  .dashboard.hidden.row.margin-bottom(data-visibic='student teacher admin')
-    .box.box-default.box-colorful.box-color-green.box-caption-text(data-box-caption='进行中')
-      .box-caption-padding.visible-xs.visible-sm
-      .box.box-default.clearfix.padding-lg
-  .dashboard.hidden.row.margin-bottom(data-visibic='student')
-    .box.box-default.box-colorful.box-color-blue.box-caption-text(data-box-caption='正在申请')
-      .box-caption-padding.visible-xs.visible-sm
-      .box.box-default.clearfix.padding-lg
-  .dashboard.hidden.row.margin-bottom(data-visibic='student')
-    .box.box-default.box-colorful.box-color-orange.box-caption-text(data-box-caption='申请成功')
-      .box-caption-padding.visible-xs.visible-sm
-      .box.box-default.clearfix.padding-lg
-  .dashboard.hidden.row.margin-bottom(data-visibic='teacher admin')
-    .box.box-default.box-colorful.box-color-blue.box-caption-text(data-box-caption='开放申请中')
-      .box-caption-padding.visible-xs.visible-sm
-      .box.box-default.clearfix.padding-lg
-
