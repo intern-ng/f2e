@@ -120,6 +120,40 @@ $('#back-course-list').click(function () {
 
 });
 
+$('#state-ready').click(function () {
+
+  var cid = $('.course-view').data('id');
+
+  entangle()
+  .data('/c/' + cid, {
+    state: 'opened',
+  })
+  .json('post')
+  .pick(function (status, data) {
+    if (status == 200) {
+      course.list.call(null, [ cid ]);
+    }
+  }).call();
+
+});
+
+$('#state-close').click(function () {
+
+  var cid = $('.course-view').data('id');
+
+  entangle()
+  .data('/c/' + cid, {
+    state: 'closed',
+  })
+  .json('post')
+  .pick(function (status, data) {
+    if (status == 200) {
+      course.list.call(null, [ cid ]);
+    }
+  }).call();
+
+});
+
 var hide = _.extend(function (what) {
   $(hide[what] || what).addClass('hidden');
 }, {
@@ -201,6 +235,11 @@ course.extend({
           entangle().pick(function (deleted) {
             $el.remove();
           }),
+          entangle().sponge().pick(function (state) {
+            $el.find('.box-colorful')
+            .removeClass('box-color-blue box-color-green')
+            .addClass({ preparing: 'box-color-blue', opened: 'box-color-green'}[state]);
+          }),
           course.view,
 
     ]);
@@ -217,6 +256,10 @@ course.extend({
           entangle().inject(entangle.data({ $el: $el })).pick().$data('c', '{{___}}'),
           entangle().inject(entangle.data({ $el: $el.find('.view-title-text') })).pick().$text('{{title}}'),
           entangle().inject(entangle.data({ $el: $el.find('.view-description') })).pick().$text('{{description}}'),
+          entangle().pick(function (state) {
+            $el.find('.text-right .btn-danger').addClass('hidden');
+            $el.find('.text-right ' + { preparing: '#state-ready', opened: '#state-close'}[state]).removeClass('hidden');
+          }),
           entangle().pick(function (t) {
             $el.find('.view-task-count').text('' + t.length);
           }),
@@ -244,6 +287,11 @@ course.extend({
           entangle().pick('created_at').date().transform(function (date) {
             $el.find('.view-created-at').text(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
           }),
+          entangle().sponge().pick(function (state) {
+            $el.find('.box-colorful')
+            .removeClass('box-color-blue box-color-green')
+            .addClass({ preparing: 'box-color-blue', opened: 'box-color-green'}[state]);
+          }),
           entangle().pick(function (deleted) {
             $el.addClass('hidden');
           })
@@ -267,6 +315,11 @@ course.extend({
       });
 
       this.resolve(___.y);
+
+    } else {
+
+      hide('.registry-list');
+
     }
   })
 
