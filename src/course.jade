@@ -3,6 +3,7 @@ append head
   title 贰叁叁课程管理
 append style
   +stylesheet('/style/course.css')
+  +stylesheet('/style/account.css')
 append script
   +javascript('/script/course.js')
 append template
@@ -66,6 +67,35 @@ append template
               | &nbsp;
               span.view-created-at 2014-4-20
           .view-description
+
+  +jstemplate('member-item')
+    .member-item
+      .box.box-default.box-colorful.box-colorful-left.view-account-entry.box-color-green
+        img.view-photo-img(src='/img/default_photo.jpg')
+        .pull-right.view-review
+          strong.view-review-text 80
+        h4
+          span.view-nickname-text 王小二
+        .view-email
+          i.glyphicon.glyphicon-envelope
+          span.view-email-text foo@bar.com
+
+  +jstemplate('answer-item')
+    .answer-item
+      .box.box-default.box-colorful.box-colorful-right.box-color-blue
+        .clearfix.padding-md.padding-half
+          h4.view-title-text 第一周周报
+          .view-answer
+            hr
+            p
+              .input-group
+                .input-group-btn
+                  a.btn.btn-default.btn-download(href='#')
+                    span.glyphicon.glyphicon-circle-arrow-down
+                input.form-control(type='text', name='review', placeholder='评价/评分')
+                .input-group-btn
+                  a.btn.btn-default.btn-cancel.hidden(href='#') 撤销
+                  a.btn.btn-primary.btn-review(href='#') 保存
 
 append container
   .row
@@ -194,4 +224,31 @@ append container
                 .col-md-offset-3.col-md-9
                   button.btn.btn-primary(type='submit') 保存
                   button.btn.btn-default#cancel(type='button') 取消
+
+      .row
+        .col-md-6.member-list.margin-bottom.hidden
+          .row.margin-bottom
+            .col-xs-12
+              a.btn.btn-default#back-course-view(href='#')
+                span.glyphicon.glyphicon-chevron-left
+                | &nbsp; 课程信息
+          .row.list-content
+        .col-md-6.member-view.hidden
+          .row.margin-bottom
+            .col-xs-10.visible-xs.visible-sm
+              a.btn.btn-default#back-member-list(href='#')
+                span.glyphicon.glyphicon-chevron-left
+                | &nbsp; 成员列表
+            .col-xs-2.invisible
+              a.btn.btn-default(href='#') 占位符
+          .answer-list.margin-bottom
+          .course-review-editor.margin-bottom
+            .box.box-default.box-colorful.box-colorful-top.box-color-red.padding-md.padding-half
+              h4 课程评分
+              p
+                .input-group
+                  input.form-control(type='text', placeholder='评价/评分')
+                  .input-group-btn
+                    a.btn.btn-default.btn-cancel(href='#') 撤销
+                    a.btn.btn-primary.btn-review(href='#') 保存
 
