@@ -25,7 +25,7 @@ $('#back-course-list').click(function () {
 var hide = _.extend(function (what) {
   $(hide[what] || what).addClass('hidden');
 }, {
-  courseview: '.course-view, .registry-list, .task-list, .task-editor',
+  courseview: '.course-view, .registry-list, .task-list, .task-editor, #review-view',
   courselist: '.course-list',
   'taskview': '.task-list, .task-editor',
 });
@@ -143,6 +143,15 @@ course.extend({
               $el.find('.view-registry').removeClass('hidden');
             }
           }),
+          entangle().pick(function (y) {
+            y = _.find(y, function (y) { return y.id == window.user.id; });
+            if (y && y.review) {
+              $('#review-view').removeClass('hidden');
+              $('#review-view .view-review').text(y.review);
+            } else {
+              $('#review-view').addClass('hidden');
+            }
+          }),
           entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
           .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
           entangle().pick('created_at').date().transform(function (date) {
@@ -257,7 +266,7 @@ task.extend({
           entangle().pick(function (___) {
             $el.find('.box-colorful').removeClass('box-color-blue box-color-green');
             $el.find('.view-answer .btn-group').addClass('hidden');
-            $el.find('.view-review').html('');
+            $el.find('.view-review').text('');
             var a = _.find(___.a, function (a) { return a.id == window.user.id; });
             if (a) this.resolve(___, a);
           })
@@ -285,8 +294,11 @@ task.extend({
               $el.find('.box-colorful').addClass('box-color-blue');
             }
             if (a.review) {
-              $el.find('.view-review').html(a.review);
+              $el.find('.view-review').text(a.review);
+              $el.find('.view-answer').addClass('hidden');
               $el.find('.box-colorful').removeClass('box-color-blue').addClass('box-color-green');
+            } else {
+              $el.find('.view-answer').removeClass('hidden');
             }
           }),
           entangle().pick('created_at').date().transform(function (date) {
