@@ -183,8 +183,15 @@ course.extend({
             $el.find('.view-capacity-count').text('' + capacity);
           }),
           entangle().pick(function (y) {
-            $el.find('.view-enrolled-count').text('' + _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0));
-            $el.find('.view-applying-count').text('' + _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0));
+            var ac = _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0),
+            rc = _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0);
+            $el.find('.view-enrolled-count').text(ac);
+            $el.find('.view-applying-count').text(rc - ac);
+            if (rc - ac <= 0) {
+              $el.find('.view-registry').addClass('hidden');
+            } else {
+              $el.find('.view-registry').removeClass('hidden');
+            }
           }),
           entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
           .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
@@ -222,8 +229,15 @@ course.extend({
             $el.find('.view-capacity-count').text('' + capacity);
           }),
           entangle().pick(function (y) {
-            $el.find('.view-enrolled-count').text('' + _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0));
-            $el.find('.view-applying-count').text('' + _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0));
+            var ac = _.reduce(y, function (s, y) { return y.accepted ? s + 1 : s; }, 0),
+            rc = _.reduce(y, function (s, y) { return y.deleted ? s : s + 1; }, 0);
+            $el.find('.view-enrolled-count').text(ac);
+            $el.find('.view-applying-count').text(rc - ac);
+            if (rc - ac <= 0) {
+              $el.find('.view-registry').addClass('hidden');
+            } else {
+              $el.find('.view-registry').removeClass('hidden');
+            }
           }),
           entangle().pick().string('/u/{{creator}}').json('get').pick('data').pick('p')
           .inject(entangle.data({ $el: $el.find('.view-creator') })).pick().$text('{{nickname}}'),
