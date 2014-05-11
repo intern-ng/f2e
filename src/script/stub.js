@@ -411,7 +411,7 @@ crud('t', function (task, data) {
 
   _.extend(task, data);
 
-});
+}, undefined, _.extend);
 
 
 if (!localStorage.getItem('inited')) {

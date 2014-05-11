@@ -1,0 +1,141 @@
+extends framework
+append head
+  title 贰叁叁课程管理
+append style
+  +stylesheet('/style/course.css')
+append script
+  +javascript('/script/history.js')
+append template
+  +jstemplate('course-item')
+    .course-item.col-md-12
+      .box.box-default.box-hover.box-clickable.box-colorful.box-colorful-right.box-color-blue
+        .clearfix.padding-md
+          h4.view-title-text
+          .row.view-summary
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-stats
+              | 学员数
+              | &nbsp;
+              span.view-enrolled-count 0
+              | &nbsp;
+              span.view-capacity
+                | /
+                | &nbsp;
+                span.view-capacity-count 50
+                | &nbsp;
+              span.view-registry
+                | (
+                span.view-applying-count 0
+                | )
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-tasks
+              | 任务数
+              | &nbsp;
+              span.view-task-count 0
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-user
+              | 管理人
+              | &nbsp;
+              span.view-creator
+            p.col-lg-3.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-time
+              | 创建时间
+              | &nbsp;
+              span.view-created-at
+
+  +jstemplate('task-item')
+    .task-item.col-md-6
+      .box.box-default.box-colorful.box-colorful-bottom
+        .clearfix.padding-md
+          h4.view-title-text 提交第一周周报
+          .row.view-summary
+            p.col-lg-6.col-md-6.col-sm-6
+              i.glyphicon.glyphicon-time
+              | 创建时间
+              | &nbsp;
+              span.view-created-at 2014-4-20
+          .view-description
+          hr
+          .view-answer
+            span.margin-right
+              提交任务
+            span.btn.btn-default.btn-file
+              span.fileinput-new
+                i.glyphicon.glyphicon-circle-arrow-up
+                | 新文件
+              input(type='file', name='answer')
+            .btn-group.margin-sm.hidden
+              a.btn.btn-default.btn-download(href='#')
+                i.glyphicon.glyphicon-file
+                | 查看
+              a.btn.btn-default.btn-remove(href='#')
+                i.glyphicon.glyphicon-remove-sign
+                | 删除
+          .view-review.text-center
+
+append container
+  .row
+    .col-lg-offset-1.col-lg-10
+
+      .row.margin-bottom.course-list
+        .col-md-12
+          .row.list-content
+
+      .row.margin-bottom.course-view.hidden
+        .col-md-12
+          .row.margin-bottom
+            .col-xs-6.text-left
+              a.btn.btn-default#back-course-list(href='#')
+                span.glyphicon.glyphicon-chevron-left
+                | &nbsp; 课程列表
+          .row.view-content
+            .col-md-12.margin-bottom
+              .box.box-default.box-colorful.box-colorful-top.box-color-blue.view-course
+                .box-caption-padding.visible-xs.visible-sm
+                .box.box-default.clearfix.padding-md
+                  h3.view-title-text 2010级企业实习实训 - 网页前端工程师(联想集团)
+                  .row.view-summary
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-stats
+                      | 学员数
+                      | &nbsp;
+                      span.view-enrolled-count 0
+                      | &nbsp;
+                      span.view-capacity
+                        | /
+                        | &nbsp;
+                        span.view-capacity-count 50
+                        | &nbsp;
+                      span.view-registry
+                        | (
+                        span.view-applying-count 0
+                        | )
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-tasks
+                      | 任务数
+                      | &nbsp;
+                      span.view-task-count 0
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-user
+                      | 管理人
+                      | &nbsp;
+                      span.view-creator
+                    p.col-lg-3.col-md-6.col-sm-6
+                      i.glyphicon.glyphicon-time
+                      | 创建时间
+                      | &nbsp;
+                      span.view-created-at
+                  .view-description
+                    p 本项目要求学员参与企业生产实践活动、需要具备 XXX XXX XXX 等综合能力
+
+      .row.margin-bottom.task-list.hidden
+        .col-md-12
+          .box.box-default.padding-md
+            h3 课程任务
+            .row.list-content
+
+      .box.box-default.box-colorful.box-colorful-top.box-color-red.box-caption-text#review-view.hidden(data-box-caption='课程评分')
+        .box-caption-padding.visible-xs.visible-sm
+        .box.box-default.clearfix.padding-md.text-center
+          h1 90
+
