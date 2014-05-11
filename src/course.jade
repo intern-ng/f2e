@@ -51,7 +51,7 @@ append template
 
   +jstemplate('task-item')
     .task-item.col-md-6
-      .box.box-default.box-hover.box-clickable.box-colorful.box-colorful-right.box-color-blue
+      .box.box-default.box-hover.box-clickable.box-colorful.box-colorful-bottom.box-color-blue
         .clearfix.padding-md
           h4.view-title-text 提交第一周周报
           .row.view-summary
@@ -168,10 +168,11 @@ append container
 
       .row.margin-bottom.task-list.hidden
         .col-md-12
-          .padding-sm
+          .box.box-default.padding-md
             h2 课程任务
+              small 发布/编辑课程任务(至“学员列表”查看任务完成情况和评分)
               a.btn.btn-primary.pull-right#create-task(href='#') 新任务
-          .row.list-content
+            .row.list-content
 
       .row.margin-bottom.task-editor.hidden
         .col-md-12
