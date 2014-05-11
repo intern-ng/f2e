@@ -91,6 +91,7 @@ var editCourse = function (c) {
   $('.course-editor button#cancel').off('click').click(function () {
     show('courseview');
     hide('courseedit');
+    course.view.call(null, $('.course-view').data('c'));
   });
 
   return false;
