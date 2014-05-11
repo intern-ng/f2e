@@ -100,6 +100,10 @@ course.extend({
           entangle().pick(function (deleted) {
             $el.remove();
           }),
+          entangle().timeout(1).pick(function (y) {
+            y = _.find(y, function (y) { return y.id == window.user.id; });
+            if (!(y && y.accepted)) $el.remove();
+          }),
           entangle().sponge().pick(function (state) {
             $el.find('.box-colorful')
             .removeClass('box-color-blue box-color-green')

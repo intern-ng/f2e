@@ -117,6 +117,9 @@ course.extend({
           entangle().pick(function (deleted) {
             $el.remove();
           }),
+          entangle().pick(function (state) {
+            if (state != 'preparing') $el.remove();
+          }),
           entangle().sponge().pick(function (y) {
             y = _.find(y, function (y) { return y.id == window.user.id; });
             $el.find('.box-colorful').removeClass('box-color-blue box-color-green');
