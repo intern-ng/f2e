@@ -305,6 +305,11 @@ task.extend({
               $el.find('.view-answer').removeClass('hidden');
             }
           }),
+          entangle().pick(function (___) {
+            if (!$('#review-view').hasClass('hidden')) {
+              $el.find('.view-answer').addClass('hidden');
+            }
+          }),
           entangle().pick('created_at').date().transform(function (date) {
             $el.find('.view-created-at').text(date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate());
           }),
